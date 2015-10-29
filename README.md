@@ -156,7 +156,7 @@ Event Messages are sent when a new event happens, or an old one gets updated. Th
 | event_type | String | YES | Groups similar events together |
 | event_start_time | yyyy-mm-dd HH:MM:SS | YES | What is the start time of the event |
 | event_stop_time | yyyy-mm-dd HH:MM:SS | YES | What is the stop time of the event |
-| event_properties | Map(String, String) | NO | Map of properties for the event, such as: site, machine, backing, glue, coatingjob |
+| event_properties | Map(String, String) | NO | Map of properties for the event |
 
 Along with the event information comes the measurements, given in a separate field `measurements`. Inside `measurements` there is a list of objects with the following fields:
 
@@ -167,6 +167,7 @@ Along with the event information comes the measurements, given in a separate fie
 | measurement_time | yyyy-mm-dd HH:MM:SS | YES | When was the measurement taken | 
 | measurement_num_value | Float | NO | What was the measured value (needs to be set if variable_is_txt is False) |
 | measurement_txt_value | String | NO | What was the measured value (needs to be set if variable_is_txt is True) |
+| measurement_properties | Map(String, String) | NO | Map of the properties of the measurement |
 
 Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclusive and should be used according to how the variables are set in the Variables message (see `variable_is_txt` flag). Below is an example Event message in JSON format:
 
@@ -181,7 +182,7 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
   "message_body": {
     "measurements": [
       {
-        "measurement_time": "2014-12-30 00:00:00", 
+        "measurement_time": "2014-12-30 00:00:00+0200",
         "variable_source_id": "<country>/<site>/<unit>", 
         "measurement_txt_value": "YES", 
         "variable_name": "Is sensor active?"
@@ -192,8 +193,8 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
     ],
     "event": {
       "event_id": "<myeventid>", 
-      "event_stop_time": "yyyy-mm-dd HH:MM:SS", 
-      "event_start_time": "yyyy-mm-dd HH:MM:SS", 
+      "event_stop_time": "yyyy-mm-dd HH:MM:SS+ZZZZ", 
+      "event_start_time": "yyyy-mm-dd HH:MM:SS+ZZZZ", 
       "event_type": "<myeventtype>",
       "event_properties": {
         ...
