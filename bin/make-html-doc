@@ -1,0 +1,9 @@
+#!/bin/sh
+
+pandoc \
+    -H css/github.css \
+    -f markdown \
+    -t html \
+    -s \
+    -o README.html \
+    README.md

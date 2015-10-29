@@ -1,0 +1,5 @@
+#!/bin/bash
+
+json=$1
+
+curl -i -X POST -u admin:admin -d "body=`cat $json`" http://localhost:8161/api/message/ImportQueue?type=queue

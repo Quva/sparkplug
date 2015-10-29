@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import simplejson as json
+import sys
+from argparse import ArgumentParser
+import xmltodict
+
+from sparkplug import SparkPlug
+from sparkplug.parsers import xml
+
+parser = ArgumentParser()
+
+parser.add_argument("--payload",
+                    required=True,
+                    type=str,
+                    default=None)
+
+parser.add_argument("--url",
+                    required=False,
+                    type=str,
+                    default="http://localhost:8161/api/message/ImportQueue?type=queue")
+
+parser.add_argument("--username",
+                    required=False,
+                    type=str)
+
+parser.add_argument("--password",
+                    required=False,
+                    type=str)
+
+parser.add_argument("--isDryrun",
+                    required=False,
+                    default=False,
+                    action='store_true')
+
+parser.add_argument("--compress",
+                    required=False,
+                    default=False,
+                    action='store_true')
+
+parser.add_argument("--save",
+                    default=None,
+                    required=False,
+                    type=str)
+
+args = parser.parse_args()
+
+try:
+
+    if args.payload.endswith("json"):
+        message = json.load(open(args.payload, 'r'))
+    elif args.payload.endswith("xml"):
+        message = xml.load(args.payload)
+    else:
+        raise Exception("Unknown file format: {}".format(args.payload))
+
+except Exception,e:
+    raise Exception("Provided object in file {} ".format(args.payload) +
+                    "could not be parsed, reason: {}".format(str(e)))
+
+plug = SparkPlug(url=args.url,
+                 username=args.username,
+                 password=args.password)
+
+response = plug.post(message, 
+                     isDryrun=args.isDryrun, compress=args.compress)
+
+if args.save is not None:
+    f = open(args.save, 'w')
+    f.write(dicttoxml(message))
+    f.close()
+
+print response

@@ -1,0 +1,32 @@
+{
+	"message_header": {
+			  "message_type": "event",
+			  "message_sender_id": "test",
+			  "message_recipient_id": "Quva",
+			  "message_id": "mymessageid",
+			  "message_reply": {
+			  		   "reply_to_topic": "mytopic"
+			  }
+	},
+	"message_body": {
+				"event": {
+					 "event_id": "myeventid",
+					 "event_links_to": ["myothereventid"],
+					 "event_type": "myeventtype",
+					 "event_start_time": "2015-05-01 00:00:00+0000",
+					 "event_stop_time": "2015-05-02 00:00:00+0000"},
+			 	"measurements": [{
+						"measurement_time": "2014-09-21 00:00:00",
+						"variable_name": "name1",
+					        "variable_source_id": "source1",
+						"measurement_num_value": 1.5,
+		 				"measurement_quality": 0.45
+						},{
+						"measurement_time": "2014-09-22 00:00:00",
+						"variable_name": "name2",
+					        "variable_source_id": "source1",
+						"measurement_num_value": 1.6,
+		 				"measurement_quality": 0.95
+						}]
+	}
+}

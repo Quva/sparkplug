@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<message>
+  <message_body>
+    <measurements>
+      <measurement_time>2014-09-21 00:00:00</measurement_time>
+      <variable_source_id>source1</variable_source_id>
+      <measurement_quality>0.45</measurement_quality>
+      <measurement_num_value>1.5</measurement_num_value>
+      <variable_name>name1</variable_name>
+    </measurements>
+    <measurements>
+      <measurement_time>2014-09-22 00:00:00</measurement_time>
+      <variable_source_id>source1</variable_source_id>
+      <measurement_quality>0.95</measurement_quality>
+      <measurement_num_value>1.6</measurement_num_value>
+      <variable_name>name2</variable_name>
+    </measurements>
+    <event>
+      <event_id>myeventid</event_id>
+      <event_stop_time>2015-05-02 00:00:00+0000</event_stop_time>
+      <event_start_time>2015-05-01 00:00:00+0000</event_start_time>
+      <event_type>myeventtype</event_type>
+    </event>
+  </message_body>
+  <message_header>
+    <message_sender_id>test</message_sender_id>
+    <message_recipient_id>Quva</message_recipient_id>
+    <message_type>event</message_type>
+    <message_id>mymessageid</message_id>
+    <message_reply>
+      <reply_to_topic>mytopic</reply_to_topic>
+    </message_reply>
+  </message_header>
+</message>

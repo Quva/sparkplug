@@ -1,0 +1,32 @@
+{
+	"message_header": {
+			  "message_type": "variables",
+			  "message_sender_id": "mysenderid",
+			  "message_recipient_id": "Quva",
+			  "message_id": "mymessageid",
+			  "message_reply": {
+			  		   "reply_to_topic": "foobar"
+			  }
+	},
+	"message_body": {
+			"variables": [{
+				     "variable_source_id": "source1",
+		     		     "variable_name": "ang.speed",
+		     		     "variable_unit": "rad/s",
+		     		     "variable_description": "Variable measuring angular speed",
+		     		     "variable_is_txt": false,
+		     		     "variable_properties": {
+				     			    "latitude": "10",
+							    "longitude": "50"}
+		     		     },{
+				     "variable_source_id": "source2",
+		     		     "variable_name": "quality",
+		     		     "variable_unit": null,
+		     		     "variable_description": "Variable that measures quality",
+		     		     "variable_is_txt": false,
+		     		     "variable_properties": {
+				     			    "latitude": "10", 
+							    "longitude": "50"}
+		     		     }]
+	}
+}

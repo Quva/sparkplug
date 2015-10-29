@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    package=sparkplug.tgz
+else
+    package=$1
+fi
+
+tar -C ../ -czvf $package \
+    sparkplug/bin/sparkplug \
+    sparkplug/test \
+    sparkplug/sparkplug \
+    sparkplug/README.md \
+    sparkplug/README.html \
+    sparkplug/requirements.txt \
+    sparkplug/setup.py \
+    sparkplug/ez_setup.py

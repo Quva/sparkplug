@@ -1,0 +1,20 @@
+{
+	"message_header": {
+			  "message_sender_id": "test",
+      			  "message_recipient_id": "Quva",
+			  "message_id": "mymessageid",
+      			  "message_type": "analysis-request-event",
+			  "message_reply": {
+			  		   "reply_to_topic": "foobar"
+			  }
+	},
+      	"message_body": { "analysis": { 
+			 	      "analysis_properties" : {
+        			    			      "event_id" : "NEW_REEL/17140131020/1",
+        			 			      "event_type": "NEW_REEL",
+							      "days_back": "30",
+							      "event_property_similarity_key": "foobar"
+        						      }
+				      }
+	}
+}
