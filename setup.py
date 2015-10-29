@@ -6,7 +6,7 @@ use_setuptools()
 from setuptools import setup,find_packages
 
 setup( name         = 'sparkplug',
-       version      = '1.3.0',
+       version      = '1.3.1',
        description  = 'Sparkplug',
        author       = 'Quva Oy',
        url          = 'https://github.com/Quva/sparkplug.git',
