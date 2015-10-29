@@ -5,7 +5,6 @@ import copy
 from collections import OrderedDict
 
 from sparkplug.helpers import TagInfo
-from sparkplug.helpers import MessageFactory            
 
 def _convert_elem_inplace(D, key, tagInfo):
     observedType = type(D[key])
