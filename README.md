@@ -1,6 +1,6 @@
 
 # Sparkplug
-Sparkplug is an adapter library for communicating with Quva Cloud Analytics Service. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them. 
+Sparkplug is an adapter library for communicating with [Quva Analytics Service](http://quva.fi/product). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
 ## Installation
