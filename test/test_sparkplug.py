@@ -33,6 +33,12 @@ class SparkPlugTest(unittest.TestCase):
 
         self.post(message)
 
+    def test_event_update_notification(self):
+
+        message = json.load(open("test/test_event_update_notification.json", "r"))
+
+        self.post(message)
+
     @raises(Exception)
     def test_empty_measurements_raises(self):
 

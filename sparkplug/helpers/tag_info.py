@@ -57,12 +57,19 @@ class TagInfo(object):
                 ("analysis", Tag(type=self.objectType, isOptional=False)),
                 ("analysis_properties", Tag(type=self.objectType, isOptional=False)),
                 ("days_back", Tag(type=self.stringType, isOptional=False)),
-                ("event_property_similarity_key", Tag(type=self.stringType, isOptional=False))
+                ("event_property_similarity_key", Tag(type=self.stringType, isOptional=False)),
+                
+                ("keyspace", Tag(type=self.stringType, isOptional=False)),
+                ("event_id", Tag(type=self.stringType, isOptional=False))
 
                 ])
         
         
     def getTag(self, name):
+
+        if not self.__tagByName.has_key(name):
+            raise Exception("TagInfo does not have type information for key '{}'".format(name))
+        
         return self.__tagByName[name]
 
     def keys(self):

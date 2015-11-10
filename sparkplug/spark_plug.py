@@ -33,8 +33,9 @@ class SparkPlug(object):
     def __checkMessage(self, message):
 
         if not isinstance(message, TagInfo.objectType):
-            raise Exception("message needs to be of type {}, but found {} instead".format(TagInfo.objectType,
-                                                                                          type(message)))
+            raise Exception("message needs to be of " +
+                            "type {}, but found {} instead".format(TagInfo.objectType,
+                                                                   type(message)))
 
         self.__checkFields(message, "message",
                            ["message_header",
@@ -136,6 +137,12 @@ class SparkPlug(object):
                             "event_type",
                             "days_back",
                             "event_property_similarity_key"])
+
+    def __checkEventUpdateNotification(self, message):
+
+        body = message["message_body"]
+        
+        self.__checkFields(body, "message_body", ["keyspace", "event_id"])
         
     def __checkFields(self, message, messageName, expectedFields):
 
@@ -201,6 +208,9 @@ class SparkPlug(object):
         elif header["message_type"] == "analysis-request-event":
             response = self.__postAnalysisRequest(message, isDryrun, compress=compress)
 
+        elif header["message_type"] == "event-update-notification":
+            response = self.__postEventUpdateNotification(message, isDryrun, compress=compress)
+
         else:
             raise Exception("Wrong message_type " +
                             "({})".format(header["message_type"]))
@@ -228,6 +238,14 @@ class SparkPlug(object):
     def __postAnalysisRequest(self, message, isDryrun=False, compress=False):
         
         self.__checkAnalysisRequest(message)
+
+        response = self.__post(message, isDryrun=isDryrun, compress=compress)
+
+        return response
+
+    def __postEventUpdateNotification(self, message, isDryrun=False, compress=False):
+
+        self.__checkEventUpdateNotification(message)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
