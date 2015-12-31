@@ -264,7 +264,7 @@ class SparkPlug(object):
             response = requests.post(self.__url,
                                      json=message,
                                      auth=self.__auth,
-                                     verify=True)
+                                     verify=False)
 
         else:
 

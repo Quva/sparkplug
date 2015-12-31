@@ -27,8 +27,8 @@ class TagInfo(object):
                 ("message_id", Tag(type=self.stringType, isOptional=False)),
                 ("message_sender_id", Tag(type=self.stringType, isOptional=False)),
                 ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
-                ("message_reply", Tag(type=self.objectType, isOptional=False)),
                 ("message_body", Tag(type=self.objectType, isOptional=False)),
+                ("message_reply", Tag(type=self.objectType, isOptional=True)),
                 
                 ("event", Tag(type=self.objectType, isOptional=False)),
                 ("event_id", Tag(type=self.stringType, isOptional=False)),
