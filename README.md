@@ -1,6 +1,6 @@
 
 # Sparkplug
-Sparkplug is an adapter library for communicating with [Quva Analytics Service](http://quva.fi/product). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
+Sparkplug is an adapter library for communicating with [Quva Flow](http://quva.fi/product). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
 ## Installation
@@ -74,6 +74,23 @@ The Message Header takes the following form as JSON:
   }
 }
 ```
+
+#### Message Reply field
+Message Reply field inside the Message Header contains information about the topic the reply is sent to:
+
+| key  | type  | required  | comment  |
+| ---  | ----  | --------  | -------  |
+| reply_to_topic | String | YES | Specify the topic to which the reply is sent |
+
+The Message Reply field takes the following form: 
+```
+    ...
+    "message_reply": {
+      "reply_to_topic": "<topicid>"
+    }
+    ...
+```
+
 
 ### Variables Message
 Variables Message is contained inside the message body of the container that has type "variables" like so:
@@ -165,7 +182,7 @@ Along with the event information comes the measurements, given in a separate fie
 | variable_name | String | YES | What is the name of the variable |
 | variable_source_id | String | YES | What is the source of the variable |
 | measurement_time | yyyy-mm-dd HH:MM:SS | YES | When was the measurement taken | 
-| measurement_num_value | Float | NO | What was the measured value (needs to be set if variable_is_txt is False) |
+| measurement_num_value | Double | NO | What was the measured value (needs to be set if variable_is_txt is False) |
 | measurement_txt_value | String | NO | What was the measured value (needs to be set if variable_is_txt is True) |
 | measurement_properties | Map(String, String) | NO | Map of the properties of the measurement |
 
@@ -204,7 +221,7 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
 }
 ```
 
-### Sending messages to Quva analytics service
+### Sending messages to Quva Flow
 Sending the message can be done using your favorite method that supports POST commands to REST API. 
 
 #### Via cURL
@@ -255,3 +272,67 @@ sparkplug \
 	  --username $USERNAME \
 	  --password $PASSWORD
 ```
+
+### Feedback Message 
+Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions:
+* Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not.
+* Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.
+
+Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields
+
+| key  | type  | required  | comment  |
+| ---  | ----  | --------  | -------  |
+| analysis_result | Object | YES | Contains a list of variables that caused the alarm |
+| event | Object | YES | Generic information |
+
+A Feedback Message could look like follows:
+
+```
+  "message_body": {
+    "analysis_result": {
+      [AlarmVariable1, AlarmVariable2, ...]
+    },
+    "event": {
+      "original_event_id": "<myeventid>",
+      "event_type": "QUALITY_FEEDBACK",
+      "event_properties": {
+        "OK_MESSAGE": "Everything OK",
+        "ERROR_MESSAGE": "",
+        "ERROR_URL": "",
+        "ERROR_CODE": "0"
+      }
+    }
+  }
+```
+
+where each Alarm Variable in the list has the fields 
+
+| key  | type  | required  | comment  |
+| ---  | ----  | --------  | -------  |
+| variable_description | String | YES | Description of the variable. Same description as specified in the Variables Message |
+| variable_group | String | YES | Looked up based on the specified variable property that defines the group. |
+| alarm_description | String | YES | Description of the alarm. |
+| measurement_num_value | Double | YES | Mean value of the samples in the event in which the variable raised the alarm. |
+| min_measurement_specific_num_value | Double | YES | Measurement-specific min-threshold |
+| max_measurement_specific_num_value | Double | YES | Measurement-specific max-threshold |
+| min_empirical_threshold_num_value | Double | YES | SPC-based min-threshold |
+| max_empirical_threshold_num_value | Double | YES | SPC-based max-threshold |
+
+
+and looks like as JSON:
+
+```
+    "alarm_variable": {
+      "variable_description": "<myvariabledescription>",
+      "variable_group": "<myvariablegroup>",
+      "alarm_description": "<myalarmdescription>",
+      "measurement_num_value": 10.1,
+      "min_measurement_specific_num_value": 3.5,
+      "max_measurement_specific_num_value": 4.1,
+      "min_empirical_threshold_num_value": 2.5,
+      "max_empirical_threshold_num_value": 11.0
+    }
+```
+
+TODO: what is variable_group
+
