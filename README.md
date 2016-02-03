@@ -1,6 +1,6 @@
 
 # Sparkplug
-Sparkplug is an adapter library for communicating with [Quva Flow](http://quva.fi/product). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
+Sparkplug is an adapter library for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
 ## Installation
@@ -221,58 +221,6 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
 }
 ```
 
-### Sending messages to Quva Flow
-Sending the message can be done using your favorite method that supports POST commands to REST API. 
-
-#### Via cURL
-An example command to send message with cURL is:
-```
-curl \
-     -u $USERNAME:$PASSWORD \
-     -H "Content-Type: application/json" \
-     -X POST \
-     -d "@message.json" \
-     -k \
-     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
-```
-Note that `message_sender_id` is also provided in the request header, which helps sending notifications in case of malformed messages.  
-
-One can also pass XML message to cURL:
-```
-curl \
-     -u $USERNAME:$PASSWORD \
-     -H "Content-Type: text/xml" \
-     -X POST \
-     -d "@message.xml" \
-     -k \
-     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
-```
-
-#### Via sparkplug
-Alternatively, one can use the sparkplug program that performs input validation before sending the data:
-```
-sparkplug \
-	  --payload message.json \
-	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
-	  --username $USERNAME \
-	  --password $PASSWORD
-```
-If one is only interested in input validation, a.k.a dryrun, the following will do:
-```
-sparkplug \
-	  --payload message.json \
-	  --isDryrun
-```
-
-The XML message is sent similarly (sparkplug infers the format of the message with the suffix):
-```
-sparkplug \
-	  --payload message.xml \
-	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
-	  --username $USERNAME \
-	  --password $PASSWORD
-```
-
 ### Feedback Message 
 Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions:
 * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not.
@@ -334,5 +282,55 @@ and looks like as JSON:
     }
 ```
 
-TODO: what is variable_group
+### Sending messages to Quva Flow
+Sending the message can be done using your favorite method that supports POST commands to REST API. 
+
+#### Via cURL
+An example command to send message with cURL is:
+```
+curl \
+     -u $USERNAME:$PASSWORD \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d "@message.json" \
+     -k \
+     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
+```
+Note that `message_sender_id` is also provided in the request header, which helps sending notifications in case of malformed messages.  
+
+One can also pass XML message to cURL:
+```
+curl \
+     -u $USERNAME:$PASSWORD \
+     -H "Content-Type: text/xml" \
+     -X POST \
+     -d "@message.xml" \
+     -k \
+     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
+```
+
+#### Via sparkplug
+Alternatively, one can use the sparkplug program that performs input validation before sending the data:
+```
+sparkplug \
+	  --payload message.json \
+	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
+	  --username $USERNAME \
+	  --password $PASSWORD
+```
+If one is only interested in input validation, a.k.a dryrun, the following will do:
+```
+sparkplug \
+	  --payload message.json \
+	  --isDryrun
+```
+
+The XML message is sent similarly (sparkplug infers the format of the message with the suffix):
+```
+sparkplug \
+	  --payload message.xml \
+	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
+	  --username $USERNAME \
+	  --password $PASSWORD
+```
 
