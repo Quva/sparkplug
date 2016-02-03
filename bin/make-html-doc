@@ -1,9 +1,12 @@
 #!/bin/sh
 
-pandoc \
-    -H css/github.css \
-    -f markdown \
-    -t html \
-    -s \
-    -o README.html \
-    README.md
+for fmt in pdf html; do
+
+    pandoc \
+	-H css/github.css \
+	-f markdown \
+	-t ${fmt} \
+	-s \
+	-o README.${fmt} \
+	README.md
+done
