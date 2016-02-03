@@ -1,9 +1,14 @@
 
 # Sparkplug
-Sparkplug is an adapter library for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
+Sparkplug is an open source (Apache 2.0 license) adapter for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
 ## Installation
+Obtain sparkplug from the GitHub repository:
+```
+git clone https://github.com/Quva/sparkplug.git
+```
+
 Install prerequisites using pip:
 ```
 pip install -r requirements.txt
