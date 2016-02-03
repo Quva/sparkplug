@@ -1,12 +1,17 @@
 
 # Sparkplug
-Sparkplug is an open source (Apache 2.0 license) adapter for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
+Sparkplug is an adapter program, licensed under [Apache License 2.0](https://github.com/Quva/sparkplug/blob/master/LICENSE.txt) for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
 ## Installation
 Obtain sparkplug from the GitHub repository:
 ```
 git clone https://github.com/Quva/sparkplug.git
+```
+
+Latest stable version is `1.4.1`, so grab that:
+```
+git checkout tags/1.4.1
 ```
 
 Install prerequisites using pip:
@@ -17,7 +22,10 @@ after which go ahead and install sparkplug:
 ```
 make clean build install
 ```
-
+or, if you are missing `make`, call `setup.py` directly:
+```
+python setup.py clean build install
+```
 
 ## API Documentation
 For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.
@@ -29,6 +37,7 @@ Each message is enclosed in a container, the Message Container. The Message Cont
 | ---  | ----  | --------  | -------  |
 | message_header | Object | YES | Header of the message |
 | message_body | Object | YES | Body of the message |
+
 The Message Container in JSON is expressed as:
 ```
 {
@@ -121,7 +130,7 @@ The list inside the "variables" field contains a list of objects with the follow
 | variable_name | String | YES | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
 | variable_unit | String | NO | Scientific unit (for example SI) for the variable | 
 | variable_is_txt | Boolean | YES | Flag to denote whether the the variable should be treated as text or number |
-| variable_properties | Map<String, String> | NO | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. |
+| variable_properties | Map<String, String> | NO | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
 
 Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:
 
@@ -155,6 +164,8 @@ Variables Message should be sent just once to the service so as to register them
 
 Variable identifier consists of two pieces of information: the name (`variable_name`) and source (`variable_source_id`). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.
 
+The current interface supports at most 1 million variables.
+
 ### Event Message
 Event Message is contained inside the message body of the container that has type "event" like so:
 ```
@@ -179,7 +190,7 @@ Event Messages are sent when a new event happens, or an old one gets updated. Th
 | event_type | String | YES | Groups similar events together |
 | event_start_time | yyyy-mm-dd HH:MM:SS | YES | What is the start time of the event |
 | event_stop_time | yyyy-mm-dd HH:MM:SS | YES | What is the stop time of the event |
-| event_properties | Map(String, String) | NO | Map of properties for the event |
+| event_properties | Map(String, String) | NO | Map of properties for the event. Can store at most 100 keys. |
 
 Along with the event information comes the measurements, given in a separate field `measurements`. Inside `measurements` there is a list of objects with the following fields:
 
@@ -190,7 +201,7 @@ Along with the event information comes the measurements, given in a separate fie
 | measurement_time | yyyy-mm-dd HH:MM:SS | YES | When was the measurement taken | 
 | measurement_num_value | Double | NO | What was the measured value (needs to be set if variable_is_txt is False) |
 | measurement_txt_value | String | NO | What was the measured value (needs to be set if variable_is_txt is True) |
-| measurement_properties | Map(String, String) | NO | Map of the properties of the measurement |
+| measurement_properties | Map(String, String) | NO | Map of the properties of the measurement. Can store at most 10 keys. |
 
 Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclusive and should be used according to how the variables are set in the Variables message (see `variable_is_txt` flag). Below is an example Event message in JSON format:
 

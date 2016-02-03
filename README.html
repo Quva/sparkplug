@@ -1,0 +1,929 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+  html, body {
+      height: 100%;
+  }
+  
+  html {
+      display: table;
+      margin: auto;
+  }
+  
+  body {
+      display: table-cell;
+      vertical-align: middle;
+  }
+  
+  body {
+    font-family: Helvetica, arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    padding: 30px;
+    color: #333;
+    width: 900px;
+  }
+  
+  body > *:first-child {
+    margin-top: 0 !important;
+  }
+  
+  body > *:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  a {
+    color: #4183C4;
+    text-decoration: none;
+  }
+  
+  a.absent {
+    color: #cc0000;
+  }
+  
+  a.anchor {
+    display: block;
+    padding-left: 30px;
+    margin-left: -30px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0 10px;
+    padding: 0;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    cursor: text;
+    position: relative;
+  }
+  
+  h2:first-child, h1:first-child, h1:first-child + h2, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+    text-decoration: none;
+  }
+  
+  h1 tt, h1 code {
+    font-size: inherit;
+  }
+  
+  h2 tt, h2 code {
+    font-size: inherit;
+  }
+  
+  h3 tt, h3 code {
+    font-size: inherit;
+  }
+  
+  h4 tt, h4 code {
+    font-size: inherit;
+  }
+  
+  h5 tt, h5 code {
+    font-size: inherit;
+  }
+  
+  h6 tt, h6 code {
+    font-size: inherit;
+  }
+  
+  h1 {
+    font-size: 28px;
+    color: black;
+  }
+  
+  h2 {
+    font-size: 24px;
+    border-bottom: 1px solid #cccccc;
+    color: black;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  h4 {
+    font-size: 16px;
+  }
+  
+  h5 {
+    font-size: 14px;
+  }
+  
+  h6 {
+    color: #777777;
+    font-size: 14px;
+  }
+  
+  p, blockquote, ul, ol, dl, li, table, pre {
+    margin: 15px 0;
+  }
+  
+  hr {
+    background: transparent url("http://tinyurl.com/bq5kskr") repeat-x 0 0;
+    border: 0 none;
+    color: #cccccc;
+    height: 4px;
+    padding: 0;
+  }
+  
+  body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+    margin-top: 0;
+  }
+  
+  li p.first {
+    display: inline-block;
+  }
+  
+  ul, ol {
+    padding-left: 30px;
+  }
+  
+  ul :first-child, ol :first-child {
+    margin-top: 0;
+  }
+  
+  ul :last-child, ol :last-child {
+    margin-bottom: 0;
+  }
+  
+  dl {
+    padding: 0;
+  }
+  
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px;
+  }
+  
+  dl dt:first-child {
+    padding: 0;
+  }
+  
+  dl dt > :first-child {
+    margin-top: 0;
+  }
+  
+  dl dt > :last-child {
+    margin-bottom: 0;
+  }
+  
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px;
+  }
+  
+  dl dd > :first-child {
+    margin-top: 0;
+  }
+  
+  dl dd > :last-child {
+    margin-bottom: 0;
+  }
+  
+  blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+  }
+  
+  blockquote > :first-child {
+    margin-top: 0;
+  }
+  
+  blockquote > :last-child {
+    margin-bottom: 0;
+  }
+  
+  table {
+    padding: 0;
+  }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  
+  table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+  }
+  
+  table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+  }
+  
+  table tr td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+  }
+  
+  table tr th :first-child, table tr td :first-child {
+    margin-top: 0;
+  }
+  
+  table tr th :last-child, table tr td :last-child {
+    margin-bottom: 0;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  span.frame {
+    display: block;
+    overflow: hidden;
+  }
+  
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto;
+  }
+  
+  span.frame span img {
+    display: block;
+    float: left;
+  }
+  
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0;
+  }
+  
+  span.align-center {
+    display: block;
+    overflow: hidden;
+    clear: both;
+  }
+  
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center;
+  }
+  
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  span.align-right {
+    display: block;
+    overflow: hidden;
+    clear: both;
+  }
+  
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right;
+  }
+  
+  span.align-right span img {
+    margin: 0;
+    text-align: right;
+  }
+  
+  span.float-left {
+    display: block;
+    margin-right: 13px;
+    overflow: hidden;
+    float: left;
+  }
+  
+  span.float-left span {
+    margin: 13px 0 0;
+  }
+  
+  span.float-right {
+    display: block;
+    margin-left: 13px;
+    overflow: hidden;
+    float: right;
+  }
+  
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right;
+  }
+  
+  code, tt {
+    margin: 0 2px;
+    padding: 0 5px;
+    white-space: nowrap;
+    border: 1px solid #eaeaea;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+  }
+  
+  pre code {
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+    border: none;
+    background: transparent;
+  }
+  
+  .highlight pre {
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px;
+  }
+  
+  pre {
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px;
+  }
+  
+  pre code, pre tt {
+    background-color: transparent;
+    border: none;
+  }
+  </style>
+</head>
+<body>
+<h1 id="sparkplug">Sparkplug</h1>
+<p>Sparkplug is an adapter program, licensed under <a href="LICENSE.txt">Apache License 2.0</a> for communicating with <a href="http://quva.fi/en/services/process-industry">Quva Flow</a>. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.</p>
+<h2 id="installation">Installation</h2>
+<p>Obtain sparkplug from the GitHub repository:</p>
+<pre><code>git clone https://github.com/Quva/sparkplug.git</code></pre>
+<p>Install prerequisites using pip:</p>
+<pre><code>pip install -r requirements.txt</code></pre>
+<p>after which go ahead and install sparkplug:</p>
+<pre><code>make clean build install</code></pre>
+<h2 id="api-documentation">API Documentation</h2>
+<p>For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.</p>
+<h3 id="message-container">Message Container</h3>
+<p>Each message is enclosed in a container, the Message Container. The Message Container has the following fields:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">message_header</td>
+<td align="left">Object</td>
+<td align="left">YES</td>
+<td align="left">Header of the message</td>
+</tr>
+<tr class="even">
+<td align="left">message_body</td>
+<td align="left">Object</td>
+<td align="left">YES</td>
+<td align="left">Body of the message</td>
+</tr>
+</tbody>
+</table>
+<p>The Message Container in JSON is expressed as:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    ...
+  },
+  &quot;message_body&quot;: {
+    ...
+  }
+}</code></pre>
+<p>In XML the Message Container is expressed as:</p>
+<pre><code>&lt;message&gt;
+  &lt;message_header&gt;
+    ...
+  &lt;/message_header&gt;
+  &lt;message_body&gt;
+    ...
+  &lt;/message_body&gt;
+&lt;/message&gt;</code></pre>
+<h3 id="message-header">Message Header</h3>
+<p>Every Message Container contains Message Header with the following fields:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">message_type</td>
+<td align="left">Enum</td>
+<td align="left">YES</td>
+<td align="left">Indicates which message it is. Supported types currently are: &quot;variables&quot;, &quot;event&quot;</td>
+</tr>
+<tr class="even">
+<td align="left">message_sender_id</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">An ID that identifies the sender</td>
+</tr>
+<tr class="odd">
+<td align="left">message_recipient_id</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">An ID that identifies recipient (Quva)</td>
+</tr>
+<tr class="even">
+<td align="left">message_id</td>
+<td align="left">String</td>
+<td align="left">NO</td>
+<td align="left">An ID that uniquely identifies the message</td>
+</tr>
+<tr class="odd">
+<td align="left">message_reply</td>
+<td align="left">Object</td>
+<td align="left">NO</td>
+<td align="left">Used if the message needs to be replied</td>
+</tr>
+</tbody>
+</table>
+<p>The Message Header takes the following form as JSON:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    &quot;message_type&quot;: &quot;&lt;myevent&gt;&quot;,
+    &quot;message_sender_id&quot;: &quot;&lt;mysenderid&gt;&quot;,
+    &quot;message_recipient_id&quot;: &quot;Quva&quot;,
+    &quot;message_id&quot;: &quot;&lt;myuniquemessageid&gt;&quot;
+    &quot;message_reply&quot;: {
+      ...
+    }
+  },
+  &quot;message_body&quot;: {
+    ...
+  }
+}</code></pre>
+<h4 id="message-reply-field">Message Reply field</h4>
+<p>Message Reply field inside the Message Header contains information about the topic the reply is sent to:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">reply_to_topic</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Specify the topic to which the reply is sent</td>
+</tr>
+</tbody>
+</table>
+<p>The Message Reply field takes the following form:</p>
+<pre><code>    ...
+    &quot;message_reply&quot;: {
+      &quot;reply_to_topic&quot;: &quot;&lt;topicid&gt;&quot;
+    }
+    ...</code></pre>
+<h3 id="variables-message">Variables Message</h3>
+<p>Variables Message is contained inside the message body of the container that has type &quot;variables&quot; like so:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    &quot;message_type&quot;: &quot;variables&quot;,
+    &quot;message_sender_id&quot;: &quot;&lt;mysenderid&gt;&quot;,
+    &quot;message_recipient_id&quot;: &quot;Quva&quot;,
+    &quot;message_id&quot;: &quot;&lt;myuniquemessageid&gt;&quot;
+  },
+  &quot;message_body&quot;: {
+    &quot;variables&quot;: [...]
+  }
+}</code></pre>
+<p>The list inside the &quot;variables&quot; field contains a list of objects with the following fields:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">variable_source_id</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Source identifier. For example <country>/<site>/<unit></td>
+</tr>
+<tr class="even">
+<td align="left">variable_name</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names.</td>
+</tr>
+<tr class="odd">
+<td align="left">variable_unit</td>
+<td align="left">String</td>
+<td align="left">NO</td>
+<td align="left">Scientific unit (for example SI) for the variable</td>
+</tr>
+<tr class="even">
+<td align="left">variable_is_txt</td>
+<td align="left">Boolean</td>
+<td align="left">YES</td>
+<td align="left">Flag to denote whether the the variable should be treated as text or number</td>
+</tr>
+<tr class="odd">
+<td align="left">variable_properties</td>
+<td align="left">Map<String, String></td>
+<td align="left">NO</td>
+<td align="left">map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    &quot;message_type&quot;: &quot;variables&quot;,
+    &quot;message_sender_id&quot;: &quot;&lt;mysenderid&gt;&quot;,
+    &quot;message_recipient_id&quot;: &quot;Quva&quot;,
+    &quot;message_id&quot;: &quot;&lt;myuniquemessageid&gt;&quot;
+  },
+  &quot;message_body&quot;: {
+    &quot;variables&quot;: [
+      {
+        &quot;variable_unit&quot;: null, 
+        &quot;variable_is_txt&quot;: true, 
+        &quot;variable_source_id&quot;: &quot;&lt;country&gt;/&lt;site&gt;/&lt;unit&gt;&quot;, 
+        &quot;variable_name&quot;: &quot;&lt;localname&gt;&quot;
+        &quot;variable_properties&quot;: {
+          &quot;source_table_field&quot;: &quot;&lt;fieldname&gt;&quot;, 
+          &quot;source_table&quot;: &quot;&lt;tablename&gt;&quot;
+        }, 
+      },
+      {
+      ...
+      }
+    ]
+  }
+}</code></pre>
+<p>Variable identifier consists of two pieces of information: the name (<code>variable_name</code>) and source (<code>variable_source_id</code>). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.</p>
+<p>The current interface supports at most 1 million variables.</p>
+<h3 id="event-message">Event Message</h3>
+<p>Event Message is contained inside the message body of the container that has type &quot;event&quot; like so:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    &quot;message_type&quot;: &quot;event&quot;,
+    &quot;message_sender_id&quot;: &quot;&lt;mysenderid&gt;&quot;,
+    &quot;message_recipient_id&quot;: &quot;Quva&quot;,
+    &quot;message_id&quot;: &quot;&lt;myuniquemessageid&gt;&quot;
+  },
+  &quot;message_body&quot;: {
+    &quot;event&quot;: {...},
+    &quot;measurements&quot;: [...]
+  }
+}</code></pre>
+<p>Event Messages are sent when a new event happens, or an old one gets updated. The service can identify whether the event is new or re-entered based on <code>event_id</code>. General event information is stored in the field <code>event</code> and has the following fields in it:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">event_id</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Unique string for every event</td>
+</tr>
+<tr class="even">
+<td align="left">event_type</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Groups similar events together</td>
+</tr>
+<tr class="odd">
+<td align="left">event_start_time</td>
+<td align="left">yyyy-mm-dd HH:MM:SS</td>
+<td align="left">YES</td>
+<td align="left">What is the start time of the event</td>
+</tr>
+<tr class="even">
+<td align="left">event_stop_time</td>
+<td align="left">yyyy-mm-dd HH:MM:SS</td>
+<td align="left">YES</td>
+<td align="left">What is the stop time of the event</td>
+</tr>
+<tr class="odd">
+<td align="left">event_properties</td>
+<td align="left">Map(String, String)</td>
+<td align="left">NO</td>
+<td align="left">Map of properties for the event. Can store at most 100 keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Along with the event information comes the measurements, given in a separate field <code>measurements</code>. Inside <code>measurements</code> there is a list of objects with the following fields:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">variable_name</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">What is the name of the variable</td>
+</tr>
+<tr class="even">
+<td align="left">variable_source_id</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">What is the source of the variable</td>
+</tr>
+<tr class="odd">
+<td align="left">measurement_time</td>
+<td align="left">yyyy-mm-dd HH:MM:SS</td>
+<td align="left">YES</td>
+<td align="left">When was the measurement taken</td>
+</tr>
+<tr class="even">
+<td align="left">measurement_num_value</td>
+<td align="left">Double</td>
+<td align="left">NO</td>
+<td align="left">What was the measured value (needs to be set if variable_is_txt is False)</td>
+</tr>
+<tr class="odd">
+<td align="left">measurement_txt_value</td>
+<td align="left">String</td>
+<td align="left">NO</td>
+<td align="left">What was the measured value (needs to be set if variable_is_txt is True)</td>
+</tr>
+<tr class="even">
+<td align="left">measurement_properties</td>
+<td align="left">Map(String, String)</td>
+<td align="left">NO</td>
+<td align="left">Map of the properties of the measurement. Can store at most 10 keys.</td>
+</tr>
+</tbody>
+</table>
+<p>Of these, <code>measurement_num_value</code> and <code>measurement_txt_value</code> are mutually exclusive and should be used according to how the variables are set in the Variables message (see <code>variable_is_txt</code> flag). Below is an example Event message in JSON format:</p>
+<pre><code>{
+  &quot;message_header&quot;: {
+    &quot;message_type&quot;: &quot;event&quot;,
+    &quot;message_sender_id&quot;: &quot;&lt;mysenderid&gt;&quot;,
+    &quot;message_recipient_id&quot;: &quot;Quva&quot;,
+    &quot;message_id&quot;: &quot;&lt;myuniquemessageid&gt;&quot;
+  },
+  &quot;message_body&quot;: {
+    &quot;measurements&quot;: [
+      {
+        &quot;measurement_time&quot;: &quot;2014-12-30 00:00:00+0200&quot;,
+        &quot;variable_source_id&quot;: &quot;&lt;country&gt;/&lt;site&gt;/&lt;unit&gt;&quot;, 
+        &quot;measurement_txt_value&quot;: &quot;YES&quot;, 
+        &quot;variable_name&quot;: &quot;Is sensor active?&quot;
+      }, 
+      {
+      ...
+      }
+    ],
+    &quot;event&quot;: {
+      &quot;event_id&quot;: &quot;&lt;myeventid&gt;&quot;, 
+      &quot;event_stop_time&quot;: &quot;yyyy-mm-dd HH:MM:SS+ZZZZ&quot;, 
+      &quot;event_start_time&quot;: &quot;yyyy-mm-dd HH:MM:SS+ZZZZ&quot;, 
+      &quot;event_type&quot;: &quot;&lt;myeventtype&gt;&quot;,
+      &quot;event_properties&quot;: {
+        ...
+      }
+    }
+  }
+}</code></pre>
+<h3 id="feedback-message">Feedback Message</h3>
+<p>Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions: * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not. * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.</p>
+<p>Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">analysis_result</td>
+<td align="left">Object</td>
+<td align="left">YES</td>
+<td align="left">Contains a list of variables that caused the alarm</td>
+</tr>
+<tr class="even">
+<td align="left">event</td>
+<td align="left">Object</td>
+<td align="left">YES</td>
+<td align="left">Generic information</td>
+</tr>
+</tbody>
+</table>
+<p>A Feedback Message could look like follows:</p>
+<pre><code>  &quot;message_body&quot;: {
+    &quot;analysis_result&quot;: {
+      [AlarmVariable1, AlarmVariable2, ...]
+    },
+    &quot;event&quot;: {
+      &quot;original_event_id&quot;: &quot;&lt;myeventid&gt;&quot;,
+      &quot;event_type&quot;: &quot;QUALITY_FEEDBACK&quot;,
+      &quot;event_properties&quot;: {
+        &quot;OK_MESSAGE&quot;: &quot;Everything OK&quot;,
+        &quot;ERROR_MESSAGE&quot;: &quot;&quot;,
+        &quot;ERROR_URL&quot;: &quot;&quot;,
+        &quot;ERROR_CODE&quot;: &quot;0&quot;
+      }
+    }
+  }</code></pre>
+<p>where each Alarm Variable in the list has the fields</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">variable_description</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Description of the variable. Same description as specified in the Variables Message</td>
+</tr>
+<tr class="even">
+<td align="left">variable_group</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Looked up based on the specified variable property that defines the group.</td>
+</tr>
+<tr class="odd">
+<td align="left">alarm_description</td>
+<td align="left">String</td>
+<td align="left">YES</td>
+<td align="left">Description of the alarm.</td>
+</tr>
+<tr class="even">
+<td align="left">measurement_num_value</td>
+<td align="left">Double</td>
+<td align="left">YES</td>
+<td align="left">Mean value of the samples in the event in which the variable raised the alarm.</td>
+</tr>
+<tr class="odd">
+<td align="left">min_measurement_specific_num_value</td>
+<td align="left">Double</td>
+<td align="left">YES</td>
+<td align="left">Measurement-specific min-threshold</td>
+</tr>
+<tr class="even">
+<td align="left">max_measurement_specific_num_value</td>
+<td align="left">Double</td>
+<td align="left">YES</td>
+<td align="left">Measurement-specific max-threshold</td>
+</tr>
+<tr class="odd">
+<td align="left">min_empirical_threshold_num_value</td>
+<td align="left">Double</td>
+<td align="left">YES</td>
+<td align="left">SPC-based min-threshold</td>
+</tr>
+<tr class="even">
+<td align="left">max_empirical_threshold_num_value</td>
+<td align="left">Double</td>
+<td align="left">YES</td>
+<td align="left">SPC-based max-threshold</td>
+</tr>
+</tbody>
+</table>
+<p>and looks like as JSON:</p>
+<pre><code>    &quot;alarm_variable&quot;: {
+      &quot;variable_description&quot;: &quot;&lt;myvariabledescription&gt;&quot;,
+      &quot;variable_group&quot;: &quot;&lt;myvariablegroup&gt;&quot;,
+      &quot;alarm_description&quot;: &quot;&lt;myalarmdescription&gt;&quot;,
+      &quot;measurement_num_value&quot;: 10.1,
+      &quot;min_measurement_specific_num_value&quot;: 3.5,
+      &quot;max_measurement_specific_num_value&quot;: 4.1,
+      &quot;min_empirical_threshold_num_value&quot;: 2.5,
+      &quot;max_empirical_threshold_num_value&quot;: 11.0
+    }</code></pre>
+<h3 id="sending-messages-to-quva-flow">Sending messages to Quva Flow</h3>
+<p>Sending the message can be done using your favorite method that supports POST commands to REST API.</p>
+<h4 id="via-curl">Via cURL</h4>
+<p>An example command to send message with cURL is:</p>
+<pre><code>curl \
+     -u $USERNAME:$PASSWORD \
+     -H &quot;Content-Type: application/json&quot; \
+     -X POST \
+     -d &quot;@message.json&quot; \
+     -k \
+     https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt;</code></pre>
+<p>Note that <code>message_sender_id</code> is also provided in the request header, which helps sending notifications in case of malformed messages.</p>
+<p>One can also pass XML message to cURL:</p>
+<pre><code>curl \
+     -u $USERNAME:$PASSWORD \
+     -H &quot;Content-Type: text/xml&quot; \
+     -X POST \
+     -d &quot;@message.xml&quot; \
+     -k \
+     https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt;</code></pre>
+<h4 id="via-sparkplug">Via sparkplug</h4>
+<p>Alternatively, one can use the sparkplug program that performs input validation before sending the data:</p>
+<pre><code>sparkplug \
+      --payload message.json \
+      --url https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
+      --username $USERNAME \
+      --password $PASSWORD</code></pre>
+<p>If one is only interested in input validation, a.k.a dryrun, the following will do:</p>
+<pre><code>sparkplug \
+      --payload message.json \
+      --isDryrun</code></pre>
+<p>The XML message is sent similarly (sparkplug infers the format of the message with the suffix):</p>
+<pre><code>sparkplug \
+      --payload message.xml \
+      --url https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
+      --username $USERNAME \
+      --password $PASSWORD</code></pre>
+</body>
+</html>

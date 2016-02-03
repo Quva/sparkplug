@@ -1,12 +1,23 @@
 #!/bin/sh
 
-for fmt in pdf html; do
+pandoc \
+    -H css/github.css \
+    -f markdown \
+    -t html \
+    -s \
+    -o README.html \
+    README.md
 
-    pandoc \
-	-H css/github.css \
-	-f markdown \
-	-t ${fmt} \
-	-s \
-	-o README.${fmt} \
-	README.md
-done
+#     -H css/github.css \
+#     -s \
+
+pandoc \
+    -f markdown \
+    -t beamer \
+    -o README.pdf \
+    README.md
+
+pandoc \
+    --latex-engine=xelatex \
+    -o README.pdf \
+    README.md
