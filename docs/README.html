@@ -413,14 +413,18 @@
 </head>
 <body>
 <h1 id="sparkplug">Sparkplug</h1>
-<p>Sparkplug is an adapter program, licensed under <a href="LICENSE.txt">Apache License 2.0</a> for communicating with <a href="http://quva.fi/en/services/process-industry">Quva Flow</a>. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.</p>
+<p>Sparkplug is an adapter program, licensed under <a href="https://github.com/Quva/sparkplug/blob/master/LICENSE.txt">Apache License 2.0</a> for communicating with <a href="http://quva.fi/en/services/process-industry">Quva Flow</a>. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.</p>
 <h2 id="installation">Installation</h2>
 <p>Obtain sparkplug from the GitHub repository:</p>
 <pre><code>git clone https://github.com/Quva/sparkplug.git</code></pre>
+<p>Latest stable version is <code>1.4.1</code>, so grab that:</p>
+<pre><code>git checkout tags/1.4.1</code></pre>
 <p>Install prerequisites using pip:</p>
 <pre><code>pip install -r requirements.txt</code></pre>
 <p>after which go ahead and install sparkplug:</p>
 <pre><code>make clean build install</code></pre>
+<p>or, if you are missing <code>make</code>, call <code>setup.py</code> directly:</p>
+<pre><code>python setup.py clean build install</code></pre>
 <h2 id="api-documentation">API Documentation</h2>
 <p>For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.</p>
 <h3 id="message-container">Message Container</h3>

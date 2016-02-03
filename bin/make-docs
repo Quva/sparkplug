@@ -1,0 +1,16 @@
+#!/bin/sh
+
+cp README.md docs/README.md
+
+pandoc \
+    -H css/github.css \
+    -f markdown \
+    -t html \
+    -s \
+    -o docs/README.html \
+    README.md
+
+pandoc \
+    --latex-engine=xelatex \
+    -o docs/README.pdf \
+    README.md
