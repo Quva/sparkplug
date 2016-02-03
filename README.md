@@ -19,6 +19,7 @@ For now, there are two types of messages: Variables and Event. The former is use
 
 ### Message Container
 Each message is enclosed in a container, the Message Container. The Message Container has the following fields:
+
 | key  | type  | required  | comment  |
 | ---  | ----  | --------  | -------  |
 | message_header | Object | YES | Header of the message |
