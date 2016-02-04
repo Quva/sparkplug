@@ -1,9 +1,14 @@
 
-# Sparkplug
-Sparkplug is an adapter program, licensed under [Apache License 2.0](https://github.com/Quva/sparkplug/blob/master/LICENSE.txt) for communicating with [Quva Flow](http://quva.fi/en/services/process-industry). Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
-## Installation
+# Quva Flow Technical Documentation
+Quva Flow is an engine that consists of services running data transfer, storage, analytics, and user interface. 
+
+## Sparkplug
+Sparkplug is an adapter program, licensed under [Apache License 2.0](https://github.com/Quva/sparkplug/blob/master/LICENSE.txt) for communicating with [Quva Flow](http://quva.fi/en/services/process-industry) REST API. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
+
+
+### Installation
 Obtain sparkplug from the GitHub repository:
 ```
 git clone https://github.com/Quva/sparkplug.git
@@ -28,7 +33,7 @@ python setup.py clean build install
 ```
 
 
-## Usage
+### Usage
 Sending the message can be done using your favorite method that supports POST commands to REST API. However, sparkplug is the recommended one since it does input validation for all the messages, among other things.
 
 To use Sparkplug, you specify the message to send; URL pointing to the ImportQueue of the service; sender ID as recognized by Quva Flow; and separate credentials for the REST API: 
@@ -58,10 +63,10 @@ sparkplug \
 In case you are wondering what the contents of the message is, read on!
 
 
-# Quva Flow REST API Documentation
+## Quva Flow REST API Documentation
 For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.
 
-## Message Container
+### Message Container
 Each message is enclosed in a container, the Message Container. The Message Container has the following fields:
 
 
@@ -96,7 +101,7 @@ In XML the Message Container is expressed as:
 </message>
 ```
 
-## Message Header
+### Message Header
 Every Message Container contains Message Header with the following fields:
 
 +----------------------+--------+-----------+------------------------------------------------------------------------------------+
@@ -131,7 +136,7 @@ The Message Header takes the following form as JSON:
 }
 ```
 
-### Message Reply field
+#### Message Reply field
 Message Reply field inside the Message Header contains information about the topic the reply is sent to:
 
 
@@ -151,7 +156,7 @@ The Message Reply field takes the following form:
 ```
 
 
-## Variables Message
+### Variables Message
 Variables Message is contained inside the message body of the container that has type "variables" like so:
 ```
 {
@@ -221,7 +226,7 @@ Variable identifier consists of two pieces of information: the name (`variable_n
 
 The current interface supports at most 1 million variables.
 
-## Event Message
+### Event Message
 Event Message is contained inside the message body of the container that has type "event" like so:
 ```
 {
@@ -309,7 +314,7 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
 }
 ```
 
-## Feedback Message 
+### Feedback Message 
 Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions:
 * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not.
 * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.
@@ -384,10 +389,10 @@ and looks like as JSON:
     }
 ```
 
-# Quva Flow User Interface
+## Quva Flow User Interface
 
 Quva Flow User Interface client (browser) communicates with the Quva server over HTTPS protocol. Therefore all communiation between the client and server are encrypted. Quva Flow User Interface has been tested with the following browser versions
 
-* Internet Explorer version 11 and later 
-* Mozilla Firefox Version 41 and later 
-* Chrome version 47 and later  
+* Internet Explorer version 11 and newer
+* Mozilla Firefox Version 41 and newer
+* Chrome version 47 and newer

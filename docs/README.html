@@ -412,9 +412,11 @@
   </style>
 </head>
 <body>
-<h1 id="sparkplug">Sparkplug</h1>
-<p>Sparkplug is an adapter program, licensed under <a href="https://github.com/Quva/sparkplug/blob/master/LICENSE.txt">Apache License 2.0</a> for communicating with <a href="http://quva.fi/en/services/process-industry">Quva Flow</a>. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.</p>
-<h2 id="installation">Installation</h2>
+<h1 id="quva-flow-technical-documentation">Quva Flow Technical Documentation</h1>
+<p>Quva Flow is an engine that consists of services running data transfer, storage, analytics, and user interface.</p>
+<h2 id="sparkplug">Sparkplug</h2>
+<p>Sparkplug is an adapter program, licensed under <a href="https://github.com/Quva/sparkplug/blob/master/LICENSE.txt">Apache License 2.0</a> for communicating with <a href="http://quva.fi/en/services/process-industry">Quva Flow</a> REST API. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.</p>
+<h3 id="installation">Installation</h3>
 <p>Obtain sparkplug from the GitHub repository:</p>
 <pre><code>git clone https://github.com/Quva/sparkplug.git</code></pre>
 <p>Choose a tag of your liking, e.g. 1.4.3, and grab that:</p>
@@ -425,7 +427,7 @@
 <pre><code>make clean build install</code></pre>
 <p>or, if you are missing <code>make</code>, call <code>setup.py</code> directly:</p>
 <pre><code>python setup.py clean build install</code></pre>
-<h2 id="usage">Usage</h2>
+<h3 id="usage">Usage</h3>
 <p>Sending the message can be done using your favorite method that supports POST commands to REST API. However, sparkplug is the recommended one since it does input validation for all the messages, among other things.</p>
 <p>To use Sparkplug, you specify the message to send; URL pointing to the ImportQueue of the service; sender ID as recognized by Quva Flow; and separate credentials for the REST API:</p>
 <pre><code>sparkplug \
@@ -444,9 +446,9 @@
       --username $USERNAME \
       --password $PASSWORD</code></pre>
 <p>In case you are wondering what the contents of the message is, read on!</p>
-<h1 id="quva-flow-rest-api-documentation">Quva Flow REST API Documentation</h1>
+<h2 id="quva-flow-rest-api-documentation">Quva Flow REST API Documentation</h2>
 <p>For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.</p>
-<h2 id="message-container">Message Container</h2>
+<h3 id="message-container">Message Container</h3>
 <p>Each message is enclosed in a container, the Message Container. The Message Container has the following fields:</p>
 <table>
 <colgroup>
@@ -496,7 +498,7 @@
     ...
   &lt;/message_body&gt;
 &lt;/message&gt;</code></pre>
-<h2 id="message-header">Message Header</h2>
+<h3 id="message-header">Message Header</h3>
 <p>Every Message Container contains Message Header with the following fields:</p>
 <table>
 <colgroup>
@@ -561,7 +563,7 @@
     ...
   }
 }</code></pre>
-<h3 id="message-reply-field">Message Reply field</h3>
+<h4 id="message-reply-field">Message Reply field</h4>
 <p>Message Reply field inside the Message Header contains information about the topic the reply is sent to:</p>
 <table>
 <colgroup>
@@ -593,7 +595,7 @@
       &quot;reply_to_topic&quot;: &quot;&lt;topicid&gt;&quot;
     }
     ...</code></pre>
-<h2 id="variables-message">Variables Message</h2>
+<h3 id="variables-message">Variables Message</h3>
 <p>Variables Message is contained inside the message body of the container that has type &quot;variables&quot; like so:</p>
 <pre><code>{
   &quot;message_header&quot;: {
@@ -683,7 +685,7 @@
 }</code></pre>
 <p>Variable identifier consists of two pieces of information: the name (<code>variable_name</code>) and source (<code>variable_source_id</code>). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.</p>
 <p>The current interface supports at most 1 million variables.</p>
-<h2 id="event-message">Event Message</h2>
+<h3 id="event-message">Event Message</h3>
 <p>Event Message is contained inside the message body of the container that has type &quot;event&quot; like so:</p>
 <pre><code>{
   &quot;message_header&quot;: {
@@ -832,7 +834,7 @@
     }
   }
 }</code></pre>
-<h2 id="feedback-message">Feedback Message</h2>
+<h3 id="feedback-message">Feedback Message</h3>
 <p>Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions: * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not. * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.</p>
 <p>Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields</p>
 <table>
@@ -959,12 +961,12 @@
       &quot;min_empirical_threshold_num_value&quot;: 2.5,
       &quot;max_empirical_threshold_num_value&quot;: 11.0
     }</code></pre>
-<h1 id="quva-flow-user-interface">Quva Flow User Interface</h1>
+<h2 id="quva-flow-user-interface">Quva Flow User Interface</h2>
 <p>Quva Flow User Interface client (browser) communicates with the Quva server over HTTPS protocol. Therefore all communiation between the client and server are encrypted. Quva Flow User Interface has been tested with the following browser versions</p>
 <ul>
-<li>Internet Explorer version 11 and later</li>
-<li>Mozilla Firefox Version 41 and later</li>
-<li>Chrome version 47 and later</li>
+<li>Internet Explorer version 11 and newer</li>
+<li>Mozilla Firefox Version 41 and newer</li>
+<li>Chrome version 47 and newer</li>
 </ul>
 </body>
 </html>
