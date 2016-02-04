@@ -9,9 +9,9 @@ Obtain sparkplug from the GitHub repository:
 git clone https://github.com/Quva/sparkplug.git
 ```
 
-Latest stable version is `1.4.1`, so grab that:
+Choose a tag of your liking, e.g. 1.4.3, and grab that:
 ```
-git checkout tags/1.4.1
+git checkout tags/1.4.3
 ```
 
 Install prerequisites using pip:
