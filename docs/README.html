@@ -430,6 +430,12 @@
 <h3 id="message-container">Message Container</h3>
 <p>Each message is enclosed in a container, the Message Container. The Message Container has the following fields:</p>
 <table>
+<colgroup>
+<col width="23%" />
+<col width="12%" />
+<col width="16%" />
+<col width="33%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -440,16 +446,16 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">message_header</td>
-<td align="left">Object</td>
-<td align="left">YES</td>
-<td align="left">Header of the message</td>
+<td align="left"><p>message_header</p></td>
+<td align="left"><p>Object</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Header of the message</p></td>
 </tr>
 <tr class="even">
-<td align="left">message_body</td>
-<td align="left">Object</td>
-<td align="left">YES</td>
-<td align="left">Body of the message</td>
+<td align="left"><p>message_body</p></td>
+<td align="left"><p>Object</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Body of the message</p></td>
 </tr>
 </tbody>
 </table>
@@ -474,6 +480,12 @@
 <h3 id="message-header">Message Header</h3>
 <p>Every Message Container contains Message Header with the following fields:</p>
 <table>
+<colgroup>
+<col width="17%" />
+<col width="6%" />
+<col width="9%" />
+<col width="65%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -484,34 +496,34 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">message_type</td>
-<td align="left">Enum</td>
-<td align="left">YES</td>
-<td align="left">Indicates which message it is. Supported types currently are: &quot;variables&quot;, &quot;event&quot;</td>
+<td align="left"><p>message_type</p></td>
+<td align="left"><p>Enum</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Indicates which message it is. Supported types currently are: &quot;variables&quot;, &quot;event&quot;</p></td>
 </tr>
 <tr class="even">
-<td align="left">message_sender_id</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">An ID that identifies the sender</td>
+<td align="left"><p>message_sender_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>An ID that identifies the sender</p></td>
 </tr>
 <tr class="odd">
-<td align="left">message_recipient_id</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">An ID that identifies recipient (Quva)</td>
+<td align="left"><p>message_recipient_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>An ID that identifies recipient (Quva)</p></td>
 </tr>
 <tr class="even">
-<td align="left">message_id</td>
-<td align="left">String</td>
-<td align="left">NO</td>
-<td align="left">An ID that uniquely identifies the message</td>
+<td align="left"><p>message_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>An ID that uniquely identifies the message</p></td>
 </tr>
 <tr class="odd">
-<td align="left">message_reply</td>
-<td align="left">Object</td>
-<td align="left">NO</td>
-<td align="left">Used if the message needs to be replied</td>
+<td align="left"><p>message_reply</p></td>
+<td align="left"><p>Object</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>Used if the message needs to be replied</p></td>
 </tr>
 </tbody>
 </table>
@@ -533,6 +545,12 @@
 <h4 id="message-reply-field">Message Reply field</h4>
 <p>Message Reply field inside the Message Header contains information about the topic the reply is sent to:</p>
 <table>
+<colgroup>
+<col width="20%" />
+<col width="10%" />
+<col width="14%" />
+<col width="55%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -543,10 +561,10 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">reply_to_topic</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Specify the topic to which the reply is sent</td>
+<td align="left"><p>reply_to_topic</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Specify the topic to which the reply is sent</p></td>
 </tr>
 </tbody>
 </table>
@@ -571,6 +589,12 @@
 }</code></pre>
 <p>The list inside the &quot;variables&quot; field contains a list of objects with the following fields:</p>
 <table>
+<colgroup>
+<col width="21%" />
+<col width="9%" />
+<col width="11%" />
+<col width="56%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -581,34 +605,34 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">variable_source_id</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Source identifier. For example <country>/<site>/<unit></td>
+<td align="left"><p>variable_source_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Source identifier. For example <country>/<site>/<unit></p></td>
 </tr>
 <tr class="even">
-<td align="left">variable_name</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names.</td>
+<td align="left"><p>variable_name</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names.</p></td>
 </tr>
 <tr class="odd">
-<td align="left">variable_unit</td>
-<td align="left">String</td>
-<td align="left">NO</td>
-<td align="left">Scientific unit (for example SI) for the variable</td>
+<td align="left"><p>variable_unit</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>Scientific unit (for example SI) for the variable</p></td>
 </tr>
 <tr class="even">
-<td align="left">variable_is_txt</td>
-<td align="left">Boolean</td>
-<td align="left">YES</td>
-<td align="left">Flag to denote whether the the variable should be treated as text or number</td>
+<td align="left"><p>variable_is_txt</p></td>
+<td align="left"><p>Boolean</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Flag to denote whether the the variable should be treated as text or number</p></td>
 </tr>
 <tr class="odd">
-<td align="left">variable_properties</td>
-<td align="left">Map<String, String></td>
-<td align="left">NO</td>
-<td align="left">map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys.</td>
+<td align="left"><p>variable_properties</p></td>
+<td align="left"><p>Map</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys.</p></td>
 </tr>
 </tbody>
 </table>
@@ -656,6 +680,12 @@
 }</code></pre>
 <p>Event Messages are sent when a new event happens, or an old one gets updated. The service can identify whether the event is new or re-entered based on <code>event_id</code>. General event information is stored in the field <code>event</code> and has the following fields in it:</p>
 <table>
+<colgroup>
+<col width="18%" />
+<col width="8%" />
+<col width="11%" />
+<col width="61%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -666,39 +696,45 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">event_id</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Unique string for every event</td>
+<td align="left"><p>event_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Unique string for every event</p></td>
 </tr>
 <tr class="even">
-<td align="left">event_type</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Groups similar events together</td>
+<td align="left"><p>event_type</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Groups similar events together</p></td>
 </tr>
 <tr class="odd">
-<td align="left">event_start_time</td>
-<td align="left">yyyy-mm-dd HH:MM:SS</td>
-<td align="left">YES</td>
-<td align="left">What is the start time of the event</td>
+<td align="left"><p>event_start_time</p></td>
+<td align="left"><p>Date</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>What is the start time of the event</p></td>
 </tr>
 <tr class="even">
-<td align="left">event_stop_time</td>
-<td align="left">yyyy-mm-dd HH:MM:SS</td>
-<td align="left">YES</td>
-<td align="left">What is the stop time of the event</td>
+<td align="left"><p>event_stop_time</p></td>
+<td align="left"><p>Date</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>What is the stop time of the event</p></td>
 </tr>
 <tr class="odd">
-<td align="left">event_properties</td>
-<td align="left">Map(String, String)</td>
-<td align="left">NO</td>
-<td align="left">Map of properties for the event. Can store at most 100 keys.</td>
+<td align="left"><p>event_properties</p></td>
+<td align="left"><p>Map</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>Map of properties for the event. Can store at most 100 keys.</p></td>
 </tr>
 </tbody>
 </table>
 <p>Along with the event information comes the measurements, given in a separate field <code>measurements</code>. Inside <code>measurements</code> there is a list of objects with the following fields:</p>
 <table>
+<colgroup>
+<col width="28%" />
+<col width="10%" />
+<col width="12%" />
+<col width="48%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -709,40 +745,40 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">variable_name</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">What is the name of the variable</td>
+<td align="left"><p>variable_name</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>What is the name of the variable</p></td>
 </tr>
 <tr class="even">
-<td align="left">variable_source_id</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">What is the source of the variable</td>
+<td align="left"><p>variable_source_id</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>What is the source of the variable</p></td>
 </tr>
 <tr class="odd">
-<td align="left">measurement_time</td>
-<td align="left">yyyy-mm-dd HH:MM:SS</td>
-<td align="left">YES</td>
-<td align="left">When was the measurement taken</td>
+<td align="left"><p>measurement_time</p></td>
+<td align="left"><p>Date</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>When was the measurement taken</p></td>
 </tr>
 <tr class="even">
-<td align="left">measurement_num_value</td>
-<td align="left">Double</td>
-<td align="left">NO</td>
-<td align="left">What was the measured value (needs to be set if variable_is_txt is False)</td>
+<td align="left"><p>measurement_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>What was the measured value. Needs to be set if variable_is_txt is False.</p></td>
 </tr>
 <tr class="odd">
-<td align="left">measurement_txt_value</td>
-<td align="left">String</td>
-<td align="left">NO</td>
-<td align="left">What was the measured value (needs to be set if variable_is_txt is True)</td>
+<td align="left"><p>measurement_txt_value</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>What was the measured value. Needs to be set if variable_is_txt is True.</p></td>
 </tr>
 <tr class="even">
-<td align="left">measurement_properties</td>
-<td align="left">Map(String, String)</td>
-<td align="left">NO</td>
-<td align="left">Map of the properties of the measurement. Can store at most 10 keys.</td>
+<td align="left"><p>measurement_properties</p></td>
+<td align="left"><p>Map</p></td>
+<td align="left"><p>NO</p></td>
+<td align="left"><p>Map of the properties of the measurement. Can store at most 10 keys.</p></td>
 </tr>
 </tbody>
 </table>
@@ -781,6 +817,12 @@
 <p>Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions: * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not. * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.</p>
 <p>Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields</p>
 <table>
+<colgroup>
+<col width="19%" />
+<col width="9%" />
+<col width="13%" />
+<col width="57%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -791,16 +833,16 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">analysis_result</td>
-<td align="left">Object</td>
-<td align="left">YES</td>
-<td align="left">Contains a list of variables that caused the alarm</td>
+<td align="left"><p>analysis_result</p></td>
+<td align="left"><p>Object</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Contains a list of variables that caused the alarm</p></td>
 </tr>
 <tr class="even">
-<td align="left">event</td>
-<td align="left">Object</td>
-<td align="left">YES</td>
-<td align="left">Generic information</td>
+<td align="left"><p>event</p></td>
+<td align="left"><p>Object</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Generic information</p></td>
 </tr>
 </tbody>
 </table>
@@ -822,6 +864,12 @@
   }</code></pre>
 <p>where each Alarm Variable in the list has the fields</p>
 <table>
+<colgroup>
+<col width="35%" />
+<col width="8%" />
+<col width="10%" />
+<col width="45%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">key</th>
@@ -832,52 +880,52 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">variable_description</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Description of the variable. Same description as specified in the Variables Message</td>
+<td align="left"><p>variable_description</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Description of the variable. Same description as specified in the Variables Message</p></td>
 </tr>
 <tr class="even">
-<td align="left">variable_group</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Looked up based on the specified variable property that defines the group.</td>
+<td align="left"><p>variable_group</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Looked up based on the specified variable property that defines the group.</p></td>
 </tr>
 <tr class="odd">
-<td align="left">alarm_description</td>
-<td align="left">String</td>
-<td align="left">YES</td>
-<td align="left">Description of the alarm.</td>
+<td align="left"><p>alarm_description</p></td>
+<td align="left"><p>String</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Description of the alarm.</p></td>
 </tr>
 <tr class="even">
-<td align="left">measurement_num_value</td>
-<td align="left">Double</td>
-<td align="left">YES</td>
-<td align="left">Mean value of the samples in the event in which the variable raised the alarm.</td>
+<td align="left"><p>measurement_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Mean value of the samples in the event in which the variable raised the alarm.</p></td>
 </tr>
 <tr class="odd">
-<td align="left">min_measurement_specific_num_value</td>
-<td align="left">Double</td>
-<td align="left">YES</td>
-<td align="left">Measurement-specific min-threshold</td>
+<td align="left"><p>min_measurement_specific_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Measurement-specific min-threshold</p></td>
 </tr>
 <tr class="even">
-<td align="left">max_measurement_specific_num_value</td>
-<td align="left">Double</td>
-<td align="left">YES</td>
-<td align="left">Measurement-specific max-threshold</td>
+<td align="left"><p>max_measurement_specific_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>Measurement-specific max-threshold</p></td>
 </tr>
 <tr class="odd">
-<td align="left">min_empirical_threshold_num_value</td>
-<td align="left">Double</td>
-<td align="left">YES</td>
-<td align="left">SPC-based min-threshold</td>
+<td align="left"><p>min_empirical_threshold_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>SPC-based min-threshold</p></td>
 </tr>
 <tr class="even">
-<td align="left">max_empirical_threshold_num_value</td>
-<td align="left">Double</td>
-<td align="left">YES</td>
-<td align="left">SPC-based max-threshold</td>
+<td align="left"><p>max_empirical_threshold_num_value</p></td>
+<td align="left"><p>Double</p></td>
+<td align="left"><p>YES</p></td>
+<td align="left"><p>SPC-based max-threshold</p></td>
 </tr>
 </tbody>
 </table>

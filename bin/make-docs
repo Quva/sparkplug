@@ -12,5 +12,6 @@ pandoc \
 
 pandoc \
     --latex-engine=xelatex \
+    -V geometry:margin=1cm \
     -o docs/README.pdf \
     README.md
