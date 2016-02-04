@@ -384,3 +384,10 @@ and looks like as JSON:
     }
 ```
 
+# Quva Flow User Interface
+
+Quva Flow User Interface client (browser) communicates with the Quva server over HTTPS protocol. Therefore all communiation between the client and server are encrypted. Quva Flow User Interface has been tested with the following browser versions
+
+* Internet Explorer version 11 and later 
+* Mozilla Firefox Version 41 and later 
+* Chrome version 47 and later  
