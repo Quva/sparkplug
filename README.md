@@ -27,10 +27,41 @@ or, if you are missing `make`, call `setup.py` directly:
 python setup.py clean build install
 ```
 
-## API Documentation
+
+## Usage
+Sending the message can be done using your favorite method that supports POST commands to REST API. However, sparkplug is the recommended one since it does input validation for all the messages, among other things.
+
+To use Sparkplug, you specify the message to send; URL pointing to the ImportQueue of the service; sender ID as recognized by Quva Flow; and separate credentials for the REST API: 
+```
+sparkplug \
+	  --payload message.json \
+	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --username $USERNAME \
+	  --password $PASSWORD
+```
+If one is only interested in input validation, a.k.a dryrun, the following will do:
+```
+sparkplug \
+	  --payload message.json \
+	  --isDryrun
+```
+
+The XML message is sent similarly (sparkplug infers the format of the message with the suffix):
+```
+sparkplug \
+	  --payload message.xml \
+	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --username $USERNAME \
+	  --password $PASSWORD
+```
+
+In case you are wondering what the contents of the message is, read on!
+
+
+# Quva Flow REST API Documentation
 For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.
 
-### Message Container
+## Message Container
 Each message is enclosed in a container, the Message Container. The Message Container has the following fields:
 
 
@@ -65,7 +96,7 @@ In XML the Message Container is expressed as:
 </message>
 ```
 
-### Message Header
+## Message Header
 Every Message Container contains Message Header with the following fields:
 
 +----------------------+--------+-----------+------------------------------------------------------------------------------------+
@@ -100,7 +131,7 @@ The Message Header takes the following form as JSON:
 }
 ```
 
-#### Message Reply field
+### Message Reply field
 Message Reply field inside the Message Header contains information about the topic the reply is sent to:
 
 
@@ -120,7 +151,7 @@ The Message Reply field takes the following form:
 ```
 
 
-### Variables Message
+## Variables Message
 Variables Message is contained inside the message body of the container that has type "variables" like so:
 ```
 {
@@ -190,7 +221,7 @@ Variable identifier consists of two pieces of information: the name (`variable_n
 
 The current interface supports at most 1 million variables.
 
-### Event Message
+## Event Message
 Event Message is contained inside the message body of the container that has type "event" like so:
 ```
 {
@@ -278,7 +309,7 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
 }
 ```
 
-### Feedback Message 
+## Feedback Message 
 Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions:
 * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not.
 * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.
@@ -351,57 +382,5 @@ and looks like as JSON:
       "min_empirical_threshold_num_value": 2.5,
       "max_empirical_threshold_num_value": 11.0
     }
-```
-
-### Sending messages to Quva Flow
-Sending the message can be done using your favorite method that supports POST commands to REST API. 
-
-#### Via cURL
-An example command to send message with cURL is:
-```
-curl \
-     -u $USERNAME:$PASSWORD \
-     -H "Content-Type: application/json" \
-     -X POST \
-     -d "@message.json" \
-     -k \
-     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
-```
-Note that `message_sender_id` is also provided in the request header, which helps sending notifications in case of malformed messages.  
-
-One can also pass XML message to cURL:
-```
-curl \
-     -u $USERNAME:$PASSWORD \
-     -H "Content-Type: text/xml" \
-     -X POST \
-     -d "@message.xml" \
-     -k \
-     https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid>
-```
-
-#### Via sparkplug
-Alternatively, one can use the sparkplug program that performs input validation before sending the data:
-```
-sparkplug \
-	  --payload message.json \
-	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
-	  --username $USERNAME \
-	  --password $PASSWORD
-```
-If one is only interested in input validation, a.k.a dryrun, the following will do:
-```
-sparkplug \
-	  --payload message.json \
-	  --isDryrun
-```
-
-The XML message is sent similarly (sparkplug infers the format of the message with the suffix):
-```
-sparkplug \
-	  --payload message.xml \
-	  --url https://aiko.quva.fi:8162/<path/to/application>/ImportQueue?senderID=<mysenderid> \
-	  --username $USERNAME \
-	  --password $PASSWORD
 ```
 

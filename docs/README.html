@@ -425,9 +425,28 @@
 <pre><code>make clean build install</code></pre>
 <p>or, if you are missing <code>make</code>, call <code>setup.py</code> directly:</p>
 <pre><code>python setup.py clean build install</code></pre>
-<h2 id="api-documentation">API Documentation</h2>
+<h2 id="usage">Usage</h2>
+<p>Sending the message can be done using your favorite method that supports POST commands to REST API. However, sparkplug is the recommended one since it does input validation for all the messages, among other things.</p>
+<p>To use Sparkplug, you specify the message to send; URL pointing to the ImportQueue of the service; sender ID as recognized by Quva Flow; and separate credentials for the REST API:</p>
+<pre><code>sparkplug \
+      --payload message.json \
+      --url https://aiko.quva.fi:8162/&lt;path&gt;/&lt;to&gt;/&lt;application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
+      --username $USERNAME \
+      --password $PASSWORD</code></pre>
+<p>If one is only interested in input validation, a.k.a dryrun, the following will do:</p>
+<pre><code>sparkplug \
+      --payload message.json \
+      --isDryrun</code></pre>
+<p>The XML message is sent similarly (sparkplug infers the format of the message with the suffix):</p>
+<pre><code>sparkplug \
+      --payload message.xml \
+      --url https://aiko.quva.fi:8162/&lt;path&gt;/&lt;to&gt;/&lt;application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
+      --username $USERNAME \
+      --password $PASSWORD</code></pre>
+<p>In case you are wondering what the contents of the message is, read on!</p>
+<h1 id="quva-flow-rest-api-documentation">Quva Flow REST API Documentation</h1>
 <p>For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.</p>
-<h3 id="message-container">Message Container</h3>
+<h2 id="message-container">Message Container</h2>
 <p>Each message is enclosed in a container, the Message Container. The Message Container has the following fields:</p>
 <table>
 <colgroup>
@@ -477,7 +496,7 @@
     ...
   &lt;/message_body&gt;
 &lt;/message&gt;</code></pre>
-<h3 id="message-header">Message Header</h3>
+<h2 id="message-header">Message Header</h2>
 <p>Every Message Container contains Message Header with the following fields:</p>
 <table>
 <colgroup>
@@ -542,7 +561,7 @@
     ...
   }
 }</code></pre>
-<h4 id="message-reply-field">Message Reply field</h4>
+<h3 id="message-reply-field">Message Reply field</h3>
 <p>Message Reply field inside the Message Header contains information about the topic the reply is sent to:</p>
 <table>
 <colgroup>
@@ -574,7 +593,7 @@
       &quot;reply_to_topic&quot;: &quot;&lt;topicid&gt;&quot;
     }
     ...</code></pre>
-<h3 id="variables-message">Variables Message</h3>
+<h2 id="variables-message">Variables Message</h2>
 <p>Variables Message is contained inside the message body of the container that has type &quot;variables&quot; like so:</p>
 <pre><code>{
   &quot;message_header&quot;: {
@@ -664,7 +683,7 @@
 }</code></pre>
 <p>Variable identifier consists of two pieces of information: the name (<code>variable_name</code>) and source (<code>variable_source_id</code>). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.</p>
 <p>The current interface supports at most 1 million variables.</p>
-<h3 id="event-message">Event Message</h3>
+<h2 id="event-message">Event Message</h2>
 <p>Event Message is contained inside the message body of the container that has type &quot;event&quot; like so:</p>
 <pre><code>{
   &quot;message_header&quot;: {
@@ -813,7 +832,7 @@
     }
   }
 }</code></pre>
-<h3 id="feedback-message">Feedback Message</h3>
+<h2 id="feedback-message">Feedback Message</h2>
 <p>Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions: * Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not. * Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.</p>
 <p>Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields</p>
 <table>
@@ -940,42 +959,5 @@
       &quot;min_empirical_threshold_num_value&quot;: 2.5,
       &quot;max_empirical_threshold_num_value&quot;: 11.0
     }</code></pre>
-<h3 id="sending-messages-to-quva-flow">Sending messages to Quva Flow</h3>
-<p>Sending the message can be done using your favorite method that supports POST commands to REST API.</p>
-<h4 id="via-curl">Via cURL</h4>
-<p>An example command to send message with cURL is:</p>
-<pre><code>curl \
-     -u $USERNAME:$PASSWORD \
-     -H &quot;Content-Type: application/json&quot; \
-     -X POST \
-     -d &quot;@message.json&quot; \
-     -k \
-     https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt;</code></pre>
-<p>Note that <code>message_sender_id</code> is also provided in the request header, which helps sending notifications in case of malformed messages.</p>
-<p>One can also pass XML message to cURL:</p>
-<pre><code>curl \
-     -u $USERNAME:$PASSWORD \
-     -H &quot;Content-Type: text/xml&quot; \
-     -X POST \
-     -d &quot;@message.xml&quot; \
-     -k \
-     https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt;</code></pre>
-<h4 id="via-sparkplug">Via sparkplug</h4>
-<p>Alternatively, one can use the sparkplug program that performs input validation before sending the data:</p>
-<pre><code>sparkplug \
-      --payload message.json \
-      --url https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
-      --username $USERNAME \
-      --password $PASSWORD</code></pre>
-<p>If one is only interested in input validation, a.k.a dryrun, the following will do:</p>
-<pre><code>sparkplug \
-      --payload message.json \
-      --isDryrun</code></pre>
-<p>The XML message is sent similarly (sparkplug infers the format of the message with the suffix):</p>
-<pre><code>sparkplug \
-      --payload message.xml \
-      --url https://aiko.quva.fi:8162/&lt;path/to/application&gt;/ImportQueue?senderID=&lt;mysenderid&gt; \
-      --username $USERNAME \
-      --password $PASSWORD</code></pre>
 </body>
 </html>
