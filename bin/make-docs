@@ -2,16 +2,4 @@
 
 cp README.md docs/README.md
 
-pandoc \
-    -H css/github.css \
-    -f markdown \
-    -t html \
-    -s \
-    -o docs/README.html \
-    README.md
-
-pandoc \
-    --latex-engine=xelatex \
-    -V geometry:margin=1cm \
-    -o docs/README.pdf \
-    README.md
+grip README.md --title="Quva Flow Technical Documentation" --export docs/README.html
