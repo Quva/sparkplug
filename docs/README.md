@@ -1,10 +1,25 @@
 
+Table of Contents
+=================
 
+ * [Quva Flow Technical Documentation](#quva-flow-technical-documentation)
+   * [Sparkplug](#sparkplug)
+     * [Installation](#installation)
+     * [Usage](#usage)
+   * [REST API](#rest-api)
+     * [Message Header](#message-header)
+     * [Message Reply Field](#message-reply-field)
+     * [Variables Message](#variables-message)
+     * [Event Message](#event-message)
+     * [Feedback Message](#feedback-message)
+   * [User Interface](#user-interface)
 
-# Quva® Flow Technical Documentation
+Quva® Flow Technical Documentation
+==================================
 Quva Flow is an engine that consists of services running data transfer, storage, analytics, and user interface. 
 
-## Sparkplug
+Sparkplug
+---------
 Sparkplug is an adapter program, licensed under [Apache License 2.0](https://github.com/Quva/sparkplug/blob/master/LICENSE.txt) for communicating with [Quva Flow](http://quva.fi/en/services/process-industry) REST API. Sparkplug currently supports sending messages as JSON and XML objects to our REST API. Sparkplug features a full suite of routines for validating the contents of the messages prior to sending them.
 
 
@@ -63,7 +78,8 @@ sparkplug \
 In case you are wondering what the contents of the message is, read on!
 
 
-## Quva Flow REST API Documentation
+REST API
+--------
 For now, there are two types of messages: Variables and Event. The former is used for declaring variables and their meta data, and the latter is used for declaring events. Both message types are currently supported by the Quva analytics service, but more will be added when needed.
 
 ### Message Container
@@ -338,8 +354,9 @@ and looks like as JSON:
     }
 ```
 
-## Quva Flow User Interface
 
+User Interface
+------------------------
 Quva Flow User Interface client (browser) communicates with the Quva server over HTTPS protocol. Therefore all communiation between the client and server are encrypted. Quva Flow User Interface is designed to support modern browsers. Currently Quva Flow UI runs on the following browser versions:
 
 * Internet Explorer version 11
