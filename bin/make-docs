@@ -1,5 +1,7 @@
 #!/bin/sh
 
-cp README.md docs/README.md
+TECH_DOC="quva_flow_technical_documentation"
 
-grip README.md --title="Quva Flow Technical Documentation" --export docs/README.html
+cp README.md docs/${TECH_DOC}.md
+
+grip README.md --title="Quva Flow Technical Documentation" --export docs/${TECH_DOC}.html
