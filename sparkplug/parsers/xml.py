@@ -8,7 +8,8 @@ from sparkplug.helpers import TagInfo
 
 def _convert_elem_inplace(D, key, tagInfo):
     observedType = type(D[key])
-    expectedType = tagInfo.getTag(key).type
+    tag = tagInfo.getTag(key)
+    expectedType = tag.type
     if not isinstance(D[key], expectedType):
         #print("key '{}' of type {} DOES NOT map to proper type {}".format(key, observedType, expectedType))
         #print("Attempting conversion...")
@@ -22,7 +23,8 @@ def _convert_elem_inplace(D, key, tagInfo):
                                 "'{}' to bool it needs to be either 'true' or 'false'".format(key))
             D[key] = (True if D[key] == "true" else False)
         else:
-            raise Exception("Conversion rule for type {} does not exist!".format(expectedType))
+            raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
+                                                                                            key))
     #else:
         #print("key '{}' maps to proper type {}".format(key, type(D[key])))
 

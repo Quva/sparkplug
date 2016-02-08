@@ -9,6 +9,9 @@ class Tag(object):
         self.type = type
         self.isOptional = isOptional
 
+    def __str__(self):
+        return "Tag(name={},type={},isOptional={})".format(self.name, self.type, self.isOptional)
+
 class TagInfo(object):
 
     numberType = (int, long, float)
@@ -74,3 +77,6 @@ class TagInfo(object):
 
     def keys(self):
         return self.__tagByName.keys()
+
+    def __str__(self):
+        return str(self.__tagByName)
