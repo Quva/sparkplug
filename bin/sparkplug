@@ -4,70 +4,104 @@ import simplejson as json
 import sys
 from argparse import ArgumentParser
 import xmltodict
+from glob import glob
 
 from sparkplug import SparkPlug
 from sparkplug.parsers import xml
 
-parser = ArgumentParser()
+def getArgs():
 
-parser.add_argument("--payload",
-                    required=True,
-                    type=str,
-                    default=None)
+    parser = ArgumentParser()
+    
+    parser.add_argument("--payload",
+                        required=True,
+                        type=str,
+                        default=None)
+    
+    parser.add_argument("--url",
+                        required=False,
+                        type=str,
+                        default="http://localhost:8161/api/message/ImportQueue?type=queue")
+    
+    parser.add_argument("--username",
+                        required=False,
+                        type=str)
+    
+    parser.add_argument("--password",
+                        required=False,
+                        type=str)
+    
+    parser.add_argument("--isDryrun",
+                        required=False,
+                        default=False,
+                        action='store_true')
+    
+    parser.add_argument("--compress",
+                        required=False,
+                        default=False,
+                        action='store_true')
+    
+    parser.add_argument("--save",
+                        default=None,
+                        required=False,
+                        type=str)
+    
+    args = parser.parse_args()
 
-parser.add_argument("--url",
-                    required=False,
-                    type=str,
-                    default="http://localhost:8161/api/message/ImportQueue?type=queue")
+    return args
 
-parser.add_argument("--username",
-                    required=False,
-                    type=str)
+def loadMessage(fileName):
 
-parser.add_argument("--password",
-                    required=False,
-                    type=str)
+    try:
 
-parser.add_argument("--isDryrun",
-                    required=False,
-                    default=False,
-                    action='store_true')
+        if fileName.endswith("json"):
+            message = json.load(open(fileName, 'r'))
+        elif fileName.endswith("xml"):
+            message = xml.load(fileName)
+        else:
+            raise Exception("Unknown file format: {}".format(fileName))
 
-parser.add_argument("--compress",
-                    required=False,
-                    default=False,
-                    action='store_true')
+    except Exception,e:
+        raise Exception("Provided object in file {} ".format(fileName) +
+                        "could not be parsed, reason: {}".format(str(e)))
+    
+        
+    return message
 
-parser.add_argument("--save",
-                    default=None,
-                    required=False,
-                    type=str)
+def resolveFileNames(path):
 
-args = parser.parse_args()
+    fileNames = glob(path)
 
-try:
+    if len(fileNames) == 0:
+        raise Exception("Could not glob anything with: {}".format(path))
 
-    if args.payload.endswith("json"):
-        message = json.load(open(args.payload, 'r'))
-    elif args.payload.endswith("xml"):
-        message = xml.load(args.payload)
-    else:
-        raise Exception("Unknown file format: {}".format(args.payload))
+    return glob(path)
 
-except Exception,e:
-    raise Exception("Provided object in file {} ".format(args.payload) +
-                    "could not be parsed, reason: {}".format(str(e)))
 
-plug = SparkPlug(url=args.url,
-                 username=args.username,
-                 password=args.password)
+def main():
 
-response = plug.post(message, 
-                     isDryrun=args.isDryrun, compress=args.compress)
+    args = getArgs()
 
-if args.save is not None:
-    f = open(args.save, 'w')
-    f.write(dicttoxml(message))
-    f.close()
+    fileNames = resolveFileNames(args.payload)
 
-print response
+    for fileName in fileNames:
+
+        message = loadMessage(fileName)
+        
+        plug = SparkPlug(url=args.url,
+                         username=args.username,
+                         password=args.password)
+        
+        response = plug.post(message, 
+                             isDryrun=args.isDryrun, compress=args.compress)
+        
+        if args.save is not None:
+            f = open(args.save, 'w')
+            f.write(dicttoxml(message))
+            f.close()
+        
+        print "{}: {}".format(fileName, response)
+
+
+if __name__ == "__main__":
+    main()
