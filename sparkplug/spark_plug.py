@@ -193,23 +193,27 @@ class SparkPlug(object):
                             "type {}, but {} found".format(TagInfo.stringType,
                                                            type(properties[fieldName])))
                 
-    def post(self, message, isDryrun=False, compress=False):
+    def post(self, message, isDryrun=False, compress=False, skipCheck=False):
 
-        self.__checkMessage(message)
+        if skipCheck:
+            print("WARNING: message checking disabled!")
+        else:
+            self.__checkMessage(message)
         
         header = message["message_header"]
 
         if header["message_type"] == "event":
-            response = self.__postEvent(message, isDryrun=isDryrun, compress=compress)
+            response = self.__postEvent(message, isDryrun=isDryrun, compress=compress, skipCheck=skipCheck)
 
         elif header["message_type"] == "variables":
-            response = self.__postVariables(message, isDryrun=isDryrun, compress=compress)
+            response = self.__postVariables(message, isDryrun=isDryrun, compress=compress, skipCheck=skipCheck)
 
         elif header["message_type"] == "analysis-request-event":
-            response = self.__postAnalysisRequest(message, isDryrun, compress=compress)
+            response = self.__postAnalysisRequest(message, isDryrun, compress=compress, skipCheck=skipCheck)
 
         elif header["message_type"] == "event-update-notification":
-            response = self.__postEventUpdateNotification(message, isDryrun, compress=compress)
+            response = self.__postEventUpdateNotification(message, isDryrun, compress=compress, 
+                                                          skipCheck=skipCheck)
 
         else:
             raise Exception("Wrong message_type " +
@@ -217,35 +221,48 @@ class SparkPlug(object):
 
         return response
 
-    def __postEvent(self, message, isDryrun=False, compress=False):
+    def __postEvent(self, message, isDryrun=False, compress=False, skipCheck=False):
 
         # Check that measurements json is valid
-        self.__checkEvent(message)
-        
+        if skipCheck:
+            pass
+        else:
+            self.__checkEvent(message)
+            
+
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
         
         return response
 
-    def __postVariables(self, message, isDryrun=False, compress=False):
+    def __postVariables(self, message, isDryrun=False, compress=False, skipCheck=False):
 
         # Check that measurements json is valid
-        self.__checkVariables(message)
+        if skipCheck:
+            pass
+        else:
+            self.__checkVariables(message)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
         return response
 
-    def __postAnalysisRequest(self, message, isDryrun=False, compress=False):
+    def __postAnalysisRequest(self, message, isDryrun=False, compress=False, skipCheck=False):
         
-        self.__checkAnalysisRequest(message)
+        if skipCheck:
+            pass
+        else:
+            self.__checkAnalysisRequest(message)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
         return response
 
-    def __postEventUpdateNotification(self, message, isDryrun=False, compress=False):
+    def __postEventUpdateNotification(self, message, isDryrun=False, compress=False, skipCheck=False):
 
-        self.__checkEventUpdateNotification(message)
+        if skipCheck:
+            pass
+        else:
+            self.__checkEventUpdateNotification(message)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
