@@ -22,6 +22,10 @@ def getArgs():
                         required=False,
                         type=str,
                         default="http://localhost:8161/api/message/ImportQueue?type=queue")
+
+    parser.add_argument("--skipCheck",
+                        required=False,
+                        action="store_true")
     
     parser.add_argument("--username",
                         required=False,
@@ -61,7 +65,7 @@ def loadMessage(fileName):
         else:
             raise Exception("Unknown file format: {}".format(fileName))
 
-    except Exception,e:
+    except Exception as e:
         raise Exception("Provided object in file {} ".format(fileName) +
                         "could not be parsed, reason: {}".format(str(e)))
     
@@ -93,7 +97,9 @@ def main():
                          password=args.password)
         
         response = plug.post(message, 
-                             isDryrun=args.isDryrun, compress=args.compress)
+                             isDryrun=args.isDryrun, 
+                             compress=args.compress,
+                             skipCheck=args.skipCheck)
         
         if args.save is not None:
             f = open(args.save, 'w')

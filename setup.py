@@ -1,12 +1,9 @@
 # coding=utf-8
 
-from ez_setup import use_setuptools
-use_setuptools()
-
 from setuptools import setup,find_packages
 
 setup( name         = 'sparkplug',
-       version      = '1.3.1',
+       version      = '2.0.0',
        description  = 'Sparkplug',
        author       = 'Quva Oy',
        url          = 'https://github.com/Quva/sparkplug.git',

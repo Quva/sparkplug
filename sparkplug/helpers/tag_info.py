@@ -1,5 +1,7 @@
 
 from collections import OrderedDict
+import sys
+from .helpers import dictContains
 
 class Tag(object):
 
@@ -14,12 +16,26 @@ class Tag(object):
 
 class TagInfo(object):
 
-    numberType = (int, long, float)
-    stringType = basestring
-    objectType = (dict, OrderedDict)
-    listType   = list
-    boolType   = bool
-    noneType   = type(None)
+    __pyMajorVersion = sys.version_info[0]
+
+    if __pyMajorVersion == 2:
+
+        numberType = (int, long, float)
+        stringType = basestring
+        objectType = (dict, OrderedDict)
+        listType   = list
+        boolType   = bool
+        noneType   = type(None)
+        
+    elif __pyMajorVersion >= 3:
+
+        numberType = (int, float)
+        stringType = str
+        objectType = (dict, OrderedDict)
+        listType   = list
+        boolType   = bool
+        noneType   = type(None)
+    
 
     def __init__(self):
         
@@ -70,7 +86,7 @@ class TagInfo(object):
         
     def getTag(self, name):
 
-        if not self.__tagByName.has_key(name):
+        if not dictContains(self.__tagByName, name):
             raise Exception("TagInfo does not have type information for key '{}'".format(name))
         
         return self.__tagByName[name]
