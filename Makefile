@@ -1,5 +1,5 @@
 
-PROG := python setup.py
+PROG := python3 setup.py
 
 .PHONY : clean build test install default release
 
@@ -15,6 +15,7 @@ build:
 
 test:
 	nosetests-2.7 -v
+	nosetests-3.4 -v
 
 install:
 	$(PROG) install
