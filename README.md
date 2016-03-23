@@ -202,12 +202,13 @@ Variables Message should be sent just once to the service so as to register them
   "message_body": {
     "variables": [
       {
-        "variable_unit": null, 
-        "variable_is_txt": true, 
-        "variable_source_id": "<country>/<site>/<unit>", 
-        "variable_name": "<localname>"
+        "variable_unit": "m/s",
+        "variable_is_txt": false,
+        "variable_source_id": "factory_X",
+        "variable_name": "tagABC"
+        "variable_description": "Machine Speed"
         "variable_properties": {
-          "source_table_field": "<fieldname>", 
+          "source_table_field": "<fieldname>",
           "source_table": "<tablename>"
         }, 
       },
