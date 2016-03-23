@@ -202,7 +202,7 @@ class SparkPlug(object):
         
         header = message["message_header"]
 
-        if header["message_type"] == "event":
+        if header["message_type"] in ["event", "event-update"]:
             response = self.__postEvent(message, isDryrun=isDryrun, compress=compress, skipCheck=skipCheck)
 
         elif header["message_type"] == "variables":

@@ -43,7 +43,7 @@ class TagInfo(object):
 
                 ("message_header", Tag(type=self.objectType, isOptional=False)),
                 ("message_type", Tag(type=self.stringType, isOptional=False)),
-                ("message_id", Tag(type=self.stringType, isOptional=False)),
+                ("message_id", Tag(type=self.stringType, isOptional=True)),
                 ("message_sender_id", Tag(type=self.stringType, isOptional=False)),
                 ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
                 ("message_body", Tag(type=self.objectType, isOptional=False)),
