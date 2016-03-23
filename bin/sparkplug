@@ -106,7 +106,7 @@ def main():
             f.write(dicttoxml(message))
             f.close()
         
-        print "{}: {}".format(fileName, response)
+        print("{}: {}".format(fileName, response))
 
 
 if __name__ == "__main__":

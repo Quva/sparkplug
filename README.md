@@ -186,6 +186,7 @@ The list inside the "variables" field contains a list of objects with the follow
 | variable_name       | String  | YES       | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
 | variable_unit       | String  | NO        | Scientific unit (for example SI) for the variable      |
 | variable_is_txt     | Boolean | YES       | Flag to denote whether the the variable should be treated as text or number. |
+| variable_description | String | YES       | A human-readable description, which is used in the UI. |
 | variable_properties | Map     | NO        | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
 
 Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:
