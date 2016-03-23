@@ -3,7 +3,7 @@
 from setuptools import setup,find_packages
 
 setup( name         = 'sparkplug',
-       version      = '2.0.1',
+       version      = '2.0.2',
        description  = 'Sparkplug',
        author       = 'Quva Oy',
        url          = 'https://github.com/Quva/sparkplug.git',
