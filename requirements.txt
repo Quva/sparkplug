@@ -1,5 +1,5 @@
 argparse
-requests
+requests>=2.4.2
 simplejson
 nose
 xmltodict
