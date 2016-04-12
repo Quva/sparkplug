@@ -49,11 +49,11 @@ class TagInfo(object):
                 ("message_body", Tag(type=self.objectType, isOptional=False)),
                 ("message_reply", Tag(type=self.objectType, isOptional=True)),
                 
-                ("event", Tag(type=self.objectType, isOptional=False)),
+                ("event", Tag(type=self.objectType, isOptional=True)),
                 ("event_id", Tag(type=self.stringType, isOptional=False)),
                 ("event_type", Tag(type=self.stringType, isOptional=False)),
-                ("event_start_time", Tag(type=self.stringType, isOptional=False)),
-                ("event_stop_time", Tag(type=self.stringType, isOptional=False)),
+                ("event_start_time", Tag(type=self.stringType, isOptional=True)),
+                ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
                 ("event_properties", Tag(type=self.objectType, isOptional=True)),
                 ("event_links_to", Tag(type=self.listType, isOptional=True)),
 

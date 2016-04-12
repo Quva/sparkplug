@@ -61,24 +61,25 @@ class SparkPlug(object):
                             "request_analysis"])
 
         measurements = body["measurements"]
-        event = body["event"]
-
-        self.__checkFields(event, "event",
-                           ["event_id",
-                            "event_type",
-                            "event_start_time",
-                            "event_stop_time",
-                            "event_properties",
-                            "event_links_to"])
+        
+        if "event" in body:
+            event = body["event"]
+            
+            self.__checkFields(event, "event",
+                               ["event_id",
+                                "event_type",
+                                "event_start_time",
+                                "event_stop_time",
+                                "event_properties",
+                                "event_links_to"])
     
 
-        # If event properties are present, check them
-        if dictContains(event, "event_properties"):
-            event_properties = event["event_properties"]
+            # If event properties are present, check them
+            if dictContains(event, "event_properties"):
+                event_properties = event["event_properties"]
             
-            self.__checkProperties(event_properties, "event_properties")
-        
-        
+                self.__checkProperties(event_properties, "event_properties")
+                
         for measurementIdx, measurement in enumerate(measurements):
             
             self.__checkFields(measurement, "measurement", 
