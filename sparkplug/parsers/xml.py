@@ -29,8 +29,8 @@ def _convert_elem_inplace(D, key, tagInfo):
         #print("key '{}' maps to proper type {}".format(key, type(D[key])))
 
 def _convert_dict_inplace_recursively(D, tagInfo):
-    
-    keys = copy.deepcopy(D.keys())
+
+    keys = copy.deepcopy(list(D.keys()))
 
     for key in keys:
 
@@ -65,12 +65,6 @@ def load(fileName):
     
     message = message["message"]
 
-    #keys = copy.deepcopy(header.keys())
-
-    #for key in keys:
-    #    if key.startswith("@"):
-    #        del header[key]
-        
     _convert_dict_inplace_recursively(message, tagInfo)
 
     f.close()

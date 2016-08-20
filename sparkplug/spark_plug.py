@@ -29,7 +29,7 @@ class SparkPlug(object):
         self.__url = url
 
         self.__tagInfo = TagInfo()
-
+        
     def __checkMessage(self, message):
 
         if not isinstance(message, TagInfo.objectType):
@@ -193,7 +193,10 @@ class SparkPlug(object):
             raise Exception("Property {}['{}'] needs to be a of ".format(propName, fieldName) +
                             "type {}, but {} found".format(TagInfo.stringType,
                                                            type(properties[fieldName])))
-                
+
+    def validate(self, message):
+        self.post(message, isDryrun=True)
+        
     def post(self, message, isDryrun=False, compress=False, skipCheck=False):
 
         if skipCheck:
