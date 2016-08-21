@@ -29,7 +29,7 @@ class SparkPlug(object):
         self.__url = url
 
         self.__tagInfo = TagInfo()
-
+        
     def __checkMessage(self, message):
 
         if not isinstance(message, TagInfo.objectType):
@@ -53,7 +53,7 @@ class SparkPlug(object):
     def __checkEvent(self, message):
 
         body = message['message_body']
-        
+
         # Event message body needs to have event and measurements fields
         self.__checkFields(body, "message_body", 
                            ["event",
@@ -61,24 +61,25 @@ class SparkPlug(object):
                             "request_analysis"])
 
         measurements = body["measurements"]
-        event = body["event"]
-
-        self.__checkFields(event, "event",
-                           ["event_id",
-                            "event_type",
-                            "event_start_time",
-                            "event_stop_time",
-                            "event_properties",
-                            "event_links_to"])
+        
+        if "event" in body:
+            event = body["event"]
+            
+            self.__checkFields(event, "event",
+                               ["event_id",
+                                "event_type",
+                                "event_start_time",
+                                "event_stop_time",
+                                "event_properties",
+                                "event_links_to"])
     
 
-        # If event properties are present, check them
-        if dictContains(event, "event_properties"):
-            event_properties = event["event_properties"]
+            # If event properties are present, check them
+            if dictContains(event, "event_properties"):
+                event_properties = event["event_properties"]
             
-            self.__checkProperties(event_properties, "event_properties")
-        
-        
+                self.__checkProperties(event_properties, "event_properties")
+                
         for measurementIdx, measurement in enumerate(measurements):
             
             self.__checkFields(measurement, "measurement", 
@@ -192,7 +193,10 @@ class SparkPlug(object):
             raise Exception("Property {}['{}'] needs to be a of ".format(propName, fieldName) +
                             "type {}, but {} found".format(TagInfo.stringType,
                                                            type(properties[fieldName])))
-                
+
+    def validate(self, message):
+        self.post(message, isDryrun=True)
+        
     def post(self, message, isDryrun=False, compress=False, skipCheck=False):
 
         if skipCheck:

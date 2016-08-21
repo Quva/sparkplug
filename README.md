@@ -241,8 +241,8 @@ Event Messages are sent when a new event happens, or an old one gets updated. Th
 |------------------|--------|-----------|--------------------------------------------------------------|
 | event_id         | String | YES       | Unique string for every event                                |
 | event_type       | String | YES       | Groups similar events together                               |
-| event_start_time | Date   | YES       | What is the start time of the event                          |
-| event_stop_time  | Date   | YES       | What is the stop time of the event                           |
+| event_start_time | Date   | NO       | What is the start time of the event                          |
+| event_stop_time  | Date   | NO       | What is the stop time of the event                           |
 | event_properties | Map    | NO        | Map of properties for the event. Can store at most 100 keys. |
 
 Along with the event information comes the measurements, given in a separate field `measurements`. Inside `measurements` there is a list of objects with the following fields:

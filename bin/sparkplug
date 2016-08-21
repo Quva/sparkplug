@@ -95,7 +95,7 @@ def main():
         plug = SparkPlug(url=args.url,
                          username=args.username,
                          password=args.password)
-        
+
         response = plug.post(message, 
                              isDryrun=args.isDryrun, 
                              compress=args.compress,
