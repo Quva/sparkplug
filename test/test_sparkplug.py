@@ -47,6 +47,11 @@ class SparkPlugTest(unittest.TestCase):
                             "message_body": []})
 
     @raises(Exception)
+    def test_message_header_missing_message_sender_id(self):
+        
+        self.plug.validate("test/test/bad_event.json")
+        
+    @raises(Exception)
     def test_variables_missing_variables_raises(self):
 
         message = json.load(

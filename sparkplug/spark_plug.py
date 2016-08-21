@@ -53,7 +53,7 @@ class SparkPlug(object):
     def __checkEvent(self, message):
 
         body = message['message_body']
-        
+
         # Event message body needs to have event and measurements fields
         self.__checkFields(body, "message_body", 
                            ["event",
