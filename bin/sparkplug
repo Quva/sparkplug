@@ -58,13 +58,15 @@ def loadMessage(fileName):
 
     try:
 
+        f = open(fileName, 'r')
         if fileName.endswith("json"):
-            message = json.load(open(fileName, 'r'))
+            message = json.load(f)
         elif fileName.endswith("xml"):
-            message = xml.load(fileName)
+            message = xml.load(f)
         else:
             raise Exception("Unknown file format: {}".format(fileName))
-
+        f.close()
+        
     except Exception as e:
         raise Exception("Provided object in file {} ".format(fileName) +
                         "could not be parsed, reason: {}".format(str(e)))

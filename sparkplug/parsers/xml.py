@@ -54,21 +54,20 @@ def _convert_dict_inplace_recursively(D, tagInfo):
                 
                 
 
+def loads(s):
 
-def load(fileName):
-    
-    f = open(fileName, 'r')
-    
     tagInfo = TagInfo()
-    
-    message = xmltodict.parse(f.read())
+
+    message = xmltodict.parse(s)
     
     message = message["message"]
 
     _convert_dict_inplace_recursively(message, tagInfo)
-
-    f.close()
-
+    
     return message
+
+    
+def load(f):    
+    return loads(f.read())
 
     

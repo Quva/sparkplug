@@ -8,7 +8,7 @@ from sparkplug import SparkPlug
 
 def test_parse_xml():
     
-    message = xml.load("test/test_event.xml")
+    message = xml.load(open("test/test_event.xml", "r"))
     
     plug = SparkPlug()
 
