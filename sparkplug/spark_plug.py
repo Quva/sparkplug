@@ -70,8 +70,7 @@ class SparkPlug(object):
                                 "event_type",
                                 "event_start_time",
                                 "event_stop_time",
-                                "event_properties",
-                                "event_links_to"])
+                                "event_properties"])
     
 
             # If event properties are present, check them

@@ -55,7 +55,7 @@ class TagInfo(object):
                 ("event_start_time", Tag(type=self.stringType, isOptional=True)),
                 ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
                 ("event_properties", Tag(type=self.objectType, isOptional=True)),
-                ("event_links_to", Tag(type=self.listType, isOptional=True)),
+                #("event_links_to", Tag(type=self.listType, isOptional=True)),
 
                 ("measurements", Tag(type=self.listType, isOptional=False)),
                 ("measurement_time", Tag(type=self.stringType, isOptional=False)),
