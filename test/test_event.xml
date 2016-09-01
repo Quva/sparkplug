@@ -4,14 +4,12 @@
     <measurements>
       <measurement_time>2014-09-21 00:00:00</measurement_time>
       <variable_source_id>source1</variable_source_id>
-      <measurement_quality>0.45</measurement_quality>
       <measurement_num_value>1.5</measurement_num_value>
       <variable_name>name1</variable_name>
     </measurements>
     <measurements>
       <measurement_time>2014-09-22 00:00:00</measurement_time>
       <variable_source_id>source1</variable_source_id>
-      <measurement_quality>0.95</measurement_quality>
       <measurement_num_value>1.6</measurement_num_value>
       <variable_name>name2</variable_name>
     </measurements>

@@ -40,52 +40,54 @@ class TagInfo(object):
     def __init__(self):
         
         self.__tagByName = dict([
-
-                ("message_header", Tag(type=self.objectType, isOptional=False)),
-                ("message_type", Tag(type=self.stringType, isOptional=False)),
-                ("message_id", Tag(type=self.stringType, isOptional=True)),
-                ("message_sender_id", Tag(type=self.stringType, isOptional=False)),
-                ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
-                ("message_body", Tag(type=self.objectType, isOptional=False)),
-                ("message_reply", Tag(type=self.objectType, isOptional=True)),
-                
-                ("event", Tag(type=self.objectType, isOptional=True)),
-                ("event_id", Tag(type=self.stringType, isOptional=False)),
-                ("event_type", Tag(type=self.stringType, isOptional=False)),
-                ("event_start_time", Tag(type=self.stringType, isOptional=True)),
-                ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
-                ("event_properties", Tag(type=self.objectType, isOptional=True)),
-                #("event_links_to", Tag(type=self.listType, isOptional=True)),
-
-                ("measurements", Tag(type=self.listType, isOptional=False)),
-                ("measurement_time", Tag(type=self.stringType, isOptional=False)),
-                ("measurement_quality", Tag(type=self.numberType, isOptional=True)),
-                ("measurement_num_value", Tag(type=self.numberType, isOptional=True)),
-                ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),
-                ("measurement_properties", Tag(type=self.objectType, isOptional=True)),
-
-                ("variables", Tag(type=self.listType, isOptional=False)),
-                ("variable_name", Tag(type=self.stringType, isOptional=False)),
-                ("variable_source_id", Tag(type=self.stringType, isOptional=False)),
-                ("variable_is_txt", Tag(type=self.boolType, isOptional=True)),
-                ("variable_unit", Tag(type=self.stringType, isOptional=True)),
-                ("variable_description", Tag(type=self.stringType, isOptional=True)),
-                ("variable_properties", Tag(type=self.objectType, isOptional=True)),
-
-                ("request_analysis", Tag(type=self.boolType, isOptional=True)),
-                ("analysis", Tag(type=self.objectType, isOptional=False)),
-                ("analysis_properties", Tag(type=self.objectType, isOptional=False)),
-                ("days_back", Tag(type=self.stringType, isOptional=False)),
-                ("event_property_similarity_key", Tag(type=self.stringType, isOptional=False)),
-                
-                ("keyspace", Tag(type=self.stringType, isOptional=False)),
-                ("event_id", Tag(type=self.stringType, isOptional=False))
-
-                ])
+            
+            ("message_header", Tag(type=self.objectType, isOptional=False)),
+            ("message_type", Tag(type=self.stringType, isOptional=False)),
+            ("message_id", Tag(type=self.stringType, isOptional=True)),
+            ("message_sender_id", Tag(type=self.stringType, isOptional=False)),
+            ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
+            ("message_body", Tag(type=self.objectType, isOptional=False)),
+            ("message_reply", Tag(type=self.objectType, isOptional=True)),
+            
+            ("event", Tag(type=self.objectType, isOptional=True)),
+            ("event_id", Tag(type=self.stringType, isOptional=False)),
+            ("event_type", Tag(type=self.stringType, isOptional=False)),
+            ("event_start_time", Tag(type=self.stringType, isOptional=True)),
+            ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
+            ("event_properties", Tag(type=self.objectType, isOptional=True)),
+            #("event_links_to", Tag(type=self.listType, isOptional=True)),
+            
+            ("measurements", Tag(type=self.listType, isOptional=False)),
+            ("measurement_time", Tag(type=self.stringType, isOptional=False)),
+            #("measurement_quality", Tag(type=self.numberType, isOptional=True)),
+            ("measurement_num_value", Tag(type=self.numberType, isOptional=True)),
+            ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),
+            ("measurement_properties", Tag(type=self.objectType, isOptional=True)),
+            
+            ("variables", Tag(type=self.listType, isOptional=False)),
+            ("variable_name", Tag(type=self.stringType, isOptional=False)),
+            ("variable_name_alias", Tag(type=self.stringType, isOptional=True)),
+            ("variable_source_id", Tag(type=self.stringType, isOptional=False)),
+            ("variable_is_txt", Tag(type=self.boolType, isOptional=True)),
+            ("variable_unit", Tag(type=self.stringType, isOptional=True)),
+            ("variable_description", Tag(type=self.stringType, isOptional=True)),
+            ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
+            ("variable_properties", Tag(type=self.objectType, isOptional=True)),
+            
+            ("request_analysis", Tag(type=self.boolType, isOptional=True)),
+            ("analysis", Tag(type=self.objectType, isOptional=False)),
+            ("analysis_properties", Tag(type=self.objectType, isOptional=False)),
+            ("days_back", Tag(type=self.stringType, isOptional=False)),
+            ("event_property_similarity_key", Tag(type=self.stringType, isOptional=False)),
+            
+            ("keyspace", Tag(type=self.stringType, isOptional=False)),
+            ("event_id", Tag(type=self.stringType, isOptional=False))
+            
+        ])
         
         
     def getTag(self, name):
-
+        
         if not dictContains(self.__tagByName, name):
             raise Exception("TagInfo does not have type information for key '{}'".format(name))
         

@@ -85,7 +85,6 @@ class SparkPlug(object):
                                ["variable_name",
                                 "variable_source_id",
                                 "measurement_time",
-                                "measurement_quality",
                                 "measurement_num_value",
                                 "measurement_txt_value",
                                 "measurement_properties"])
@@ -111,9 +110,11 @@ class SparkPlug(object):
             self.__checkFields(variable, "variable", 
                                ["variable_source_id",
                                 "variable_name",
+                                "variable_name_alias",
                                 "variable_is_txt",
                                 "variable_unit",
                                 "variable_description",
+                                "variable_description_alias",
                                 "variable_properties"])
             
             if dictContains(variable, "variable_properties"):
