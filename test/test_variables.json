@@ -12,27 +12,23 @@
 			  "variables": [{
 				    "variable_source_id": "source1",
 		     	  "variable_name": "var1",
-            "variable_name_alias": "Angular speed",
+            "variable_name_alias": "ANG_SPEED",
 		     	  "variable_unit": "rad/s",
 		     	  "variable_description": "Muuttuja, joka kuvaa kulmanopeutta",
             "variable_description_alias": "Variable that measures angular velocity",
 		     	  "variable_is_txt": false,
 		     	  "variable_properties": {
-                "variable_group": "PROCESS",
-				     	  "latitude": "10",
-							  "longitude": "50"
+                "variable_group": "PROCESS"
             }
 		    },{
 				    "variable_source_id": "source2",
 		     		"variable_name": "var2",
-            "variable_name_alias": "Quality",
-		     		"variable_unit": null,
-		     		"variable_description_alias": "Variable that measures quality",
+            "variable_name_alias": "ANG_SPEED",
+		     		"variable_unit": "rad/s",
+		     		"variable_description_alias": "Variable that measures angular velocity",
 		     		"variable_is_txt": false,
 		     		"variable_properties": {
-                "variable_group": "QUALITY",
-				     		"latitude": "10", 
-							  "longitude": "50"
+                "variable_group": "PROCESS"
             }
 		    }]
 	  }
