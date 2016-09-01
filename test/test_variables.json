@@ -25,6 +25,7 @@
 		     		"variable_name": "var2",
             "variable_name_alias": "ANG_SPEED",
 		     		"variable_unit": "rad/s",
+		     		"variable_description": "角速度を測定する変数",
 		     		"variable_description_alias": "Variable that measures angular velocity",
 		     		"variable_is_txt": false,
 		     		"variable_properties": {
