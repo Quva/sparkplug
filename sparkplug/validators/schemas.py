@@ -196,6 +196,8 @@ class SchemasV1(object):
             "schema": variablesMessageBodySchema}}
 
 class SchemasV2(SchemasV1):
+
+    #messageBodySchema = 
     
     variablesMessageBodySchema = {}
     
@@ -203,5 +205,6 @@ class SchemasV2(SchemasV1):
 class Schemas(object):
 
     v1 = SchemasV1
+    v2 = SchemasV2
     latest = SchemasV1
     

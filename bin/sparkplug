@@ -22,10 +22,6 @@ def getArgs():
                         required=False,
                         type=str,
                         default="http://localhost:8161/api/message/ImportQueue?type=queue")
-
-    parser.add_argument("--skipCheck",
-                        required=False,
-                        action="store_true")
     
     parser.add_argument("--username",
                         required=False,
@@ -100,8 +96,7 @@ def main():
 
         response = plug.post(message, 
                              isDryrun=args.isDryrun, 
-                             compress=args.compress,
-                             skipCheck=args.skipCheck)
+                             compress=args.compress)
         
         if args.save is not None:
             f = open(args.save, 'w')

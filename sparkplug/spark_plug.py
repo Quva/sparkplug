@@ -8,7 +8,7 @@ import requests
 import bz2
 import base64
 
-from sparkplug.validators import validate, Schemas
+from sparkplug.validators import validateMessage
 
 class SparkPlug(object):
   
@@ -34,25 +34,10 @@ class SparkPlug(object):
 
         
     def post(self, message, isDryrun=False, compress=False):
-
-        validate(message, Schemas.latest.messageSchema)
         
-        header = message["message_header"]
-
-        ver = message["message_header"].get("message_version", "latest")
-
-        if header["message_type"] in ["event", "event-update"]:
-            validate(message, getattr(Schemas, ver).eventMessageSchema)
-
-        elif header["message_type"] == "variables":
-            validate(message, getattr(Schemas, ver).variablesMessageSchema)
-
-        else:
-            raise Exception("Wrong message_type " +
-                            "({})".format(header["message_type"]))
-
+        validateMessage(message)
+        
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
-
         
         return response
 
