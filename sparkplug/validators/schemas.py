@@ -195,6 +195,17 @@ class SchemasV1(object):
             "required": True,
             "schema": variablesMessageBodySchema}}
 
+    @classmethod
+    def getSchemaForMessageType(schemas, messageType):
+        if messageType in ["event", "event-update"]:
+            return schemas.eventMessageSchema
+        elif messageType == "variables":
+            return schemas.variablesMessageSchema
+        elif messageType == "message":
+            return schemas.messageSchema
+        else:
+            raise Exception("Unknown message type '{}' for schemas '{}'".format(messageType, schemas))
+        
 class SchemasV2(SchemasV1):
 
     #messageBodySchema = 

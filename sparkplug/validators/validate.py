@@ -5,23 +5,17 @@ from .schemas import Schemas
 
 def validateMessage(message):
       
-      validateMessageWithSchema(message, Schemas.latest.messageSchema)
-
+      validateMessageWithSchema(message, Schemas.latest.getSchemaForMessageType("message"))
+      
       header = message["message_header"]
       
       ver = header.get("message_version", "latest")
       
       messageType = header["message_type"]
       
-      if messageType in ["event", "event-update"]:
-            validateMessageWithSchema(message, getattr(Schemas, ver).eventMessageSchema)
-            
-      elif messageType == "variables":
-            validateMessageWithSchema(message, getattr(Schemas, ver).variablesMessageSchema)
-            
-      else:
-            raise Exception("Wrong message_type " +
-                            "({})".format(header["message_type"]))
+      schema = getattr(Schemas, ver).getSchemaForMessageType(header["message_type"])
+      
+      validateMessageWithSchema(message, schema)
       
                             
 def validateMessageWithSchema(obj, schema):
