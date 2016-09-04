@@ -14,7 +14,7 @@
 		     	  "variable_name": "var1",
             "variable_name_alias": "ANG_SPEED",
 		     	  "variable_unit": "rad/s",
-		     	  "variable_description": "Muuttuja, joka kuvaa kulmanopeutta",
+		     	  "variable_description": "Muuttuja, joka mittaa kulmanopeutta",
             "variable_description_alias": "Variable that measures angular velocity",
 		     	  "variable_is_txt": false,
 		     	  "variable_properties": {

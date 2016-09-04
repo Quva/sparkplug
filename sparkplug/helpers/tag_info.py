@@ -39,6 +39,8 @@ class TagInfo(object):
 
     def __init__(self):
         
+        
+        
         self.__tagByName = dict([
             
             ("message_header", Tag(type=self.objectType, isOptional=False)),
@@ -46,20 +48,20 @@ class TagInfo(object):
             ("message_id", Tag(type=self.stringType, isOptional=True)),
             ("message_sender_id", Tag(type=self.stringType, isOptional=False)),
             ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
-            ("message_body", Tag(type=self.objectType, isOptional=False)),
             ("message_reply", Tag(type=self.objectType, isOptional=True)),
+            ("message_version", Tag(type=self.stringType, isOptional=True)),
             
+            ("message_body", Tag(type=self.objectType, isOptional=False)),
+
             ("event", Tag(type=self.objectType, isOptional=True)),
             ("event_id", Tag(type=self.stringType, isOptional=False)),
             ("event_type", Tag(type=self.stringType, isOptional=False)),
             ("event_start_time", Tag(type=self.stringType, isOptional=True)),
             ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
             ("event_properties", Tag(type=self.objectType, isOptional=True)),
-            #("event_links_to", Tag(type=self.listType, isOptional=True)),
             
             ("measurements", Tag(type=self.listType, isOptional=False)),
             ("measurement_time", Tag(type=self.stringType, isOptional=False)),
-            #("measurement_quality", Tag(type=self.numberType, isOptional=True)),
             ("measurement_num_value", Tag(type=self.numberType, isOptional=True)),
             ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),
             ("measurement_properties", Tag(type=self.objectType, isOptional=True)),
@@ -84,6 +86,8 @@ class TagInfo(object):
             ("event_id", Tag(type=self.stringType, isOptional=False))
             
         ])
+
+        
         
         
     def getTag(self, name):
