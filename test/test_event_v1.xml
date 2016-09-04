@@ -22,6 +22,7 @@
   </message_body>
   <message_header>
     <message_sender_id>test</message_sender_id>
+    <message_version>v1</message_version>
     <message_recipient_id>Quva</message_recipient_id>
     <message_type>event</message_type>
     <message_id>mymessageid</message_id>

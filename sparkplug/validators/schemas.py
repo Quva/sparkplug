@@ -1,9 +1,8 @@
 
 from cerberus import Validator
 
-class Schemas(object):
+class SchemasV1(object):
 
-    
     messageReplySchema = {
         "reply_to_topic": {
             "type": "string",
@@ -37,7 +36,19 @@ class Schemas(object):
             "type": "string",
             "required": False}}
 
-    
+    messageSchema = {
+        "message_header": {
+            "type": "dict",
+            "required": True,
+            "schema": messageHeaderSchema
+        },
+        "message_body": {
+            "type": "dict",
+            "required": True
+        }
+    }
+
+
     eventSchema = {
         "event_id": {
             "type": "string",
@@ -78,7 +89,7 @@ class Schemas(object):
     }
 
     
-    variablesSchema = {
+    variableSchema = {
         "variable_name": {
             "type": "string",
             "required": True
@@ -128,7 +139,7 @@ class Schemas(object):
         "variables": {
             "type": "dict",
             "required": False,
-            "schema": variablesSchema
+            "schema": variableSchema
         },
         "request_analysis": {
             "type": "boolean",
@@ -146,26 +157,14 @@ class Schemas(object):
             "type": "list",
             "required": True,
             "schema": measurementSchema
+        },
+        "request_analysis": {
+            "type": "boolean",
+            "required": False
         }
-        #"request_analysis": {
-        #    "type": "bool",
-        #    "required": False
-        #}
     }
 
-    
-    messageSchema = {
-        "message_header": {
-            "type": "dict",
-            "required": True,
-            "schema": messageHeaderSchema
-        },
-        "message_body": {
-            "type": "dict",
-            "required": True
-        }
-    }
-    
+        
     eventMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -181,7 +180,7 @@ class Schemas(object):
         "variables": {
             "type": "list",
             "required": True,
-            "schema": variablesSchema
+            "schema": variableSchema
         }
     }
     
@@ -196,4 +195,13 @@ class Schemas(object):
             "required": True,
             "schema": variablesMessageBodySchema}}
 
+class SchemasV2(SchemasV1):
+    
+    variablesMessageBodySchema = {}
+    
+
+class Schemas(object):
+
+    v1 = SchemasV1
+    latest = SchemasV1
     

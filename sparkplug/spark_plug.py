@@ -27,95 +27,36 @@ class SparkPlug(object):
 
         # Derive url for POST
         self.__url = url
-        
 
-    def __check(self, message, schema):
         
-        res, errors = validate(message, schema)
-        
-        if res != True:
-            raise Exception(str(errors))
-            
-
     def validate(self, message):
         self.post(message, isDryrun=True)
 
         
-    def post(self, message, isDryrun=False, compress=False, skipCheck=False):
+    def post(self, message, isDryrun=False, compress=False):
 
-        if skipCheck:
-            print("WARNING: message checking disabled!")
-        else:
-            self.__check(message, Schemas.messageSchema)
+        validate(message, Schemas.latest.messageSchema)
         
         header = message["message_header"]
 
+        ver = message["message_header"].get("message_version", "latest")
+
         if header["message_type"] in ["event", "event-update"]:
-            response = self.__postEvent(message, isDryrun=isDryrun, compress=compress, skipCheck=skipCheck)
+            validate(message, getattr(Schemas, ver).eventMessageSchema)
 
         elif header["message_type"] == "variables":
-            response = self.__postVariables(message, isDryrun=isDryrun, compress=compress, skipCheck=skipCheck)
-
-        elif header["message_type"] == "analysis-request-event":
-            response = self.__postAnalysisRequest(message, isDryrun, compress=compress, skipCheck=skipCheck)
-
-        elif header["message_type"] == "event-update-notification":
-            response = self.__postEventUpdateNotification(message, isDryrun, compress=compress, 
-                                                          skipCheck=skipCheck)
+            validate(message, getattr(Schemas, ver).variablesMessageSchema)
 
         else:
             raise Exception("Wrong message_type " +
                             "({})".format(header["message_type"]))
 
-        return response
-
-    def __postEvent(self, message, isDryrun=False, compress=False, skipCheck=False):
-
-        # Check that measurements json is valid
-        if skipCheck:
-            pass
-        else:
-            self.__check(message, Schemas.eventMessageSchema)
-            
-
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
+
         
         return response
 
-    def __postVariables(self, message, isDryrun=False, compress=False, skipCheck=False):
-
-        # Check that measurements json is valid
-        if skipCheck:
-            pass
-        else:
-            self.__check(message, Schemas.variablesMessageSchema)
-
-        response = self.__post(message, isDryrun=isDryrun, compress=compress)
-
-        return response
-
-    def __postAnalysisRequest(self, message, isDryrun=False, compress=False, skipCheck=False):
-        
-        if skipCheck:
-            pass
-        else:
-            self.__check(message, Schemas.analysisRequestMessageSchema)
-
-        response = self.__post(message, isDryrun=isDryrun, compress=compress)
-
-        return response
-
-    def __postEventUpdateNotification(self, message, isDryrun=False, compress=False, skipCheck=False):
-
-        if skipCheck:
-            pass
-        else:
-            self.__check(message, Schemas.eventUpdateNotificationMessageSchema)
-            
-        response = self.__post(message, isDryrun=isDryrun, compress=compress)
-        
-        return response
-
+    
     def __post(self, message, isDryrun=False, compress=False):
 
         if not isDryrun:
