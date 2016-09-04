@@ -5,5 +5,5 @@ def validate(obj, schema):
   
       v = Validator(schema)
       res = v.validate(obj)
-      return res, v.errors()
+      return res, v.errors
   

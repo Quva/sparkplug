@@ -8,7 +8,7 @@ import requests
 import bz2
 import base64
 
-from sparkplug.helpers import TagInfo, dictContains
+from sparkplug.validators import validate, Schemas
 
 class SparkPlug(object):
   
@@ -27,182 +27,26 @@ class SparkPlug(object):
 
         # Derive url for POST
         self.__url = url
-
-        self.__tagInfo = TagInfo()
         
-    def __checkMessage(self, message):
 
-        if not isinstance(message, TagInfo.objectType):
-            raise Exception("message needs to be of " +
-                            "type {}, but found {} instead".format(TagInfo.objectType,
-                                                                   type(message)))
-
-        self.__checkFields(message, "message",
-                           ["message_header",
-                            "message_body"])
+    def __check(self, message, schema):
         
-        header = message["message_header"]
-
-        self.__checkFields(header, "message_header",
-                           ["message_type",
-                            "message_sender_id",
-                            "message_recipient_id",
-                            "message_id",
-                            "message_reply"])
-
-    def __checkEvent(self, message):
-
-        body = message['message_body']
-
-        # Event message body needs to have event and measurements fields
-        self.__checkFields(body, "message_body", 
-                           ["event",
-                            "measurements",
-                            "request_analysis"])
-
-        measurements = body["measurements"]
+        res, errors = validate(message, schema)
         
-        if "event" in body:
-            event = body["event"]
+        if res != True:
+            raise Exception(str(errors))
             
-            self.__checkFields(event, "event",
-                               ["event_id",
-                                "event_type",
-                                "event_start_time",
-                                "event_stop_time",
-                                "event_properties"])
-    
-
-            # If event properties are present, check them
-            if dictContains(event, "event_properties"):
-                event_properties = event["event_properties"]
-            
-                self.__checkProperties(event_properties, "event_properties")
-                
-        for measurementIdx, measurement in enumerate(measurements):
-            
-            self.__checkFields(measurement, "measurement", 
-                               ["variable_name",
-                                "variable_source_id",
-                                "measurement_time",
-                                "measurement_num_value",
-                                "measurement_txt_value",
-                                "measurement_properties"])
-
-            if not (dictContains(measurement, "measurement_num_value") ^
-                    dictContains(measurement, "measurement_txt_value")):
-                
-                raise Exception("Measurement " +
-                                "has to contain either " +
-                                "'measurement_txt_value' or 'measurement_num_value': " +
-                                "{}".format(measurement))
-                
-    def __checkVariables(self, message):
-        
-        body = message['message_body']
-        
-        self.__checkField(body, "message_body", "variables")
-        
-        variables = body["variables"]
-        
-        for variable in variables:
-
-            self.__checkFields(variable, "variable", 
-                               ["variable_source_id",
-                                "variable_name",
-                                "variable_name_alias",
-                                "variable_is_txt",
-                                "variable_unit",
-                                "variable_description",
-                                "variable_description_alias",
-                                "variable_properties"])
-            
-            if dictContains(variable, "variable_properties"):
-                variable_properties = variable["variable_properties"]
-                self.__checkProperties(variable_properties, "variable_properties")
-
-    def __checkAnalysisRequest(self, message):
-
-        body = message["message_body"]
-
-        self.__checkField(body, "message_body", "analysis")
-
-        analysis = body["analysis"]
-
-        self.__checkField(analysis, "analysis", "analysis_properties")
-
-        analysis_properties = analysis["analysis_properties"]
-
-        self.__checkFields(analysis_properties, "analysis_properties", 
-                           ["event_id",
-                            "event_type",
-                            "days_back",
-                            "event_property_similarity_key"])
-
-    def __checkEventUpdateNotification(self, message):
-
-        body = message["message_body"]
-        
-        self.__checkFields(body, "message_body", ["keyspace", "event_id"])
-        
-    def __checkFields(self, message, messageName, expectedFields):
-
-        # Check that exactly the expected keys are present and nothing more
-        for observedField in message.keys():
-            if observedField not in expectedFields:
-                raise Exception("{}['{}'] ".format(messageName, observedField) + 
-                                "not expected!")
-
-        for expectedField in expectedFields:
-            self.__checkField(message, messageName, expectedField) 
-
-    def __checkField(self, message, messageName, fieldName):
-        
-        tag = self.__tagInfo.getTag(fieldName)
-
-        if tag.isOptional: 
-            if (dictContains(message, fieldName) and 
-                not (isinstance(message[fieldName], tag.type) or 
-                     isinstance(message[fieldName], TagInfo.noneType))):
-                
-                raise Exception("{}['{}'] needs to be a of ".format(messageName, fieldName) +
-                                "type {}, but {} found".format(tag.type,
-                                                               type(message[fieldName])))
-            
-        else:
-            
-            if not dictContains(message, fieldName):
-                raise Exception("{} is missing field '{}': {}"\
-                                    .format(messageName, fieldName, message.keys()))
-
-            if not isinstance(message[fieldName], tag.type):
-                raise Exception("{}['{}'] needs to be a of ".format(messageName, fieldName) +
-                                "type {}, but {} found".format(tag.type,
-                                                               type(message[fieldName])))
-
-    def __checkProperties(self, properties, propName):
-
-        # Check that every property maps to a string
-        for fieldName in properties.keys():
-            self.__checkProperty(properties, propName, fieldName)
-            
-
-    def __checkProperty(self, properties, propName, fieldName):
-        
-        if not isinstance(properties[fieldName], TagInfo.stringType):
-            raise Exception("Property {}['{}'] needs to be a of ".format(propName, fieldName) +
-                            "type {}, but {} found".format(TagInfo.stringType,
-                                                           type(properties[fieldName])))
 
     def validate(self, message):
         self.post(message, isDryrun=True)
+
         
     def post(self, message, isDryrun=False, compress=False, skipCheck=False):
 
         if skipCheck:
             print("WARNING: message checking disabled!")
         else:
-            self.__checkMessage(message)
+            self.__check(message, Schemas.messageSchema)
         
         header = message["message_header"]
 
@@ -231,7 +75,7 @@ class SparkPlug(object):
         if skipCheck:
             pass
         else:
-            self.__checkEvent(message)
+            self.__check(message, Schemas.eventMessageSchema)
             
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
@@ -244,7 +88,7 @@ class SparkPlug(object):
         if skipCheck:
             pass
         else:
-            self.__checkVariables(message)
+            self.__check(message, Schemas.variablesMessageSchema)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
@@ -255,7 +99,7 @@ class SparkPlug(object):
         if skipCheck:
             pass
         else:
-            self.__checkAnalysisRequest(message)
+            self.__check(message, Schemas.analysisRequestMessageSchema)
 
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
 
@@ -266,10 +110,10 @@ class SparkPlug(object):
         if skipCheck:
             pass
         else:
-            self.__checkEventUpdateNotification(message)
-
+            self.__check(message, Schemas.eventUpdateNotificationMessageSchema)
+            
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
-
+        
         return response
 
     def __post(self, message, isDryrun=False, compress=False):

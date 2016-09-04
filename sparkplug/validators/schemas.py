@@ -68,7 +68,7 @@ class Schemas(object):
             "required": True
         },
         "measurement_num_value": {
-            "type": "double",
+            "type": "float",
             "required": False
         },
         "measurement_txt_value": {
@@ -139,18 +139,18 @@ class Schemas(object):
     eventMessageBodySchema = {
         "event": {
             "type": "dict",
-            "required": False,
+            "required": True,
             "schema": eventSchema
         },
         "measurements": {
-            "type": "dict",
-            "required": False,
+            "type": "list",
+            "required": True,
             "schema": measurementSchema
-        },
-        "request_analysis": {
-            "type": "boolean",
-            "required": False
         }
+        #"request_analysis": {
+        #    "type": "bool",
+        #    "required": False
+        #}
     }
 
     
@@ -158,12 +158,13 @@ class Schemas(object):
         "message_header": {
             "type": "dict",
             "required": True,
-            "schema": messageHeaderSchema},
+            "schema": messageHeaderSchema
+        },
         "message_body": {
             "type": "dict",
-            "required": True,
-            "schema": messageBodySchema}}
-
+            "required": True
+        }
+    }
     
     eventMessageSchema = {
         "message_header": {
@@ -178,7 +179,7 @@ class Schemas(object):
     
     variablesMessageBodySchema = {
         "variables": {
-            "type": "dict",
+            "type": "list",
             "required": True,
             "schema": variablesSchema
         }

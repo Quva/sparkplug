@@ -29,18 +29,6 @@ class SparkPlugTest(unittest.TestCase):
 
         self.plug.validate(message)
 
-    def test_analysis_request(self):
-
-        message = json.load(open("test/test_analysis_request.json", 'r'))
-        
-        self.plug.validate(message)
-
-    def test_event_update_notification(self):
-
-        message = json.load(open("test/test_event_update_notification.json", "r"))
-
-        self.plug.validate(message)
-
     @raises(Exception)
     def test_empty_measurements_raises(self):
 
