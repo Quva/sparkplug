@@ -1,6 +1,5 @@
 
 from cerberus import Validator
-import json
 
 from .schemas import Schemas
 
@@ -16,8 +15,6 @@ def validateMessage(message):
       
       schema = getattr(Schemas, ver).getSchemaForMessageType(header["message_type"])
 
-      print(json.dumps(schema, indent=2))
-      
       validateMessageWithSchema(message, schema)
       
                             
