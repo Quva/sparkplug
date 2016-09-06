@@ -6,9 +6,9 @@ from sparkplug.helpers import TagInfo
 
 from sparkplug import SparkPlug
 
-def test_parse_xml():
+def test_parse_event_v1_xml():
     
-    message = xml.load(open("test/test_event.xml", "r"))
+    message = xml.load(open("test/test_event_v1.xml", "r"))
     
     plug = SparkPlug()
 

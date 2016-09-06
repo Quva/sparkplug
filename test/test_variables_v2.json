@@ -1,0 +1,39 @@
+{
+	  "message_header": {
+        "message_version": "v2",
+			  "message_type": "variables",
+			  "message_sender_id": "mysenderid",
+			  "message_recipient_id": "Quva",
+			  "message_id": "mymessageid",
+			  "message_reply": {
+			  		"reply_to_topic": "foobar"
+			  }
+	  },
+	  "message_body": {
+			  "variables": {
+            "data": [{
+				        "variable_source_id": "source1",
+		     	      "variable_name": "var1",
+                "variable_name_alias": "ANG_SPEED",
+		     	      "variable_unit": "rad/s",
+		     	      "variable_description": "Muuttuja, joka mittaa kulmanopeutta",
+                "variable_description_alias": "Variable that measures angular velocity",
+		     	      "variable_is_txt": false,
+		     	      "variable_properties": {
+                    "variable_group": "PROCESS"
+                }
+		        },{
+				        "variable_source_id": "source2",
+		     		    "variable_name": "var2",
+                "variable_name_alias": "ANG_SPEED",
+		     		    "variable_unit": "rad/s",
+		     		    "variable_description": "角速度を測定する変数",
+		     		    "variable_description_alias": "Variable that measures angular velocity",
+		     		    "variable_is_txt": false,
+		     		    "variable_properties": {
+                    "variable_group": "PROCESS"
+                }
+		        }]
+	      }
+    }
+}

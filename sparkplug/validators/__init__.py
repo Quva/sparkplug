@@ -1,3 +1,3 @@
 
-from .validate import validate
+from .validate import validateMessage
 from .schemas import Schemas

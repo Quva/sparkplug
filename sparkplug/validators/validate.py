@@ -1,9 +1,28 @@
 
 from cerberus import Validator
 
-def validate(obj, schema):
+from .schemas import Schemas
+
+def validateMessage(message):
+      
+      validateMessageWithSchema(message, Schemas.latest.getSchemaForMessageType("message"))
+      
+      header = message["message_header"]
+      
+      ver = header.get("message_version", "latest")
+      
+      messageType = header["message_type"]
+      
+      schema = getattr(Schemas, ver).getSchemaForMessageType(header["message_type"])
+      
+      validateMessageWithSchema(message, schema)
+      
+                            
+def validateMessageWithSchema(obj, schema):
   
       v = Validator(schema)
       res = v.validate(obj)
-      return res, v.errors
+
+      if res is not True:
+            raise Exception(str(v.errors))
   
