@@ -69,7 +69,7 @@ class SchemasV2(SchemasV1):
     }
 
 
-    measurementsMessageBodySchema = {
+    measurementsBodySchema = {
         "product_id": {
             "type": "string",
             "required": True
@@ -90,9 +90,8 @@ class SchemasV2(SchemasV1):
     }
 
     
-    
-    
-    variableSchema = {
+       
+    variableDataSchema = {
         "variable_name": {
             "type": "string",
             "required": True
@@ -126,7 +125,53 @@ class SchemasV2(SchemasV1):
             "required": False
         }
     }
+
     
+    measurementsBodySchema = {
+        "product_id": {
+            "type": "string",
+            "required": True
+        },
+        "product_produced_id": {
+            "type": "string",
+            "required": True
+        },
+        "product_produced_time": {
+            "type": "string",
+            "required": True
+        },        
+        "data": {
+            "type": "list",
+            "required": True,
+            "schema": measurementDataSchema
+        }
+    }
+    
+    
+    variablesBodySchema = {
+        "data": {
+            "type": "list",
+            "required": True,
+            "schema": variableDataSchema
+        }
+    }
+    
+    
+    productBodySchema = {
+        "product_id": {
+            "type": "string",
+            "required": True
+        },
+        "product_group_id": {
+            "type": "string",
+            "required": True
+        },
+        "product_properties": {
+            "type": "dict",
+            "required": False
+        }
+    }
+
     
     messageBodySchema = {
         "measurements": {
@@ -146,25 +191,8 @@ class SchemasV2(SchemasV1):
         }
     }
     
-    eventMessageBodySchema = {
-        "event": {
-            "type": "dict",
-            "required": True,
-            "schema": eventSchema
-        },
-        "measurements": {
-            "type": "list",
-            "required": True,
-            "schema": measurementSchema
-        },
-        "request_analysis": {
-            "type": "boolean",
-            "required": False
-        }
-    }
-
-        
-    eventMessageSchema = {
+    
+    measurementsMessageSchema = {
         "message_header": {
             "type": "dict",
             "required": True,
@@ -172,14 +200,22 @@ class SchemasV2(SchemasV1):
         "message_body": {
             "type": "dict",
             "required": True,
-            "schema": eventMessageBodySchema}}
-
+            "schema": {
+                "measurements": {
+                    "type": "dict",
+                    "required": True,
+                    "schema": measurementsBodySchema
+                }
+            }
+        }
+    }
     
-    variablesMessageBodySchema = {
+    
+    variablesBodySchema = {
         "variables": {
-            "type": "list",
+            "type": "dict",
             "required": True,
-            "schema": variableSchema
+            "schema": variablesBodySchema
         }
     }
     
@@ -192,13 +228,9 @@ class SchemasV2(SchemasV1):
         "message_body": {
             "type": "dict",
             "required": True,
-            "schema": variablesMessageBodySchema}}
+            "schema": variablesBodySchema}}
     
     
-    #messageBodySchema = 
-    
-    #variablesMessageBodySchema = {}
-
     @classmethod
     def getSchemaForMessageType(schemas, messageType):
         if messageType == "measurements":

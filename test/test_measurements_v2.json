@@ -13,7 +13,7 @@
 			 	"measurements": {
 					  "product_id": "my_product_id",
             "product_produced_time": "2015-05-01 00:00:00+0000",
-					  "product_produced_id": "my_product_id_instance_1"
+					  "product_produced_id": "my_product_id_instance_1",
             "data": [{
 						    "measurement_time": "2014-09-21 00:00:00",
 						    "variable_name": "name1",

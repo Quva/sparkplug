@@ -1,5 +1,6 @@
 {
 	  "message_header": {
+        "message_version": "v1",
 			  "message_type": "variables",
 			  "message_sender_id": "mysenderid",
 			  "message_recipient_id": "Quva",
