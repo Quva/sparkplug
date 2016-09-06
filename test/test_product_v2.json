@@ -1,0 +1,22 @@
+{    
+    "message_header": {
+        "message_type": "product",
+        "message_version": "v2",
+        "message_sender_id": "test",
+        "message_recipient_id": "Quva",
+        "message_id": "mymessageid",
+        "message_reply": {
+            "reply_to_topic": "mytopic"
+        }  
+    },
+    "message_body": {
+        "product": {
+            "product_id": "ean_code",
+            "product_group_id": "GROUP_A",
+            "product_properties": {
+                "a": "1",
+                "b": "2"
+            }
+        }
+    }
+}

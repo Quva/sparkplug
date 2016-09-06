@@ -112,6 +112,10 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
+        "variable_group_id": {
+            "type": "string",
+            "required": True
+        },
         "variable_description": {
             "type": "string",
             "required": False
@@ -209,16 +213,7 @@ class SchemasV2(SchemasV1):
             }
         }
     }
-    
-    
-    variablesBodySchema = {
-        "variables": {
-            "type": "dict",
-            "required": True,
-            "schema": variablesBodySchema
-        }
-    }
-    
+
     
     variablesMessageSchema = {
         "message_header": {
@@ -228,7 +223,34 @@ class SchemasV2(SchemasV1):
         "message_body": {
             "type": "dict",
             "required": True,
-            "schema": variablesBodySchema}}
+            "schema": {
+                "variables": {
+                    "type": "dict",
+                    "required": True,
+                    "schema": variablesBodySchema
+                }
+            }
+        }
+    }
+
+    
+    productMessageSchema = {
+        "message_header": {
+            "type": "dict",
+            "required": True,
+            "schema": messageHeaderSchema},
+        "message_body": {
+            "type": "dict",
+            "required": True,
+            "schema": {
+                "product": {
+                    "type": "dict",
+                    "required": True,
+                    "schema": productBodySchema
+                }
+            }
+        }
+    }
     
     
     @classmethod

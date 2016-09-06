@@ -14,6 +14,7 @@
             "data": [{
 				        "variable_source_id": "source1",
 		     	      "variable_name": "var1",
+                "foo": "bar",
                 "variable_name_alias": "ANG_SPEED",
 		     	      "variable_unit": "rad/s",
 		     	      "variable_description": "Muuttuja, joka mittaa kulmanopeutta",

@@ -42,6 +42,12 @@ class SparkPlugTest(unittest.TestCase):
         
         self.plug.validate(message)
 
+    def test_product_message_v2_json(self):
+        
+        message = json.load(open("test/test_product_v2.json", 'r'))
+        
+        self.plug.validate(message)
+
         
     @raises(Exception)
     def test_empty_measurements_v1_raises(self):
