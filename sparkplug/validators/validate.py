@@ -12,8 +12,13 @@ def validateMessage(message):
       ver = header.get("message_version", "latest")
       
       messageType = header["message_type"]
+
+      schemas = getattr(Schemas, ver, None)
+
+      if schemas is None:
+            raise Exception("Unknown schema version: {}".format(ver))
       
-      schema = getattr(Schemas, ver).getSchemaForMessageType(header["message_type"])
+      schema = schemas.getSchemaForMessageType(header["message_type"])
 
       validateMessageWithSchema(message, schema)
       
