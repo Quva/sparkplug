@@ -15,6 +15,7 @@
             "event_id": "201501011234",
             "event_type": "NEW_PRODUCT",
             "event_properties": {
+                "time_material_produced": "2015-01-01 12:23:34",
                 "jobid": "123",
                 "runid": "456"
             },
