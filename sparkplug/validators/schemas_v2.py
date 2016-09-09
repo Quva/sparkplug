@@ -128,15 +128,15 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
-        "product_produced_id": {
+        "event_id": {
             "type": "string",
             "required": True
         },
-        "product_produced_time": {
+        "event_type": {
             "type": "string",
             "required": True
         },
-        "product_properties": {
+        "event_properties": {
             "type": "dict",
             "required": False
         },
