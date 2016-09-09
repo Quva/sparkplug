@@ -17,13 +17,6 @@ class SparkPlugTest(unittest.TestCase):
 
         self.plug.validate(message)
 
-    def test_measurements_message_v2_json(self):
-
-        message = json.load(
-            open("test/test_measurements_v2.json", 'r'))
-        
-        self.plug.validate(message)
-
     def test_event_message_v1_xml(self):
         
         message = xml.load(open("test/test_event_v1.xml", "r"))
@@ -36,6 +29,13 @@ class SparkPlugTest(unittest.TestCase):
         
         self.plug.validate(message)
 
+    def test_measurements_message_v2_json(self):
+
+        message = json.load(
+            open("test/test_measurements_v2.json", 'r'))
+        
+        self.plug.validate(message)
+        
     def test_variables_message_v2_json(self):
         
         message = json.load(open("test/test_variables_v2.json", 'r'))
@@ -45,6 +45,12 @@ class SparkPlugTest(unittest.TestCase):
     def test_product_message_v2_json(self):
         
         message = json.load(open("test/test_product_v2.json", 'r'))
+        
+        self.plug.validate(message)
+
+    def test_job_message_v2_json(self):
+        
+        message = json.load(open("test/test_job_v2.json", 'r'))
         
         self.plug.validate(message)
 

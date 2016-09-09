@@ -238,18 +238,50 @@ class SchemasV2(SchemasV1):
             }
         }
     }
+
+    jobBodySchema = {
+        "job_source_id": {
+            "type": "string",
+            "required": True
+        },
+        "job_data": {
+            "type": "list",
+            "required": True
+        }
+    }
+    
+    jobMessageSchema = {
+        "message_header": {
+            "type": "dict",
+            "required": True,
+            "schema": messageHeaderSchema},
+        "message_body": {
+            "type": "dict",
+            "required": True,
+            "schema": {
+                "job": {
+                    "type": "dict",
+                    "required": True,
+                    "schema": jobBodySchema
+                }
+            }
+        }
+    }
     
     
     @classmethod
     def getSchemaForMessageType(schemas, messageType):
         if messageType == "measurements":
             return schemas.measurementsMessageSchema
-        if messageType == "variables":
+        elif messageType == "variables":
             return schemas.variablesMessageSchema
-        if messageType == "product":
+        elif messageType == "product":
             return schemas.productMessageSchema
-    
-
+        elif messageType == "job":
+            return schemas.jobMessageSchema
+        else:
+            raise Exception("Unknown message type '{}' for schemas '{}'".format(messageType, schemas))
+        
 class Schemas(object):
 
     v1 = SchemasV1
