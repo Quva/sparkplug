@@ -11,10 +11,9 @@
 	  },
 	  "message_body": {
 			 	"measurements": {
-            "product_id": "ean_code",
             "event_id": "201501011234",
-            "event_type": "NEW_PRODUCT",
             "event_properties": {
+                "product_id": "ean_code",
                 "time_material_produced": "2015-01-01 12:23:34",
                 "jobid": "123",
                 "runid": "456"

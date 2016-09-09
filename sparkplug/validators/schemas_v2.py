@@ -124,15 +124,7 @@ class SchemasV2(SchemasV1):
     }
     
     measurementsBodySchema = {
-        "product_id": {
-            "type": "string",
-            "required": True
-        },
         "event_id": {
-            "type": "string",
-            "required": True
-        },
-        "event_type": {
             "type": "string",
             "required": True
         },
