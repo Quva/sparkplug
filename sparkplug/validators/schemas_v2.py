@@ -108,6 +108,20 @@ class SchemasV2(SchemasV1):
         }
     }
 
+    measurementActionsSchema = {
+        "preclean_variable_groups": {
+            "type": "list",
+            "required": False
+        },
+        "request_analysis": {
+            "type": "boolean",
+            "required": False
+        },
+        "request_analysis_feedback": {
+            "type": "boolean",
+            "required": False
+        }
+    }
     
     measurementsBodySchema = {
         "product_id": {
@@ -126,16 +140,21 @@ class SchemasV2(SchemasV1):
             "type": "dict",
             "required": False
         },
-        "data": {
+        "measurement_data": {
             "type": "list",
             "required": True,
             "schema": measurementDataSchema
+        },
+        "actions": {
+            "type": "dict",
+            "required": False,
+            "schema": measurementActionsSchema
         }
     }
     
     
     variablesBodySchema = {
-        "data": {
+        "variable_data": {
             "type": "list",
             "required": True,
             "schema": variableDataSchema

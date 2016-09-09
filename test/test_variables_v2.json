@@ -11,7 +11,7 @@
 	  },
 	  "message_body": {
 			  "variables": {
-            "data": [{
+            "variable_data": [{
 				        "variable_source_id": "source1",
                 "variable_group": "PROCESS",
 		     	      "variable_name": "var1",

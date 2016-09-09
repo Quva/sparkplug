@@ -11,7 +11,5 @@ tar -C ../ -czvf $package \
     sparkplug/test \
     sparkplug/sparkplug \
     sparkplug/README.md \
-    sparkplug/README.html \
     sparkplug/requirements.txt \
-    sparkplug/setup.py \
-    sparkplug/ez_setup.py
+    sparkplug/setup.py

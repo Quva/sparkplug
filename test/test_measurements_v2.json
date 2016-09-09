@@ -18,7 +18,7 @@
                 "jobid": "123",
                 "runid": "456"
             },
-            "data": [{
+            "measurement_data": [{
                 "measurement_time": "2014-09-21 00:00:00",
                 "variable_name": "name1",
                 "variable_source_id": "source1",
