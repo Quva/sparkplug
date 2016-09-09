@@ -28,7 +28,13 @@
                 "variable_name": "name2",
                 "variable_source_id": "source1",
                 "measurement_num_value": 1.6
-            }]
+            }],
+            "actions": {
+                "preclean_variable_groups": ["QUALITY"],
+                "request_analysis" : true,
+                "request_analysis_feedback" : true
+            }
+            
         }
         
 	  }
