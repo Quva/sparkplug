@@ -6,7 +6,7 @@
 			  "message_recipient_id": "Quva",
 			  "message_id": "mymessageid",
 			  "message_reply": {
-			  		"reply_to_topic": "foobar"
+			  		"reply_to_topic": "mytopic"
 			  }
 	  },
 	  "message_body": {
@@ -21,7 +21,8 @@
                 "variable_description_alias": "Variable that measures angular velocity",
 		     	      "variable_is_txt": false,
 		     	      "variable_properties": {
-                    "variable_group": "PROCESS"
+                    "source_table": "TABLE_A",
+                    "source_column": "COLUMN_X"
                 }
 		        },{
 				        "variable_source_id": "source2",
@@ -33,7 +34,8 @@
 		     		    "variable_description_alias": "Variable that measures angular velocity",
 		     		    "variable_is_txt": false,
 		     		    "variable_properties": {
-                    "variable_group": "PROCESS"
+                    "source_table": "TABLE_A",
+                    "source_column": "COLUMN_Y"
                 }
 		        }]
 	      }

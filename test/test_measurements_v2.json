@@ -11,20 +11,25 @@
 	  },
 	  "message_body": {
 			 	"measurements": {
-					  "product_id": "my_product_id",
-            "product_produced_time": "2015-05-01 00:00:00+0000",
-					  "product_produced_id": "my_product_id_instance_1",
+            "product_id": "ean_code",
+            "product_produced_time": "2014-09-22 00:00:00+0000",
+            "product_produced_id": "ean_code_instance_1",
+            "product_properties": {
+                "jobid": "123",
+                "runid": "456"
+            },
             "data": [{
-						    "measurement_time": "2014-09-21 00:00:00",
-						    "variable_name": "name1",
-					      "variable_source_id": "source1",
-						    "measurement_num_value": 1.5
-				    },{
-						    "measurement_time": "2014-09-22 00:00:00",
-						    "variable_name": "name2",
-					      "variable_source_id": "source1",
-						    "measurement_num_value": 1.6
-				    }]
-	      }
-    }
+                "measurement_time": "2014-09-21 00:00:00",
+                "variable_name": "name1",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.5
+            },{
+                "measurement_time": "2014-09-22 00:00:00",
+                "variable_name": "name2",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.6
+            }]
+        }
+        
+	  }
 }

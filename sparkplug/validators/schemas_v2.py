@@ -67,30 +67,8 @@ class SchemasV2(SchemasV1):
             "required": True
         },
     }
-
-
-    measurementsBodySchema = {
-        "product_id": {
-            "type": "string",
-            "required": True
-        },
-        "product_produced_time": {
-            "type": "string",
-            "required": True
-        },
-        "product_produced_id": {
-            "type": "string",
-            "required": True
-        },
-        "data": {
-            "type": "list",
-            "required": True,
-            "schema": measurementDataSchema
-        }
-    }
-
     
-       
+    
     variableDataSchema = {
         "variable_name": {
             "type": "string",
@@ -143,7 +121,11 @@ class SchemasV2(SchemasV1):
         "product_produced_time": {
             "type": "string",
             "required": True
-        },        
+        },
+        "product_properties": {
+            "type": "dict",
+            "required": False
+        },
         "data": {
             "type": "list",
             "required": True,
@@ -170,11 +152,16 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
+        "product_description_by_language": {
+            "type": "dict",
+            "required": False
+        },
         "product_properties": {
             "type": "dict",
             "required": False
-        }
+        }   
     }
+
 
     
     messageBodySchema = {
