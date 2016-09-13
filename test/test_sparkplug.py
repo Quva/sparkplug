@@ -29,10 +29,10 @@ class SparkPlugTest(unittest.TestCase):
         
         self.plug.validate(message)
 
-    def test_measurements_message_v2_json(self):
+    def test_event_message_v2_json(self):
 
         message = json.load(
-            open("test/test_measurements_v2.json", 'r'))
+            open("test/test_event_v2.json", 'r'))
         
         self.plug.validate(message)
         

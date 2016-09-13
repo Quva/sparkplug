@@ -108,7 +108,7 @@ class SchemasV2(SchemasV1):
         }
     }
 
-    measurementActionsSchema = {
+    eventActionsSchema = {
         "preclean_variable_groups": {
             "type": "list",
             "required": False
@@ -123,7 +123,7 @@ class SchemasV2(SchemasV1):
         }
     }
     
-    measurementsBodySchema = {
+    eventBodySchema = {
         "event_id": {
             "type": "string",
             "required": True
@@ -140,7 +140,7 @@ class SchemasV2(SchemasV1):
         "actions": {
             "type": "dict",
             "required": False,
-            "schema": measurementActionsSchema
+            "schema": eventActionsSchema
         }
     }
     
@@ -176,10 +176,10 @@ class SchemasV2(SchemasV1):
 
     
     messageBodySchema = {
-        "measurements": {
+        "event": {
             "type": "dict",
             "required": False,
-            "schema": measurementsBodySchema
+            "schema": eventBodySchema
         },
         "variables": {
             "type": "dict",
@@ -194,7 +194,7 @@ class SchemasV2(SchemasV1):
     }
     
     
-    measurementsMessageSchema = {
+    eventMessageSchema = {
         "message_header": {
             "type": "dict",
             "required": True,
@@ -203,10 +203,10 @@ class SchemasV2(SchemasV1):
             "type": "dict",
             "required": True,
             "schema": {
-                "measurements": {
+                "event": {
                     "type": "dict",
                     "required": True,
-                    "schema": measurementsBodySchema
+                    "schema": eventBodySchema
                 }
             }
         }
@@ -282,8 +282,8 @@ class SchemasV2(SchemasV1):
     
     @classmethod
     def getSchemaForMessageType(schemas, messageType):
-        if messageType == "measurements":
-            return schemas.measurementsMessageSchema
+        if messageType == "event":
+            return schemas.eventMessageSchema
         elif messageType == "variables":
             return schemas.variablesMessageSchema
         elif messageType == "product":

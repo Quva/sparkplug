@@ -1,6 +1,6 @@
 {
 	  "message_header": {
-			  "message_type": "measurements",
+			  "message_type": "event",
         "message_version": "v2",
 			  "message_sender_id": "test",
 			  "message_recipient_id": "Quva",
@@ -10,7 +10,7 @@
 			  }
 	  },
 	  "message_body": {
-			 	"measurements": {
+			 	"event": {
             "event_id": "201501011234",
             "event_properties": {
                 "product_id": "ean_code",
