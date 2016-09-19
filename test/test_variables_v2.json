@@ -19,8 +19,9 @@
 		     	      "variable_unit": "rad/s",
 		     	      "variable_description": "Muuttuja, joka mittaa kulmanopeutta",
                 "variable_description_alias": "Variable that measures angular velocity",
+                "variable_dimensions": ["x", "y", "z"],
 		     	      "variable_is_txt": false,
-		     	      "variable_properties": {
+		     		    "variable_properties": {
                     "source_table": "TABLE_A",
                     "source_column": "COLUMN_X"
                 }
@@ -36,6 +37,17 @@
 		     		    "variable_properties": {
                     "source_table": "TABLE_A",
                     "source_column": "COLUMN_Y"
+                }
+		        },{
+				        "variable_source_id": "source1",
+                "variable_group": "QUALITY",
+		     		    "variable_name": "var3",
+		     		    "variable_unit": "kg/m^2",
+		     		    "variable_description": "Some quality",
+		     		    "variable_is_txt": false,
+		     		    "variable_properties": {
+                    "source_table": "TABLE_B",
+                    "source_column": "COLUMN_Z"
                 }
 		        }]
 	      }

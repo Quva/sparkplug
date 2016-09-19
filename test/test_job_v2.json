@@ -10,7 +10,7 @@
         }
     },
     "message_body": {
-        "job": {
+        "job_header": {
             "job_source_id": "mysourceid",
             "job_data": [{
                 "job_id": "jobid1",

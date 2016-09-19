@@ -173,8 +173,19 @@ class SchemasV2(SchemasV1):
         }   
     }
 
-
     
+    jobBodySchema = {
+        "job_source_id": {
+            "type": "string",
+            "required": True
+        },
+        "job_data": {
+            "type": "list",
+            "required": True
+        }
+    }
+    
+
     messageBodySchema = {
         "event": {
             "type": "dict",
@@ -190,6 +201,11 @@ class SchemasV2(SchemasV1):
             "type": "dict",
             "required": False,
             "schema": productBodySchema
+        },
+        "job_header": {
+            "type": "dict",
+            "required": False,
+            "schema": jobBodySchema
         }
     }
     
@@ -250,17 +266,6 @@ class SchemasV2(SchemasV1):
         }
     }
 
-    jobBodySchema = {
-        "job_source_id": {
-            "type": "string",
-            "required": True
-        },
-        "job_data": {
-            "type": "list",
-            "required": True
-        }
-    }
-    
     jobMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -270,7 +275,7 @@ class SchemasV2(SchemasV1):
             "type": "dict",
             "required": True,
             "schema": {
-                "job": {
+                "job_header": {
                     "type": "dict",
                     "required": True,
                     "schema": jobBodySchema
