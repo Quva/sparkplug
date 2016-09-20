@@ -6,5 +6,5 @@ class Schemas(object):
     
     v1 = SchemasV1
     v2 = SchemasV2
-    latest = SchemasV1
-    
+    default = SchemasV1
+    latest = SchemasV2

@@ -295,12 +295,8 @@ class SchemasV2(SchemasV1):
             return schemas.productMessageSchema
         elif messageType == "job":
             return schemas.jobMessageSchema
+        elif messageType == "message":
+            return schemas.messageSchema
         else:
             raise Exception("Unknown message type '{}' for schemas '{}'".format(messageType, schemas))
         
-class Schemas(object):
-
-    v1 = SchemasV1
-    v2 = SchemasV2
-    latest = SchemasV1
-    
