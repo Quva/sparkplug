@@ -22,6 +22,8 @@ def _convert_elem_inplace(D, key, tagInfo):
                 raise Exception("in order to convert value " +
                                 "'{}' to bool it needs to be either 'true' or 'false'".format(key))
             D[key] = (True if D[key] == "true" else False)
+        elif expectedType == tagInfo.listType:
+            pass    
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))
