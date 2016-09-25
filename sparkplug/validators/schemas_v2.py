@@ -90,7 +90,7 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
-        "variable_group_id": {
+        "variable_group": {
             "type": "string",
             "required": True
         },

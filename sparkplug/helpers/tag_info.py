@@ -66,7 +66,9 @@ class TagInfo(object):
             ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),
             ("measurement_properties", Tag(type=self.objectType, isOptional=True)),
             
-            ("variables", Tag(type=self.listType, isOptional=False)),
+            ("variables", Tag(type=self.objectType, isOptional=False)),
+            ("variable_data", Tag(type=self.listType, isOptional=False)),
+            ("variable_group", Tag(type=self.stringType, isOptional=False)),
             ("variable_name", Tag(type=self.stringType, isOptional=False)),
             ("variable_name_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_source_id", Tag(type=self.stringType, isOptional=False)),

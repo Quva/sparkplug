@@ -59,6 +59,7 @@ def loadMessage(fileName):
             message = json.load(f)
         elif fileName.endswith("xml"):
             message = xml.load(f)
+            #print(message)
         else:
             raise Exception("Unknown file format: {}".format(fileName))
         f.close()

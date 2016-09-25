@@ -10,6 +10,7 @@ def _convert_elem_inplace(D, key, tagInfo):
     observedType = type(D[key])
     tag = tagInfo.getTag(key)
     expectedType = tag.type
+    #print(observedType, key)
     if not isinstance(D[key], expectedType):
         #print("key '{}' of type {} DOES NOT map to proper type {}".format(key, observedType, expectedType))
         #print("Attempting conversion...")
@@ -22,6 +23,7 @@ def _convert_elem_inplace(D, key, tagInfo):
                 raise Exception("in order to convert value " +
                                 "'{}' to bool it needs to be either 'true' or 'false'".format(key))
             D[key] = (True if D[key] == "true" else False)
+            #print(key, D[key])
         elif expectedType == tagInfo.listType:
             pass    
         else:
