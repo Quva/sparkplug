@@ -60,7 +60,8 @@ class TagInfo(object):
             ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
             ("event_properties", Tag(type=self.objectType, isOptional=True)),
             
-            ("measurements", Tag(type=self.listType, isOptional=False)),
+            ("measurements", Tag(type=self.objectType, isOptional=False)),
+            ("measurement_data", Tag(type=self.listType, isOptional=False)),
             ("measurement_time", Tag(type=self.stringType, isOptional=False)),
             ("measurement_num_value", Tag(type=self.numberType, isOptional=True)),
             ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),

@@ -43,7 +43,7 @@ def _convert_dict_inplace_recursively(D, tagInfo):
             continue
 
         if key not in tagInfo.keys():
-            print("Key '{}' is unknown".format(key))
+            #print("Key '{}' is unknown".format(key))
             continue
 
         _convert_elem_inplace(D, key, tagInfo)
