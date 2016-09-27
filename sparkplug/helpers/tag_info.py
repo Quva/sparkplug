@@ -78,6 +78,16 @@ class TagInfo(object):
             ("variable_description", Tag(type=self.stringType, isOptional=True)),
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
+
+            ("product", Tag(type=self.objectType, isOptional=True)),
+            ("product_id", Tag(type=self.stringType, isOptional=False)),
+            ("product_description_by_language", Tag(type=self.objectType, isOptional=False)),
+            ("product_properties", Tag(type=self.objectType, isOptional=True)),            
+            
+            ("job_header", Tag(type=self.objectType, isOptional=True)),
+            ("job_source_id", Tag(type=self.stringType, isOptional=False)),
+            ("job_properties", Tag(type=self.objectType, isOptional=True)),
+
             
             ("request_analysis", Tag(type=self.boolType, isOptional=True)),
             ("analysis", Tag(type=self.objectType, isOptional=False)),

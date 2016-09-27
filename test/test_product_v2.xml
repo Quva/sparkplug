@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<message>
+  <message_body>
+    <product>
+      <product_id>myproductid</product_id>
+      <product_properties>
+        <weight>1kg</weight>
+      </product_properties>
+      <product_description_by_language>
+        <FIN>Tuote</FIN>
+        <ENG>Product</ENG>
+      </product_description_by_language>
+    </product>
+  </message_body>
+  <message_header>
+    <message_sender_id>test</message_sender_id>
+    <message_version>v2</message_version>
+    <message_recipient_id>Quva</message_recipient_id>
+    <message_type>product</message_type>
+    <message_id>mymessageid</message_id>
+    <message_reply>
+      <reply_to_topic>mytopic</reply_to_topic>
+    </message_reply>
+  </message_header>
+</message>

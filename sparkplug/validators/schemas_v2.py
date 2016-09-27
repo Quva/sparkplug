@@ -159,10 +159,6 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
-        "product_group_id": {
-            "type": "string",
-            "required": True
-        },
         "product_description_by_language": {
             "type": "dict",
             "required": False

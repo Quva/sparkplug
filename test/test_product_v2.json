@@ -12,7 +12,6 @@
     "message_body": {
         "product": {
             "product_id": "ean_code",
-            "product_group_id": "ean_group",
             "product_description_by_language": {
                 "ENG": "Product",
                 "FIN": "Tuote"

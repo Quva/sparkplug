@@ -61,6 +61,12 @@ class SparkPlugTest(unittest.TestCase):
         
         self.plug.validate(message)
 
+    def test_product_message_v2_xml(self):
+        
+        message = xml.load(open("test/test_product_v2.xml", 'r'))
+        
+        self.plug.validate(message)
+
     def test_job_message_v2_json(self):
         
         message = json.load(open("test/test_job_v2.json", 'r'))
