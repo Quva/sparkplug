@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<message>
+  <message_body>
+    <event>
+      <event_id>myeventid</event_id>
+      <event_properties>
+        <product_id>myproductid</product_id>
+        <foo>bar</foo>
+      </event_properties>
+      <measurement_data>
+        <variable_source_id>source1</variable_source_id>
+        <variable_name>var1</variable_name>
+        <measurement_time>2016-01-01 00:11:22</measurement_time>
+        <measurement_num_value>1.1</measurement_num_value>
+      </measurement_data>
+      <measurement_data>
+        <variable_source_id>source2</variable_source_id>
+        <variable_name>var2</variable_name>
+        <measurement_time>2016-01-01 00:11:23</measurement_time>
+        <measurement_num_value>2.1</measurement_num_value>
+      </measurement_data>
+    </event>
+  </message_body>
+  <message_header>
+    <message_sender_id>test</message_sender_id>
+    <message_version>v2</message_version>
+    <message_recipient_id>Quva</message_recipient_id>
+    <message_type>event</message_type>
+    <message_id>mymessageid</message_id>
+    <message_reply>
+      <reply_to_topic>mytopic</reply_to_topic>
+    </message_reply>
+  </message_header>
+</message>

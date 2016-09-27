@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<message>
+  <message_body>
+    <variables>
+      <variable_data>
+        <variable_source_id>source1</variable_source_id>
+        <variable_name>var1</variable_name>
+        <variable_is_txt>false</variable_is_txt>
+        <variable_group>PROCESS</variable_group>
+        <variable_properties>
+          <foo>bar</foo>
+        </variable_properties>
+      </variable_data>
+      <variable_data>
+        <variable_source_id>source2</variable_source_id>
+        <variable_name>var2</variable_name>
+        <variable_is_txt>false</variable_is_txt>
+        <variable_group>PROCESS</variable_group>
+        <variable_properties>
+          <foo>bar</foo>
+        </variable_properties>
+      </variable_data>
+    </variables>
+  </message_body>
+  <message_header>
+    <message_sender_id>test</message_sender_id>
+    <message_version>v2</message_version>
+    <message_recipient_id>Quva</message_recipient_id>
+    <message_type>variables</message_type>
+    <message_id>mymessageid</message_id>
+    <message_reply>
+      <reply_to_topic>mytopic</reply_to_topic>
+    </message_reply>
+  </message_header>
+</message>
