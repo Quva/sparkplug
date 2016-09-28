@@ -46,7 +46,12 @@ def getArgs():
                         default=False,
                         action='store_true')
     
-    parser.add_argument("--save",
+    parser.add_argument("--saveAsXML",
+                        default=None,
+                        required=False,
+                        type=str)
+    
+    parser.add_argument("--saveAsJSON",
                         default=None,
                         required=False,
                         type=str)
@@ -105,11 +110,19 @@ def main():
                              isDryrun=args.isDryrun, 
                              compress=args.compress)
         
-        if args.save is not None:
-            f = open(args.save, 'w')
+        if args.saveAsXML is not None:
+            print("Saving as XML to: {}".format(args.saveAsXML))
+            f = open(args.saveAsXML, 'w')
             f.write(dicttoxml(message))
             f.close()
-        
+
+        if args.saveAsJSON is not None:
+            print("Saving as JSON to: {}".format(args.saveAsJSON))
+            f = open(args.saveAsJSON, 'w')
+            f.write(json.dumps(message, indent=2))
+            f.close()
+            
+            
         print("{}: {}".format(fileName, response))
 
 
