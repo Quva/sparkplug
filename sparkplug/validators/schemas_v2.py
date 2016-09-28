@@ -132,6 +132,14 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
+        "event_start_time": {
+            "type": "string",
+            "required": False
+        },
+        "event_stop_time": {
+            "type": "string",
+            "required": False
+        },
         "event_properties": {
             "type": "dict",
             "required": False
