@@ -33,10 +33,11 @@ class SparkPlug(object):
         self.post(message, isDryrun=True)
 
         
-    def post(self, message, isDryrun=False, compress=False):
+    def post(self, message, isDryrun=False, skipValidation=False, compress=False):
         
-        validateMessage(message)
-        
+        if not skipValidation:
+            validateMessage(message)
+            
         response = self.__post(message, isDryrun=isDryrun, compress=compress)
         
         return response

@@ -40,6 +40,11 @@ def getArgs():
                         required=False,
                         default=False,
                         action='store_true')
+
+    parser.add_argument("--skipValidation",
+                        required=False,
+                        default=False,
+                        action='store_true')
     
     parser.add_argument("--save",
                         default=None,
@@ -95,7 +100,8 @@ def main():
                          username=args.username,
                          password=args.password)
 
-        response = plug.post(message, 
+        response = plug.post(message,
+                             skipValidation=args.skipValidation,
                              isDryrun=args.isDryrun, 
                              compress=args.compress)
         
