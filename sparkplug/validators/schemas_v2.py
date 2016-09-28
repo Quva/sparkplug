@@ -1,6 +1,6 @@
 
 from .schemas_v1 import SchemasV1
-        
+
 class SchemasV2(SchemasV1):
 
     messageReplySchema = {
@@ -9,7 +9,6 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
-
     
     messageHeaderSchema = {
         "message_type": {
@@ -110,7 +109,8 @@ class SchemasV2(SchemasV1):
 
     eventActionsSchema = {
         "preclean_variable_groups": {
-            "type": "list",
+            #"type": "list",
+            "listOrString": True,
             "required": False
         },
         "request_analysis": {
@@ -128,13 +128,17 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
+        "event_type": {
+            "type": "string",
+            "required": False
+        },
         "event_properties": {
             "type": "dict",
             "required": False
         },
         "measurement_data": {
             "type": "list",
-            "required": True,
+            "required": False,
             "schema": measurementDataSchema
         },
         "actions": {

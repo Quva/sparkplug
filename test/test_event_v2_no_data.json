@@ -19,17 +19,6 @@
                 "jobid": "123",
                 "runid": "456"
             },
-            "measurement_data": [{
-                "measurement_time": "2014-09-21 00:00:00",
-                "variable_name": "name1",
-                "variable_source_id": "source1",
-                "measurement_num_value": 1.5
-            },{
-                "measurement_time": "2014-09-22 00:00:00",
-                "variable_name": "name2",
-                "variable_source_id": "source1",
-                "measurement_num_value": 1.6
-            }],
             "actions": {
                 "preclean_variable_groups": ["QUALITY"],
                 "request_analysis" : true,

@@ -10,25 +10,6 @@ class SparkPlugTest(unittest.TestCase):
 
     plug = SparkPlug()
 
-    #def test_event_message_v1_json(self):
-    #
-    #    message = json.load(
-    #        open("test/test_event_v1.json", 'r'))
-    #
-    #    self.plug.validate(message)
-
-    #def test_event_message_v1_xml(self):
-    #    
-    #    message = xml.load(open("test/test_event_v1.xml", "r"))
-    #    
-    #    self.plug.validate(message)
-        
-    #def test_variables_message_v1_json(self):
-    #    
-    #    message = json.load(open("test/test_variables_v1.json", 'r'))
-    #    
-    #    self.plug.validate(message)
-
     def test_event_message_v2_json(self):
 
         message = json.load(
@@ -36,10 +17,24 @@ class SparkPlugTest(unittest.TestCase):
         
         self.plug.validate(message)
         
+    def test_event_message_v2_no_data_json(self):
+        
+        message = json.load(
+            open("test/test_event_v2_no_data.json", 'r'))
+        
+        self.plug.validate(message)
+        
     def test_event_message_v2_xml(self):
 
         message = xml.load(
             open("test/test_event_v2.xml", 'r'))
+        
+        self.plug.validate(message)
+        
+    def test_event_message_v2_no_data_xml(self):
+        
+        message = xml.load(
+            open("test/test_event_v2_no_data.xml", 'r'))
         
         self.plug.validate(message)
         

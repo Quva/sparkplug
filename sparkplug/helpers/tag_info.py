@@ -88,8 +88,12 @@ class TagInfo(object):
             ("job_source_id", Tag(type=self.stringType, isOptional=False)),
             ("job_properties", Tag(type=self.objectType, isOptional=True)),
 
-            
+
+            ("actions", Tag(type=self.objectType, isOptional=True)),
             ("request_analysis", Tag(type=self.boolType, isOptional=True)),
+            ("request_analysis_feedback", Tag(type=self.boolType, isOptional=True)),
+            ("preclean_variable_groups", Tag(type=self.listType, isOptional=True)),
+
             ("analysis", Tag(type=self.objectType, isOptional=False)),
             ("analysis_properties", Tag(type=self.objectType, isOptional=False)),
             ("days_back", Tag(type=self.stringType, isOptional=False)),

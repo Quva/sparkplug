@@ -8,18 +8,6 @@
         <product_id>myproductid</product_id>
         <foo>bar</foo>
       </event_properties>
-      <measurement_data>
-        <variable_source_id>source1</variable_source_id>
-        <variable_name>var1</variable_name>
-        <measurement_time>2016-01-01 00:11:22</measurement_time>
-        <measurement_num_value>1.1</measurement_num_value>
-      </measurement_data>
-      <measurement_data>
-        <variable_source_id>source2</variable_source_id>
-        <variable_name>var2</variable_name>
-        <measurement_time>2016-01-01 00:11:23</measurement_time>
-        <measurement_num_value>2.1</measurement_num_value>
-      </measurement_data>
       <actions>
         <preclean_variable_groups>PROCESS</preclean_variable_groups>
         <request_analysis>true</request_analysis>

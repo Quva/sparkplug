@@ -13,19 +13,23 @@ def _convert_elem_inplace(D, key, tagInfo):
     #print(observedType, key)
     if not isinstance(D[key], expectedType):
         #print("key '{}' of type {} DOES NOT map to proper type {}".format(key, observedType, expectedType))
-        #print("Attempting conversion...")
         if expectedType == tagInfo.numberType:
+            #print(" => Converting to float")
             D[key] = float(D[key])
         elif expectedType == tagInfo.stringType:
+            #print(" => Converting to string")
             D[key] = str(D[key])
         elif expectedType == tagInfo.boolType:
+            #print(" => Converting to bool")
             if D[key] not in ["true","false"]:
                 raise Exception("in order to convert value " +
                                 "'{}' to bool it needs to be either 'true' or 'false'".format(key))
             D[key] = (True if D[key] == "true" else False)
             #print(key, D[key])
         elif expectedType == tagInfo.listType:
-            pass    
+            # Fallback of list is string
+            #print(" => Converting to string")
+            D[key] = str(D[key])
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))
