@@ -12,7 +12,10 @@ def _convert_elem_inplace(D, key, tagInfo):
     expectedType = tag.type
     #print(observedType, key)
     if not isinstance(D[key], expectedType):
-        #print("key '{}' of type {} DOES NOT map to proper type {}".format(key, observedType, expectedType))
+        #print("key '{}' of type {} having value '{}' DOES NOT map to proper type {}".format(key,
+        #                                                                                    observedType,
+        #                                                                                    D[key],
+        #                                                                                    expectedType))
         if expectedType == tagInfo.numberType:
             #print(" => Converting to float")
             D[key] = float(D[key])
@@ -28,8 +31,8 @@ def _convert_elem_inplace(D, key, tagInfo):
             #print(key, D[key])
         elif expectedType == tagInfo.listType:
             # Fallback of list is string
-            #print(" => Converting to string")
-            D[key] = str(D[key])
+            #print(" => Converting to list of one")
+            D[key] = list(D[key])
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))
