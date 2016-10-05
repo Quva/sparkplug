@@ -32,7 +32,7 @@ def _convert_elem_inplace(D, key, tagInfo):
         elif expectedType == tagInfo.listType:
             # Fallback of list is string
             #print(" => Converting to list of one")
-            D[key] = list(D[key])
+            D[key] = [D[key]]
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))

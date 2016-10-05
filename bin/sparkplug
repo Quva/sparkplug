@@ -88,23 +88,26 @@ def resolveFileNames(path):
     if len(fileNames) == 0:
         raise Exception("Could not glob anything with: {}".format(path))
 
-    return glob(path)
+    return fileNames
 
 
 def main():
-
+    
     args = getArgs()
-
+    
     fileNames = resolveFileNames(args.payload)
 
+    print(fileNames)
+    
+    
     for fileName in fileNames:
-
+        
         message = loadMessage(fileName)
         
         plug = SparkPlug(url=args.url,
                          username=args.username,
                          password=args.password)
-
+        
         response = plug.post(message,
                              skipValidation=args.skipValidation,
                              isDryrun=args.isDryrun, 
