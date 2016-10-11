@@ -12,12 +12,14 @@ def test_parse_event_v2_xml():
     
     plug = SparkPlug()
 
-    plug.post(message, isDryrun=True)
+    plug.validate(message)
 
+    assert_true(message["message_body"]["event"]["actions"]["preclean_variable_groups"] == ["PROCESS"])
+    
 def test_parse_variables_v2_xml():
     
     message = xml.load(open("test/test_variables_v2.xml", "r"))
     
     plug = SparkPlug()
 
-    plug.post(message, isDryrun=True)
+    plug.validate(message)
