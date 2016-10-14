@@ -11,6 +11,7 @@ def _convert_elem_inplace(D, key, tagInfo):
     tag = tagInfo.getTag(key)
     expectedType = tag.type
     #print(observedType, key)
+
     if not isinstance(D[key], expectedType):
         #print("key '{}' of type {} having value '{}' DOES NOT map to proper type {}".format(key,
         #                                                                                    observedType,
@@ -36,16 +37,20 @@ def _convert_elem_inplace(D, key, tagInfo):
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))
-    #else:
-        #print("key '{}' maps to proper type {}".format(key, type(D[key])))
-
+        
+    # Properties objects should contain only key-value pairs of strings
+    if key in ["event_properties", "measurement_properties", "variable_properties"]:
+        D[key] = dict(filter(lambda t: isinstance(t[1], str), D[key].items()))
+            
 def _convert_dict_inplace_recursively(D, tagInfo):
 
     keys = copy.deepcopy(list(D.keys()))
-
+    #print(keys)
+    
     for key in keys:
 
         if key.startswith("@"):
+            #print("Found key that starts with @: '{}' -> '{}'. Deleting...".format(key, D[key]))
             del D[key]
             continue
 
@@ -56,6 +61,7 @@ def _convert_dict_inplace_recursively(D, tagInfo):
         _convert_elem_inplace(D, key, tagInfo)
 
         if isinstance(D[key], TagInfo.objectType):
+            #print("Key '{}' maps to an object".format(key))
             _convert_dict_inplace_recursively(D[key], tagInfo)
 
         if isinstance(D[key], tagInfo.listType):
@@ -73,6 +79,8 @@ def loads(s):
     
     message = message["message"]
 
+    #print(message)
+    
     _convert_dict_inplace_recursively(message, tagInfo)
     
     return message
