@@ -10,6 +10,7 @@ import json
 from sparkplug.parsers import xml
 
 from sparkplug.validators import validateMessage
+from sparkplug.converters import convertMessageInPlace
 
 class SparkPlug(object):
   
@@ -29,15 +30,23 @@ class SparkPlug(object):
         # Derive url for POST
         self.__url = url
 
-    def loadJSON(self, fileName, doValidate = False):
-        return self.__load(json, fileName, doValidate = doValidate)
+    def loadJSON(self, fileName, doValidate=False):
+        return self.__load(json.load, open(fileName, "r"), doValidate=doValidate)
 
-    def loadXML(self, fileName, doValidate = False):
-        return self.__load(xml, fileName, doValidate = doValidate)
+    def loadXML(self, fileName, doValidate=False):
+        return self.__load(xml.load, open(fileName, "r"), doValidate=doValidate)
 
-    def __load(self, loader, fileName, doValidate = False):
+    def loadJSONString(self, payload, doValidate=False):
+        return self.__load(json.loads, payload, doValidate=doValidate)
         
-        message = loader.load(open(fileName, "r"))
+    def loadXMLString(self, payload, doValidate=False):
+        return self.__load(xml.loads, payload, doValidate=doValidate)
+        
+    def __load(self, load_f, loadable, doValidate=False):
+        
+        message = load_f(loadable)
+        
+        convertMessageInPlace(message)
         
         if doValidate:
             self.validate(message)

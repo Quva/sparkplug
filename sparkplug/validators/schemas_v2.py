@@ -57,14 +57,26 @@ class SchemasV2(SchemasV1):
             "type": "float",
             "required": False
         },
-        "variable_name": {
+        "variable_id": {
             "type": "string",
             "required": True
         },
-        "variable_source_id": {
+        "measurement_threshold_min": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_target": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_threshold_max": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_timeuuid": {
             "type": "string",
             "required": True
-        },
+        }
     }
     
     
@@ -109,7 +121,6 @@ class SchemasV2(SchemasV1):
 
     eventActionsSchema = {
         "preclean_variable_groups": {
-            #"type": "list",
             "listOrString": True,
             "required": False
         },
