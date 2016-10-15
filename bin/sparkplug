@@ -4,6 +4,7 @@ import simplejson as json
 import sys
 from argparse import ArgumentParser
 import xmltodict
+from dicttoxml import dicttoxml
 from glob import glob
 
 from sparkplug import SparkPlug
@@ -41,7 +42,12 @@ def getArgs():
                         default=False,
                         action='store_true')
 
-    parser.add_argument("--skipValidation",
+    parser.add_argument("--doValidate",
+                        required=False,
+                        default=False,
+                        action='store_true')
+    
+    parser.add_argument("--doCompress",
                         required=False,
                         default=False,
                         action='store_true')
@@ -60,27 +66,6 @@ def getArgs():
 
     return args
 
-def loadMessage(fileName):
-
-    try:
-
-        f = open(fileName, 'r')
-        if fileName.endswith("json"):
-            message = json.load(f)
-        elif fileName.endswith("xml"):
-            message = xml.load(f)
-            #print(json.dumps(message))
-        else:
-            raise Exception("Unknown file format: {}".format(fileName))
-        f.close()
-        
-    except Exception as e:
-        raise Exception("Provided object in file {} ".format(fileName) +
-                        "could not be parsed, reason: {}".format(str(e)))
-    
-        
-    return message
-
 def resolveFileNames(path):
 
     fileNames = glob(path)
@@ -98,21 +83,27 @@ def main():
     fileNames = resolveFileNames(args.payload)
 
     print(fileNames)
-    
-    
-    for fileName in fileNames:
         
-        message = loadMessage(fileName)
+    for fileName in fileNames:
         
         plug = SparkPlug(url=args.url,
                          username=args.username,
                          password=args.password)
         
-        response = plug.post(message,
-                             skipValidation=args.skipValidation,
-                             isDryrun=args.isDryrun, 
-                             compress=args.compress)
+        message = plug.load(fileName)        
         
+        if args.doValidate:
+            plug.validate(message)
+            print("Validation pased")
+
+        if args.doCompress:
+            plug.compressInPlace(message)
+            print("Message compressed")
+
+        if not args.isDryrun:
+            response = plug.post(message)
+            print("{}: {}".format(fileName, response))
+            
         if args.saveAsXML is not None:
             print("Saving as XML to: {}".format(args.saveAsXML))
             f = open(args.saveAsXML, 'w')
@@ -126,8 +117,7 @@ def main():
             f.close()
             
             
-        print("{}: {}".format(fileName, response))
-
+        
 
 if __name__ == "__main__":
     main()
