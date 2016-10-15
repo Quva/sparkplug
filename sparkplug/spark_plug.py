@@ -3,10 +3,11 @@
 # Quva Oy, 2015
 # Contributors: Timo Erkkilä, timo.erkkila@quva.fi
 
-
 import requests
 import bz2
 import base64
+import json
+from sparkplug.parsers import xml
 
 from sparkplug.validators import validateMessage
 
@@ -28,6 +29,20 @@ class SparkPlug(object):
         # Derive url for POST
         self.__url = url
 
+    def loadJSON(self, fileName, doValidate = False):
+        return self.__load(json, fileName, doValidate = doValidate)
+
+    def loadXML(self, fileName, doValidate = False):
+        return self.__load(xml, fileName, doValidate = doValidate)
+
+    def __load(self, loader, fileName, doValidate = False):
+        
+        message = loader.load(open(fileName, "r"))
+        
+        if doValidate:
+            self.validate(message)
+            
+        return message
         
     def validate(self, message):
         self.post(message, isDryrun=True)
