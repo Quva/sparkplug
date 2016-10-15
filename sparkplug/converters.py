@@ -46,17 +46,21 @@ def convertTime(ds):
     return dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
             
 def convertMeasurementRow(measRow, eventID):
+
+    if measRow.get("variable_id", None) is None:
+        measRow["variable_id"] = "{}:{}".format(measRow["variable_source_id"],
+                                                measRow["variable_name"])
+        
+        del measRow["variable_source_id"]
+        del measRow["variable_name"]
+
+    if measRow.get("event_id", None) is None:
+        measRow["event_id"] = eventID
     
-    measRow["variable_id"] = "{}:{}".format(measRow["variable_source_id"],
-                                            measRow["variable_name"])
-    
-    del measRow["variable_source_id"]
-    del measRow["variable_name"]
-    
-    measRow["event_id"] = eventID
     measRow["measurement_time"] = convertTime(measRow["measurement_time"])
-    
-    measRow["measurement_timeuuid"] = str(uuid1())
+
+    if measRow.get("measurement_timeuuid", None) is None:
+        measRow["measurement_timeuuid"] = str(uuid1())
     
     if measRow.get("measurement_threshold_min", None) is not None:
         measThresholdMin_props = props.get(fieldMapping["measurement_property_threshold_min_key"], None)

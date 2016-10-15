@@ -1,5 +1,6 @@
 
 import unittest
+import json
 from nose.tools import raises, assert_equal
 
 from sparkplug import SparkPlug
@@ -13,6 +14,13 @@ class SparkPlugTest(unittest.TestCase):
         message = self.plug.loadJSON("test/test_event_v2.json")
         self.plug.validate(message)
 
+    def test_event_message_v2_json_noconversion(self):
+        
+        message = self.plug.loadJSON("test/test_event_v2_noconversion.json")
+        self.plug.validate(message)
+        message2 = json.load(open("test/test_event_v2_noconversion.json"))
+        assert_equal(message, message2)        
+        
     def test_event_message_v2_xml(self):
 
         message = self.plug.loadXML("test/test_event_v2.xml")        
