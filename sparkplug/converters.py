@@ -1,4 +1,6 @@
 from uuid import uuid1
+import dateparser
+import pytz
 
 fieldMapping = {
     'event_property_date_key': 'Time_material_produced',
@@ -24,7 +26,7 @@ def convertMessageInPlace(message):
         eventProducedTimeVal_props = props.get(fieldMapping["event_property_date_key"], None)
         if ( eventProducedTimeVal_props is not None and
              body.get("event_produced_time", None) is None):
-            body["event_produced_time"] = eventProducedTimeVal_props
+            body["event_produced_time"] = convertTime(eventProducedTimeVal_props)
             
         # If product_id is not present in the current message body,
         # and if it is found in the properties, we'll lift it into a regular field in the body
@@ -40,12 +42,19 @@ def convertMessageInPlace(message):
                                                                                       eventID),
                                                 measurements))        
 
+def convertTime(ds):
+    return dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
+            
 def convertMeasurementRow(measRow, eventID):
-
+    
     measRow["variable_id"] = "{}:{}".format(measRow["variable_source_id"],
                                             measRow["variable_name"])
     
+    del measRow["variable_source_id"]
+    del measRow["variable_name"]
+    
     measRow["event_id"] = eventID
+    measRow["measurement_time"] = convertTime(measRow["measurement_time"])
     
     measRow["measurement_timeuuid"] = str(uuid1())
     

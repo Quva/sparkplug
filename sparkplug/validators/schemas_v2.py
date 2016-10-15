@@ -139,6 +139,14 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
+        "product_id": {
+            "type": "string",
+            "required": False
+        },
+        "event_produced_time": {
+            "type": "string",
+            "required": False
+        },
         "event_type": {
             "type": "string",
             "required": False
