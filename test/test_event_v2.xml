@@ -5,23 +5,25 @@
       <event_id>myeventid</event_id>
       <event_type>NEW_EVENT</event_type>
       <event_properties>
-        <product_id>myproductid</product_id>
-        <foo>bar</foo>
+        <Product_global_code>ean_code</Product_global_code>
+        <Time_material_produced>2015-01-01 12:23:34</Time_material_produced>
+        <jobid>123</jobid>
+        <runid>456</runid>
       </event_properties>
       <measurement_data>
         <variable_source_id>source1</variable_source_id>
-        <variable_name>var1</variable_name>
-        <measurement_time>2016-01-01 00:11:22</measurement_time>
-        <measurement_num_value>1.1</measurement_num_value>
+        <variable_name>name1</variable_name>
+        <measurement_time>2014-09-21 00:00:00+0200</measurement_time>
+        <measurement_num_value>1.5</measurement_num_value>
       </measurement_data>
       <measurement_data>
-        <variable_source_id>source2</variable_source_id>
-        <variable_name>var2</variable_name>
-        <measurement_time>2016-01-01 00:11:23</measurement_time>
-        <measurement_num_value>2.1</measurement_num_value>
+        <variable_source_id>source1</variable_source_id>
+        <variable_name>name2</variable_name>
+        <measurement_time>2014-09-22 00:00:00</measurement_time>
+        <measurement_num_value>1.6</measurement_num_value>
       </measurement_data>
       <actions>
-        <preclean_variable_groups>PROCESS</preclean_variable_groups>
+        <preclean_variable_groups>QUALITY</preclean_variable_groups>
         <request_analysis>true</request_analysis>
         <request_analysis_feedback>true</request_analysis_feedback>
       </actions>
