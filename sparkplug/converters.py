@@ -6,8 +6,9 @@ fieldMapping = {
     'event_property_date_key': 'Time_material_produced',
     'event_property_similarity_key': 'Product_global_code',
     'event_property_source_key': 'Prod_machine',
-    'measurement_property_max_threshold_key': 'tolerance_max',
-    'measurement_property_min_threshold_key': 'tolerance_min',
+    'measurement_property_threshold_min_key': 'tolerance_min',
+    'measurement_property_threshold_max_key': 'tolerance_max',
+    'measurement_property_target_key': 'target',
     'variable_property_group_key' : 'variable_group'
 }
 
@@ -67,7 +68,7 @@ def convertMeasurementRow(measRow, eventID):
         
         del measRow["variable_source_id"]
         del measRow["variable_name"]
-
+    
     if measRow.get("event_id", None) is None:
         measRow["event_id"] = eventID
     
@@ -75,21 +76,23 @@ def convertMeasurementRow(measRow, eventID):
 
     if measRow.get("measurement_timeuuid", None) is None:
         measRow["measurement_timeuuid"] = str(uuid1())
-    
-    if measRow.get("measurement_threshold_min", None) is not None:
-        measThresholdMin_props = props.get(fieldMapping["measurement_property_threshold_min_key"], None)
+
+    measProps = measRow.get("measurement_properties", {})
+        
+    if measRow.get("measurement_threshold_min", None) is None:
+        measThresholdMin_props = measProps.get(fieldMapping["measurement_property_threshold_min_key"], None)
         if measThresholdMin_props is not None:
-            measRow["measurement_threshold_min"] = measThresholdMin_props
+            measRow["measurement_threshold_min"] = float(measThresholdMin_props)
             
-    if measRow.get("measurement_threshold_max", None) is not None:
-        measThresholdMax_props = props.get(fieldMapping["measurement_property_threshold_max_key"], None)
+    if measRow.get("measurement_threshold_max", None) is None:
+        measThresholdMax_props = measProps.get(fieldMapping["measurement_property_threshold_max_key"], None)
         if measThresholdMax_props is not None:
-            measRow["measurement_threshold_max"] = measThresholdMax_props
+            measRow["measurement_threshold_max"] = float(measThresholdMax_props)
                 
-    if measRow.get("measurement_target", None) is not None:
-        measTarget_props = props.get(fieldMapping["measurement_property_target_key"], None)
+    if measRow.get("measurement_target", None) is None:
+        measTarget_props = measProps.get(fieldMapping["measurement_property_target_key"], None)
         if measTarget_props is not None:
-            measRow["measurement_target"] = measTarget_props
+            measRow["measurement_target"] = float(measTarget_props)
                     
     return measRow
                 
