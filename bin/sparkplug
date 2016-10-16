@@ -102,7 +102,7 @@ def main():
 
         if not args.isDryrun:
             response = plug.post(message)
-            print("{}: {}".format(fileName, response))
+            print("{}: {}, {}".format(fileName, response.status_code, response.text))
             
         if args.saveAsXML is not None:
             print("Saving as XML to: {}".format(args.saveAsXML))

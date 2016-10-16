@@ -1,7 +1,7 @@
 
 import unittest
 import json
-from nose.tools import raises, assert_equal
+from nose.tools import raises, assert_equal, assert_true
 
 from sparkplug import SparkPlug
 
@@ -42,6 +42,13 @@ class SparkPlugTest(unittest.TestCase):
         message = self.plug.loadJSON("test/test_variables_v2.json")        
         self.plug.validate(message)
 
+    def test_variables_message_v2_group_in_properties_json(self):
+        
+        message = self.plug.loadJSON("test/test_variables_v2_group_in_properties.json")
+        self.plug.validate(message)
+        assert_true(message["message_body"]["variables"]["variable_data"][0].get("variable_group", None) \
+                    == "PROCESS")
+        
     def test_variables_message_v2_xml(self):
         
         message = self.plug.loadXML("test/test_variables_v2.xml")

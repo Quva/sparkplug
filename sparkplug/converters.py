@@ -7,7 +7,8 @@ fieldMapping = {
     'event_property_similarity_key': 'Product_global_code',
     'event_property_source_key': 'Prod_machine',
     'measurement_property_max_threshold_key': 'tolerance_max',
-    'measurement_property_min_threshold_key': 'tolerance_min'
+    'measurement_property_min_threshold_key': 'tolerance_min',
+    'variable_property_group_key' : 'variable_group'
 }
 
 def convertMessageInPlace(message):
@@ -34,22 +35,35 @@ def convertMessageInPlace(message):
         if ( productID_props is not None and
              body.get("product_id", None) is None):
             body["product_id"] = productID_props
-            
+           
         # Convert measurements if measurements are defined and is a list:
         measurements = body.get("measurement_data", None)
         if measurements is not None and isinstance(measurements, list):
             body["measurement_data"] = list(map(lambda measRow: convertMeasurementRow(measRow,
                                                                                       eventID),
-                                                measurements))        
+                                                measurements))
+
+    elif messageType == "variables":
+
+        body = message["message_body"]["variables"]
+
+        # Convert measurements if measurements are defined and is a list:
+        variables = body.get("variable_data", None)
+        if variables is not None and isinstance(variables, list):
+            body["variable_data"] = list(map(lambda varRow: convertVariableRow(varRow),
+                                             variables))
 
 def convertTime(ds):
     return dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
-            
+
+def getVariableID(varSourceID, varName):
+    return "{}:{}".format(varSourceID, varName)
+
 def convertMeasurementRow(measRow, eventID):
 
     if measRow.get("variable_id", None) is None:
-        measRow["variable_id"] = "{}:{}".format(measRow["variable_source_id"],
-                                                measRow["variable_name"])
+        measRow["variable_id"] = getVariableID(measRow["variable_source_id"],
+                                               measRow["variable_name"])
         
         del measRow["variable_source_id"]
         del measRow["variable_name"]
@@ -79,3 +93,16 @@ def convertMeasurementRow(measRow, eventID):
                     
     return measRow
                 
+def convertVariableRow(varRow):
+    
+    if varRow.get("variable_id", None) is None:
+        varRow["variable_id"] = getVariableID(varRow["variable_source_id"],
+                                              varRow["variable_name"])
+
+    if varRow.get("variable_group", None) is None:
+        varGroup_prop = varRow.get("variable_properties", {})\
+                              .get(fieldMapping["variable_property_group_key"], None)
+        if varGroup_prop is not None:
+            varRow["variable_group"] = varGroup_prop
+        
+    return varRow
