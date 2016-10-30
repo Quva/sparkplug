@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+
+import os
+from glob import glob
+import sys
+import requests
+from collections import deque
+import json
+from time import sleep
+
+files = glob(sys.argv[1], recursive=True)
+
+sleepAmount = int(sys.argv[2])
+
+username = sys.argv[3]
+password = sys.argv[4]
+
+slaves = deque(["104.199.16.155", "130.211.103.127", "146.148.13.26", "104.155.121.140"])
+
+cacheFile = "posted_files.cache"
+
+if os.path.exists(cacheFile):
+    print("Cache found")
+    postedFiles = set(json.load(open("posted_files.cache", "r")))
+else:
+    postedFiles = set()
+    
+for i, fileName in enumerate(files):
+    
+    if fileName in postedFiles:
+        print("Skipping {}".format(fileName))
+        continue
+    
+    target = slaves.popleft()
+    slaves.append(target)
+    
+    print("Posting ({}/{}) {} to {}".format(i, len(files), fileName, target))
+    
+    requests.post("http://{}:8161/upm-raflatac/pqa/api/BackLoad?senderID=Raflow.TA&domainOverride=flow.quva.fi".format(target),
+                  auth=(username, password),
+                  headers={
+                      "Content-Type": "text/xml",
+                      "Content-Encoding": "gzip",
+                      "Content-Transfer-Encoding": "base64"},
+                  data=open(fileName, 'r').read())
+
+    postedFiles.add(fileName)
+
+    if i % 100 == 0:
+        print("Saving cache")
+        open(cacheFile, "w").write(json.dumps(list(postedFiles)))
+        
+    sleep(sleepAmount)
+    
+print("Saving cache")
+open(cacheFile, "w").write(json.dumps(list(postedFiles)))
