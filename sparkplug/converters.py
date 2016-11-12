@@ -13,7 +13,7 @@ fieldMapping = {
 }
 
 def convertMessageInPlace(message):
-    
+
     messageType = message["message_header"]["message_type"]
     
     if messageType == "event":
@@ -61,6 +61,10 @@ def getVariableID(varSourceID, varName):
     return "{}:{}".format(varSourceID, varName)
 
 def convertMeasurementRow(measRow, eventID):
+    #measRow["measurement_time"] = convertTime(measRow["measurement_time"])
+    return measRow
+
+def convertMeasurementRow_old(measRow, eventID):
 
     if measRow.get("variable_id", None) is None:
         measRow["variable_id"] = getVariableID(measRow["variable_source_id"],

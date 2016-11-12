@@ -7,30 +7,54 @@ import requests
 import bz2
 import base64
 import json
-from sparkplug.parsers import xml
+import sys
+import logging
 
+from sparkplug.parsers import xml
 from sparkplug.validators import validateMessage
 from sparkplug.converters import convertMessageInPlace
+
+
+def getLogger(loggerName="SparkPlug"):
+    
+    logger = logging.getLogger(loggerName)
+    logger.setLevel(logging.DEBUG)
+    
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+    
+    return logger
+
 
 class SparkPlug(object):
   
     def __init__(self,
                  url="http://localhost:8161",
                  username=None,
-                 password=None):
-
+                 password=None,
+                 logger=getLogger()):
+        
         # Collect input arguments
         self.url = url
         self.username = username
         self.password = password
-
+        
         # Derive auth for POST
         self.__auth = (self.username, self.password)
-
+        
         # Derive url for POST
         self.__url = url
-
         
+        self.__logger = logger
+        
+
+    def __logInfo(self, msg):
+        if self.__logger is not None:
+            self.__logger.info(msg)
+            
     def load(self, fileName):
         if fileName.lower().endswith("json"):
             message = self.loadJSON(fileName)
@@ -55,8 +79,10 @@ class SparkPlug(object):
     def __load(self, load_f, loadable):
         
         message = load_f(loadable)
-        
+
+        self.__logInfo("Converting message, this may take a while")
         convertMessageInPlace(message)
+        self.__logInfo("Done converting message!")
         
         return message
 
