@@ -10,13 +10,13 @@ def _convert_elem_inplace(D, key, tagInfo):
     observedType = type(D[key])
     tag = tagInfo.getTag(key)
     expectedType = tag.type
-    #print(observedType, key)
+    print(observedType, key)
 
     if not isinstance(D[key], expectedType):
-        #print("key '{}' of type {} having value '{}' DOES NOT map to proper type {}".format(key,
-        #                                                                                    observedType,
-        #                                                                                    D[key],
-        #                                                                                    expectedType))
+        print("key '{}' of type {} having value '{}' DOES NOT map to proper type {}".format(key,
+                                                                                            observedType,
+                                                                                            D[key],
+                                                                                            expectedType))
         if expectedType == tagInfo.numberType:
             #print(" => Converting to float")
             D[key] = float(D[key])

@@ -10,12 +10,17 @@
         }  
     },
     "message_body": {
-        "product": {
+        "product_header": {
             "product_id": "ean_code",
-            "product_description_by_language": {
-                "ENG": "Product",
-                "FIN": "Tuote"
-            },
+            "product_type": "PRODUCT",
+            "product_status": "ACTIVE",
+            "product_description": [{
+                "Language": "ENG",
+                "Description": "Product"
+            }, {
+                "Language": "FIN",
+                "Description": "Tuote"
+            }],
             "product_properties": {
                 "a": "1",
                 "b": "2"
