@@ -84,7 +84,9 @@ class TagInfo(object):
             ("product_type", Tag(type=self.stringType, isOptional=False)),
             ("product_status", Tag(type=self.stringType, isOptional=False)),
             ("product_description", Tag(type=self.listType, isOptional=False)),
-            ("product_properties", Tag(type=self.objectType, isOptional=True)),            
+            ("product_specifications", Tag(type=self.listType, isOptional=True)),
+            ("product_certificates", Tag(type=self.listType, isOptional=True)),
+            ("product_properties", Tag(type=self.objectType, isOptional=True)),
             
             ("job_header", Tag(type=self.objectType, isOptional=True)),
             ("job_source_id", Tag(type=self.stringType, isOptional=False)),

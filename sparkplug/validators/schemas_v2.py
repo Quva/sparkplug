@@ -200,6 +200,14 @@ class SchemasV2(SchemasV1):
         },
         "product_description": {
             "type": "list",
+            "required": True
+        },
+        "product_certificates": {
+            "type": "list",
+            "required": False
+        },
+        "product_specifications": {
+            "type": "list",
             "required": False
         },
         "product_properties": {
