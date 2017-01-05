@@ -79,6 +79,12 @@ class TagInfo(object):
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
 
+            ("Variable_source_id", Tag(type=self.stringType, isOptional=False)),
+            ("Seq", Tag(type=self.stringType, isOptional=False)),
+            ("Tolerance_min", Tag(type=self.numberType, isOptional=True)),
+            ("Target", Tag(type=self.numberType, isOptional=True)),
+            ("Tolerance_max", Tag(type=self.numberType, isOptional=True)),
+            
             ("product_header", Tag(type=self.objectType, isOptional=True)),
             ("product_id", Tag(type=self.stringType, isOptional=False)),
             ("product_type", Tag(type=self.stringType, isOptional=False)),
