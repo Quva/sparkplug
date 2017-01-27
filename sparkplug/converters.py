@@ -24,13 +24,22 @@ def convertMessageInPlace(message):
         
         props = body.get("event_properties", {})
         
+        # Convert event_produced_time if defined
+        eventProducedTimeVal_body = body.get("event_produced_time", None)
+        if (eventProducedTimeVal_body is not None):
+            body["event_produced_time"] = convertTime(eventProducedTimeVal_body)
+
         # If event_produced_time is not present in the current message body,
         # and if it is found in the properties, we'll lift it into a regular field in the body
         eventProducedTimeVal_props = props.get(fieldMapping["event_property_date_key"], None)
-        if ( eventProducedTimeVal_props is not None and
-             body.get("event_produced_time", None) is None):
-            body["event_produced_time"] = convertTime(eventProducedTimeVal_props)
-            
+        if (eventProducedTimeVal_props is not None):
+            # First convert the props field
+            eventProducedTimeVal_props = convertTime(eventProducedTimeVal_props)
+            props[fieldMapping["event_property_date_key"]] = eventProducedTimeVal_props
+            # Set event_produced_time in the body if not yet defined
+            if (eventProducedTimeVal_body is None):
+                body["event_produced_time"] = eventProducedTimeVal_props
+
         # If product_id is not present in the current message body,
         # and if it is found in the properties, we'll lift it into a regular field in the body
         productID_props = props.get(fieldMapping["event_property_similarity_key"], None)
