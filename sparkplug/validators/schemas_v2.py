@@ -121,7 +121,7 @@ class SchemasV2(SchemasV1):
 
     eventActionsSchema = {
         "preclean_variable_groups": {
-            "listOrString": True,
+            "anyof_type": ["string", "list"],
             "required": False
         },
         "request_analysis": {
