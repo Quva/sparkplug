@@ -1,6 +1,10 @@
 from uuid import uuid1
-import dateparser
 import pytz
+
+try:
+    import dateparser
+except ImportError:
+    import dateutil.parser
 
 fieldMapping = {
     'event_property_date_key': 'Time_material_produced',
@@ -55,7 +59,11 @@ def convertMessageInPlace(message):
                                              variables))
 
 def convertTime(ds):
-    return dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
+    try:
+        dt = dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
+    except:
+        dt = dateutil.parser.parse(ds)
+    return dt
 
 def getVariableID(varSourceID, varName):
     return "{}:{}".format(varSourceID, varName)
