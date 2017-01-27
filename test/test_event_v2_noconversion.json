@@ -20,7 +20,7 @@
       "product_id": "ean_code",
       "event_properties": {
         "Product_global_code": "ean_code",
-        "Time_material_produced": "2015-01-01 12:23:34",
+        "Time_material_produced": "2015-01-01 12:23:34+0000",
         "runid": "456",
         "jobid": "123"
       },
