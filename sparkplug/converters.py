@@ -1,10 +1,7 @@
-from uuid import uuid1
+import dateutil.parser
+import logging
 import pytz
-
-try:
-    import dateparser
-except ImportError:
-    import dateutil.parser
+from uuid import uuid1
 
 fieldMapping = {
     'event_property_date_key': 'Time_material_produced',
@@ -59,17 +56,20 @@ def convertMessageInPlace(message):
                                              variables))
 
 def convertTime(ds):
-    try:
-        dt = dateparser.parse(ds).replace(tzinfo=pytz.UTC).strftime("%Y-%m-%d %H:%M:%S%z")
-    except:
-        dt = dateutil.parser.parse(ds)
-    return dt
+    dt = dateutil.parser.parse(ds)
+    # Default to UTC if timezone is not specified
+    if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+        logging.warning("Timezone not specified in timestamp '{}'. Defaulting to UTC"
+                        .format(ds))
+        dt = dt.replace(tzinfo=pytz.UTC)
+    #logging.debug("Converted timestamp '{}' to '{}'".format(ds, dt))
+    return dt.strftime("%Y-%m-%d %H:%M:%S%z")
 
 def getVariableID(varSourceID, varName):
     return "{}:{}".format(varSourceID, varName)
 
 def convertMeasurementRow(measRow, eventID):
-    #measRow["measurement_time"] = convertTime(measRow["measurement_time"])
+    measRow["measurement_time"] = convertTime(measRow["measurement_time"])
     return measRow
 
 def convertMeasurementRow_old(measRow, eventID):
