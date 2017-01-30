@@ -1,103 +1,70 @@
 
-import json
 import unittest
-from nose.tools import raises
+import json
+from nose.tools import raises, assert_equal, assert_true
 
 from sparkplug import SparkPlug
-from sparkplug.parsers import xml
 
 class SparkPlugTest(unittest.TestCase):
 
     plug = SparkPlug()
 
     def test_event_message_v2_json(self):
+        
+        message = self.plug.loadJSON("test/test_event_v2.json")
+        self.plug.validate(message)
 
-        message = json.load(
-            open("test/test_event_v2.json", 'r'))
+    def test_event_message_v2_json_noconversion(self):
         
+        message = self.plug.loadJSON("test/test_event_v2_noconversion.json")
         self.plug.validate(message)
-        
-    def test_event_message_v2_no_data_json(self):
-        
-        message = json.load(
-            open("test/test_event_v2_no_data.json", 'r'))
-        
-        self.plug.validate(message)
+        message2 = json.load(open("test/test_event_v2_noconversion.json"))
+        assert_equal(message, message2)        
         
     def test_event_message_v2_xml(self):
 
-        message = xml.load(
-            open("test/test_event_v2.xml", 'r'))
-        
+        message = self.plug.loadXML("test/test_event_v2.xml")        
         self.plug.validate(message)
+                
+    def test_event_message_v2_no_data_json(self):
+
+        message = self.plug.loadJSON("test/test_event_v2_no_data.json")        
+        self.plug.validate(message)
+        
         
     def test_event_message_v2_no_data_xml(self):
         
-        message = xml.load(
-            open("test/test_event_v2_no_data.xml", 'r'))
-        
+        message = self.plug.loadXML("test/test_event_v2_no_data.xml")        
         self.plug.validate(message)
         
     def test_variables_message_v2_json(self):
         
-        message = json.load(open("test/test_variables_v2.json", 'r'))
-        
+        message = self.plug.loadJSON("test/test_variables_v2.json")        
         self.plug.validate(message)
 
+    def test_variables_message_v2_group_in_properties_json(self):
+        
+        message = self.plug.loadJSON("test/test_variables_v2_group_in_properties.json")
+        self.plug.validate(message)
+        assert_true(message["message_body"]["variables"]["variable_data"][0].get("variable_group", None) \
+                    == "PROCESS")
+        
     def test_variables_message_v2_xml(self):
         
-        message = xml.load(open("test/test_variables_v2.xml", 'r'))
-        
+        message = self.plug.loadXML("test/test_variables_v2.xml")
         self.plug.validate(message)
 
     def test_product_message_v2_json(self):
         
-        message = json.load(open("test/test_product_v2.json", 'r'))
-        
+        message = self.plug.loadJSON("test/test_product_v2.json")        
         self.plug.validate(message)
 
     def test_product_message_v2_xml(self):
         
-        message = xml.load(open("test/test_product_v2.xml", 'r'))
-        
+        message = self.plug.loadXML("test/test_product_v2.xml")        
         self.plug.validate(message)
 
     def test_job_message_v2_json(self):
         
-        message = json.load(open("test/test_job_v2.json", 'r'))
-        
+        message = self.plug.loadJSON("test/test_job_v2.json")
         self.plug.validate(message)
-
-        
-    #@raises(Exception)
-    #def test_empty_measurements_v1_raises(self):
-    #
-    #    self.plug.validate({})
-
-    #@raises(Exception)
-    #def test_measurements_v1_missing_message_type(self):
-    #    
-    #    self.plug.validate({"message_apikey": "abc",
-    #                        "message_body": []})
-
-    #@raises(Exception)
-    #def test_message_v1_json_header_missing_message_sender_id(self):
-    #    
-    #    self.plug.validate("test/test_bad_event_v1.json")
-        
-    #@raises(Exception)
-    #def test_variables_v1_json_missing_variables_raises(self):
-    #    
-    #    message = json.load(
-    #        open("test/test_bad_variables_v1.json", 'r'))
-    #
-    #    self.plug.validate(message)
-
-    #@raises(Exception)
-    #def test_variables2_v1_missing_variables_raises(self):
-    #
-    #    message = json.load(
-    #        open("test/test_bad_variables2_v1.json", 'r'))
-    #    
-    #    self.plug.validate(message)
-        

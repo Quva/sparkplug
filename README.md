@@ -120,7 +120,7 @@ Every Message Container contains Message Header with the following fields:
 | message_sender_id    | String | YES       | An ID that identifies the sender                                                   |
 | message_recipient_id | String | YES       | An ID that identifies recipient (Quva)                                             |
 | message_id           | String | NO        | An ID that uniquely identifies the message                                         |
-| message_reply        | Object | NO        | Used if the message needs to be replied                                            |
+| message_version      | String | YES       | Message version. Use "v2" for now.                                                 |
 
 The Message Header takes the following form as JSON:
 ```
@@ -129,34 +129,14 @@ The Message Header takes the following form as JSON:
     "message_type": "<myevent>",
     "message_sender_id": "<mysenderid>",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>"
-    "message_reply": {
-      ...
-    }
+    "message_id": "<myuniquemessageid>",
+    "message_version": "v2"
   },
   "message_body": {
     ...
   }
 }
 ```
-
-#### Message Reply field
-Message Reply field inside the Message Header contains information about the topic the reply is sent to:
-
-
-| key            | type   | required  | comment                                      |
-|----------------|--------|-----------|----------------------------------------------|
-| reply_to_topic | String | YES       | Specify the topic to which the reply is sent |
-
-The Message Reply field takes the following form: 
-```
-    ...
-    "message_reply": {
-      "reply_to_topic": "<topicid>"
-    }
-    ...
-```
-
 
 ### Variables Message
 Variables Message is contained inside the message body of the container that has type "variables" like so:
@@ -166,7 +146,8 @@ Variables Message is contained inside the message body of the container that has
     "message_type": "variables",
     "message_sender_id": "<mysenderid>",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>"
+    "message_id": "<myuniquemessageid>",
+    "message_version": "v2"
   },
   "message_body": {
     "variables": [...]
@@ -175,14 +156,14 @@ Variables Message is contained inside the message body of the container that has
 ```
 The list inside the "variables" field contains a list of objects with the following fields:
 
-|               key   | type    | required  | comment                                                |
-|---------------------|---------|-----------|--------------------------------------------------------|
-| variable_source_id  | String  | YES       | Source identifier. |
-| variable_name       | String  | YES       | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
-| variable_unit       | String  | NO        | Scientific unit (for example SI) for the variable      |
-| variable_is_txt     | Boolean | YES       | Flag to denote whether the the variable should be treated as text or number. |
-| variable_description | String | YES       | A human-readable description, which is used in the UI. |
-| variable_properties | Map     | NO        | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
+|               key    | type    | required  | comment                                                |
+|----------------------|---------|-----------|--------------------------------------------------------|
+| variable_source_id   | String  | YES       | Source identifier. |
+| variable_name        | String  | YES       | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
+| variable_unit        | String  | NO        | Scientific unit (for example SI) for the variable      |
+| variable_is_txt      | Boolean | YES       | Flag to denote whether the the variable should be treated as text or number. |
+| variable_description | String  | YES       | A human-readable description, which is used in the UI. |
+| variable_properties  | Map     | NO        | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
 
 Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:
 
@@ -192,7 +173,8 @@ Variables Message should be sent just once to the service so as to register them
     "message_type": "variables",
     "message_sender_id": "<mysenderid>",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>"
+    "message_id": "<myuniquemessageid>",
+    "message_version": "v2"
   },
   "message_body": {
     "variables": [
@@ -227,7 +209,8 @@ Event Message is contained inside the message body of the container that has typ
     "message_type": "event",
     "message_sender_id": "<mysenderid>",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>"
+    "message_id": "<myuniquemessageid>",
+    "message_version": "v2"
   },
   "message_body": {
     "event": {...},
@@ -264,7 +247,8 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
     "message_type": "event",
     "message_sender_id": "<mysenderid>",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>"
+    "message_id": "<myuniquemessageid>",
+    "message_version": "v2"
   },
   "message_body": {
     "measurements": [
@@ -290,72 +274,3 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
   }
 }
 ```
-
-### Feedback Message 
-Feedback Message is returned only if reply information is given and reply is requested. Quva Flow will return a Feedback Message on two occassions:
-* Upon retrieving and parsing a message. The Feedback Message informs whether retrieval, parsing, and action were successful or not.
-* Upon finishing analysis that triggers an alarm. The Feedback Message then contains information about the source of alarm.
-
-Feedback Message has the has the usual top-level fields for Message Header and Message Body. Message Body inside the Feedback Message has fields
-
-| key             | type   | required  | comment                                            |
-|-----------------|--------|-----------|----------------------------------------------------|
-| analysis_result | Object | YES       | Contains a list of variables that caused the alarm |
-| event           | Object | YES       | Generic information                                |
-
-A Feedback Message could look like follows:
-
-```
-  "message_body": {
-    "analysis_result": {
-      [AlarmVariable1, AlarmVariable2, ...]
-    },
-    "event": {
-      "original_event_id": "<myeventid>",
-      "event_type": "QUALITY_FEEDBACK",
-      "event_properties": {
-        "OK_MESSAGE": "Everything OK",
-        "ERROR_MESSAGE": "",
-        "ERROR_URL": "",
-        "ERROR_CODE": "0"
-      }
-    }
-  }
-```
-
-where each Alarm Variable in the list has the fields 
-
-| key                                | type   | required | comment                                       
-|------------------------------------|--------|----------|-----------------------------------------------|
-| variable_description               | String | YES      | Description of the variable. Same description as specified in the Variables Message. |
-| variable_group                     | String | YES      | Looked up based on the specified variable property that defines the group. |
-| alarm_description                  | String | YES      | Description of the alarm.                     |
-| measurement_num_value              | Double | YES      | Mean value of the samples in the event in which the variable raised the alarm. |
-| min_measurement_specific_num_value | Double | YES      | Measurement-specific min-threshold            |
-| max_measurement_specific_num_value | Double | YES      | Measurement-specific max-threshold            |
-| min_empirical_threshold_num_value  | Double | YES      | SPC-based min-threshold                       |
-| max_empirical_threshold_num_value  | Double | YES      | SPC-based max-threshold                       |
-
-and looks like as JSON:
-
-```
-    "alarm_variable": {
-      "variable_description": "<myvariabledescription>",
-      "variable_group": "<myvariablegroup>",
-      "alarm_description": "<myalarmdescription>",
-      "measurement_num_value": 10.1,
-      "min_measurement_specific_num_value": 3.5,
-      "max_measurement_specific_num_value": 4.1,
-      "min_empirical_threshold_num_value": 2.5,
-      "max_empirical_threshold_num_value": 11.0
-    }
-```
-
-
-User Interface
-------------------------
-Quva Flow User Interface client (browser) communicates with the Quva server over HTTPS protocol. Therefore all communiation between the client and server are encrypted. Quva Flow User Interface is designed to support modern browsers. Currently Quva Flow UI runs on the following browser versions:
-
-* Internet Explorer version 11
-* Mozilla Firefox Version 41
-* Chrome version 47

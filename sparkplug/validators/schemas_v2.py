@@ -57,14 +57,26 @@ class SchemasV2(SchemasV1):
             "type": "float",
             "required": False
         },
-        "variable_name": {
+        "variable_id": {
             "type": "string",
             "required": True
         },
-        "variable_source_id": {
+        "measurement_threshold_min": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_target": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_threshold_max": {
+            "type": "float",
+            "required": False
+        },
+        "measurement_timeuuid": {
             "type": "string",
             "required": True
-        },
+        }
     }
     
     
@@ -109,8 +121,7 @@ class SchemasV2(SchemasV1):
 
     eventActionsSchema = {
         "preclean_variable_groups": {
-            #"type": "list",
-            "listOrString": True,
+            "anyof_type": ["string", "list"],
             "required": False
         },
         "request_analysis": {
@@ -127,6 +138,14 @@ class SchemasV2(SchemasV1):
         "event_id": {
             "type": "string",
             "required": True
+        },
+        "product_id": {
+            "type": "string",
+            "required": False
+        },
+        "event_produced_time": {
+            "type": "string",
+            "required": False
         },
         "event_type": {
             "type": "string",
@@ -171,14 +190,34 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
-        "product_description_by_language": {
-            "type": "dict",
+        "product_type": {
+            "type": "string",
+            "required": True
+        },
+        "product_status": {
+            "type": "string",
+            "required": True
+        },
+        "product_description": {
+            "type": "list",
+            "required": True
+        },
+        "product_certificates": {
+            "type": "list",
+            "required": False
+        },
+        "product_specifications": {
+            "type": "list",
             "required": False
         },
         "product_properties": {
             "type": "dict",
             "required": False
-        }   
+        },        
+        "actions": {
+            "type": "dict",
+            "required": False
+        }
     }
 
     
@@ -265,7 +304,7 @@ class SchemasV2(SchemasV1):
             "type": "dict",
             "required": True,
             "schema": {
-                "product": {
+                "product_header": {
                     "type": "dict",
                     "required": True,
                     "schema": productBodySchema

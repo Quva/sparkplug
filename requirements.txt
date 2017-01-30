@@ -1,6 +1,7 @@
 argparse
 requests>=2.4.2
-simplejson
 nose
 xmltodict
+dicttoxml
 cerberus
+pytz

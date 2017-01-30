@@ -1,0 +1,27 @@
+{
+    "message_body": {
+        "variables": {
+            "variable_data": [{
+                "variable_unit": "m/s",
+                "variable_description": "Motor Speed",
+                "variable_source_id": "machine1",
+                "variable_is_txt": false,
+                "variable_id": "machine1:motor_speed",
+                "variable_name": "motor_speed",
+                "variable_properties": {
+                    "variable_group": "PROCESS"
+                }
+            }]
+        }
+    },
+    "message_header": {
+        "message_version": "v2",
+        "message_recipient_id": "Quva",
+        "message_sender_id": "Raflow.TA",
+        "message_reply": {
+            "reply_to_topic": ""
+        },
+        "message_type": "variables",
+        "message_id": "e7747db2-9109-11e6-8fb4-7c7a917d3d31"
+    }
+}

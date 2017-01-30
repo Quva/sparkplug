@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <message>
   <message_body>
-    <product>
+    <product_header>
       <product_id>myproductid</product_id>
+      <product_type>PRODUCT</product_type>
+      <product_status>ACTIVE</product_status>
       <product_properties>
         <weight>1kg</weight>
       </product_properties>
-      <product_description_by_language>
+      <product_description>
         <FIN>Tuote</FIN>
         <ENG>Product</ENG>
-      </product_description_by_language>
-    </product>
+      </product_description>
+    </product_header>
   </message_body>
   <message_header>
     <message_sender_id>test</message_sender_id>

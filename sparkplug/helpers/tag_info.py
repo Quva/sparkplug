@@ -79,10 +79,20 @@ class TagInfo(object):
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
 
-            ("product", Tag(type=self.objectType, isOptional=True)),
+            ("Variable_source_id", Tag(type=self.stringType, isOptional=False)),
+            ("Seq", Tag(type=self.stringType, isOptional=False)),
+            ("Tolerance_min", Tag(type=self.numberType, isOptional=True)),
+            ("Target", Tag(type=self.numberType, isOptional=True)),
+            ("Tolerance_max", Tag(type=self.numberType, isOptional=True)),
+            
+            ("product_header", Tag(type=self.objectType, isOptional=True)),
             ("product_id", Tag(type=self.stringType, isOptional=False)),
-            ("product_description_by_language", Tag(type=self.objectType, isOptional=False)),
-            ("product_properties", Tag(type=self.objectType, isOptional=True)),            
+            ("product_type", Tag(type=self.stringType, isOptional=False)),
+            ("product_status", Tag(type=self.stringType, isOptional=False)),
+            ("product_description", Tag(type=self.listType, isOptional=False)),
+            ("product_specifications", Tag(type=self.listType, isOptional=True)),
+            ("product_certificates", Tag(type=self.listType, isOptional=True)),
+            ("product_properties", Tag(type=self.objectType, isOptional=True)),
             
             ("job_header", Tag(type=self.objectType, isOptional=True)),
             ("job_source_id", Tag(type=self.stringType, isOptional=False)),

@@ -14,7 +14,7 @@ def test_parse_event_v2_xml():
 
     plug.validate(message)
 
-    assert_true(message["message_body"]["event"]["actions"]["preclean_variable_groups"] == ["PROCESS"])
+    assert_true(message["message_body"]["event"]["actions"]["preclean_variable_groups"] == ["QUALITY"])
     
 def test_parse_variables_v2_xml():
     
