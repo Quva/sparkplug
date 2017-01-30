@@ -4,13 +4,6 @@ from cerberus import Validator
 from .schemas import Schemas
 
 
-class SchemaValidator(Validator):
-
-      def _validate_listOrString(self, listOrString, field, value):
-
-            if listOrString and type(value) not in [list, str]:
-                        self._error(field, "Must be either list or string")
-            
 def validateMessage(message):
       
       validateMessageWithSchema(message, Schemas.latest.getSchemaForMessageType("message"))
@@ -33,7 +26,7 @@ def validateMessage(message):
                             
 def validateMessageWithSchema(obj, schema):
   
-      v = SchemaValidator(schema, allow_unknown=False)
+      v = Validator(schema, allow_unknown=False)
       res = v.validate(obj)
 
       if res is not True:
