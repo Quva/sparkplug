@@ -68,8 +68,8 @@ def convertTime(ds):
     dt = dateutil.parser.parse(ds)
     # Default to UTC if timezone is not specified
     if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
-        logging.warning("Timezone not specified in timestamp '{}'. Defaulting to UTC"
-                        .format(ds))
+        #logging.warning("Timezone not specified in timestamp '{}'. Defaulting to UTC"
+        #                .format(ds))
         dt = dt.replace(tzinfo=pytz.UTC)
     #logging.debug("Converted timestamp '{}' to '{}'".format(ds, dt))
     return dt.strftime("%Y-%m-%d %H:%M:%S%z")
