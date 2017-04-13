@@ -78,6 +78,12 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
+
+    
+    variableDescriptionTranslationSchema = {
+        "language": {"type": "string", "required": True},
+        "translation": {"type": "string", "required": True}
+    }
     
     
     variableDataSchema = {
@@ -113,12 +119,18 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
+        "variable_translations": {
+            "type": "list",
+            "required": False,
+            "schema": variableDescriptionTranslationSchema
+        },
         "variable_properties": {
             "type": "dict",
             "required": False
         }
     }
-
+    
+    
     eventActionsSchema = {
         "preclean_variable_groups": {
             "anyof_type": ["string", "list"],
