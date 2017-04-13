@@ -24,7 +24,14 @@
 		     		    "variable_properties": {
                     "source_table": "TABLE_A",
                     "source_column": "COLUMN_X"
-                }
+                },
+                "variable_translations": [{
+                    "language": "EN",
+                    "translation": "Variable that measures angular velocity"
+                }, {
+                    "language": "FI",
+                    "translation": "Muuttuja, joka mittaa kulmanopeutta"
+                }]
 		        },{
 				        "variable_source_id": "source2",
                 "variable_group": "PROCESS",
