@@ -119,7 +119,7 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
-        "variable_description_translations": {
+        "variable_translations": {
             "type": "list",
             "required": False,
             "schema": variableDescriptionTranslationSchema
