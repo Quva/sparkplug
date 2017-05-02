@@ -1,49 +1,44 @@
 {
-  "message_body": {
-    "event": {
-      "measurement_data": [
-        {
-          "measurement_num_value": 1.5,
-          "measurement_time": "2014-09-20 22:00:00+0000",
-          "variable_id": "source1:name1",
-          "measurement_timeuuid": "955a04ee-930b-11e6-8fb4-7c7a917d3d31",
-          "event_id": "201501011234"
-        },
-        {
-          "measurement_num_value": 1.6,
-          "measurement_time": "2014-09-22 00:00:00+0000",
-          "variable_id": "source1:name2",
-          "measurement_timeuuid": "955a04ef-930b-11e6-8fb4-7c7a917d3d31",
-          "event_id": "201501011234"
+    "message_body": {
+        "event": {
+            "measurement_data": [{
+                "measurement_num_value": 1.5,
+                "measurement_time": "2014-09-20 22:00:00+0000",
+                "variable_id": "source1:name1",
+                "measurement_timeuuid": "955a04ee-930b-11e6-8fb4-7c7a917d3d31",
+                "event_id": "201501011234"
+            },{
+                "measurement_num_value": 1.6,
+                "measurement_time": "2014-09-22 00:00:00+0000",
+                "variable_id": "source1:name2",
+                "measurement_timeuuid": "955a04ef-930b-11e6-8fb4-7c7a917d3d31",
+                "event_id": "201501011234"
+            }],
+                "product_id": "ean_code",
+                "event_properties": {
+                    "Product_global_code": "ean_code",
+                    "Time_material_produced": "2015-01-01 12:23:34+0000",
+                    "runid": "456",
+                    "jobid": "123"
+                },
+                "event_type": "NEW_EVENT",
+                "event_produced_time": "2015-01-01 12:23:34+0000",
+                "actions": {
+                    "request_analysis_feedback": true,
+                    "preclean_variable_groups": ["QUALITY"],
+                    "request_analysis": true
+                },
+                "event_id": "201501011234"
         }
-      ],
-      "product_id": "ean_code",
-      "event_properties": {
-        "Product_global_code": "ean_code",
-        "Time_material_produced": "2015-01-01 12:23:34+0000",
-        "runid": "456",
-        "jobid": "123"
-      },
-      "event_type": "NEW_EVENT",
-      "event_produced_time": "2015-01-01 12:23:34+0000",
-      "actions": {
-        "request_analysis_feedback": true,
-        "preclean_variable_groups": [
-          "QUALITY"
-        ],
-        "request_analysis": true
-      },
-      "event_id": "201501011234"
+    },
+    "message_header": {
+        "message_type": "event",
+        "message_id": "mymessageid",
+        "message_sender_id": "test",
+        "message_version": "v2",
+        "message_recipient_id": "Quva",
+        "message_reply": {
+            "reply_to_topic": "mytopic"
+        }
     }
-  },
-  "message_header": {
-    "message_type": "event",
-    "message_id": "mymessageid",
-    "message_sender_id": "test",
-    "message_version": "v2",
-    "message_recipient_id": "Quva",
-    "message_reply": {
-      "reply_to_topic": "mytopic"
-    }
-  }
 }

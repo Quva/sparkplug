@@ -1,16 +1,16 @@
 {
-	  "message_header": {
-			  "message_type": "event",
+    "message_header": {
+        "message_type": "event",
         "message_version": "v2",
-			  "message_sender_id": "test",
-			  "message_recipient_id": "Quva",
-			  "message_id": "mymessageid",
-			  "message_reply": {
-			  		"reply_to_topic": "mytopic"
-			  }
-	  },
-	  "message_body": {
-			 	"event": {
+        "message_sender_id": "test",
+        "message_recipient_id": "Quva",
+        "message_id": "mymessageid",
+        "message_reply": {
+            "reply_to_topic": "mytopic"
+        }
+    },
+    "message_body": {
+        "event": {
             "event_id": "201501011234",
             "event_type": "NEW_EVENT",
             "event_properties": {
@@ -24,8 +24,6 @@
                 "request_analysis" : true,
                 "request_analysis_feedback" : true
             }
-            
         }
-        
-	  }
+    }
 }
