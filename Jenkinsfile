@@ -25,6 +25,9 @@ node {
     }
 
     stage('Test') {
+        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+          sh "docker run --rm $image make test"
+      }
     }
 
     stage('Push') {
