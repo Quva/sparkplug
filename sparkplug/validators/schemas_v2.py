@@ -17,7 +17,7 @@ class SchemasV2(SchemasV1):
         },
         "message_id": {
             "type": "string",
-            "required": True
+            "required": False
         },
         "message_sender_id": {
             "type": "string",
