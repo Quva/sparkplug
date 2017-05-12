@@ -19,6 +19,10 @@
         <variable_properties>
           <foo>bar</foo>
         </variable_properties>
+        <variable_translations>
+          <language>FI</language>
+          <translation>idöräblö de zilla</translation>
+        </variable_translations>
       </variable_data>
     </variables>
   </message_body>
