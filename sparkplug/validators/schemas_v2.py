@@ -78,9 +78,8 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
-
     
-    variableDescriptionTranslationSchema = {
+    variableTranslationSchema = {
         "language": {"type": "string", "required": True},
         "translation": {"type": "string", "required": True}
     }
@@ -122,7 +121,7 @@ class SchemasV2(SchemasV1):
         "variable_translations": {
             "type": "list",
             "required": False,
-            "schema": variableDescriptionTranslationSchema
+            "schema": variableTranslationSchema
         },
         "variable_properties": {
             "type": "dict",

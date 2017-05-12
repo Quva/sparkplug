@@ -62,8 +62,16 @@ class SparkPlugTest(unittest.TestCase):
     def test_variables_message_v2_xml(self):
 
         message = self.plug.loadXML("test/test_variables_v2.xml")
+        print(message)
         self.plug.validate(message)
 
+    #@raises(Exception)
+    #def test_variables_message_v2_xml_bad_language_formatting(self):
+    #    
+    #    message = self.plug.loadXML("test/test_variables_v2_bad_language_formatting.xml")
+    #    #print(message)
+    #    self.plug.validate(message)
+        
     def test_product_message_v2_json(self):
 
         message = self.plug.loadJSON("test/test_product_v2.json")

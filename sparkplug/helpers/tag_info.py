@@ -50,6 +50,9 @@ class TagInfo(object):
             ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
             ("message_reply", Tag(type=self.objectType, isOptional=True)),
             ("message_version", Tag(type=self.stringType, isOptional=True)),
+
+            ("reply_to_topic", Tag(type=self.stringType, isOptional=False)),
+            
             
             ("message_body", Tag(type=self.objectType, isOptional=False)),
 
@@ -78,7 +81,11 @@ class TagInfo(object):
             ("variable_description", Tag(type=self.stringType, isOptional=True)),
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
+            ("variable_translations", Tag(type=self.objectType, isOptional=True)),
 
+            ("language", Tag(type=self.stringType, isOptional=False)),
+            ("translation", Tag(type=self.stringType, isOptional=False)),            
+            
             ("Variable_source_id", Tag(type=self.stringType, isOptional=False)),
             ("Seq", Tag(type=self.stringType, isOptional=False)),
             ("Tolerance_min", Tag(type=self.numberType, isOptional=True)),
