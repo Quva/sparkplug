@@ -11,7 +11,7 @@ import sys
 import logging
 
 from sparkplug.parsers import xml
-from sparkplug.validators import validateMessage
+from sparkplug.validators import validateMessage, Schemas
 from sparkplug.converters import convertMessageInPlace
 
 
@@ -62,12 +62,11 @@ class SparkPlug(object):
             message = self.loadXML(fileName)
 
         return message
-            
-            
-    def loadJSON(self, fileName):
+    
+    def loadJSON(self, fileName, lift=True):
         return self.__load(json.load, open(fileName, "r"))
 
-    def loadXML(self, fileName):
+    def loadXML(self, fileName, lift=True):
         return self.__load(xml.load, open(fileName, "r"))
 
     def loadJSONString(self, payload):
@@ -79,10 +78,13 @@ class SparkPlug(object):
     def __load(self, load_f, loadable):
         
         message = load_f(loadable)
-
+        
         self.__logInfo("Converting message, this may take a while")
         convertMessageInPlace(message)
         self.__logInfo("Done converting message!")
+        
+        # Lift message to latest version
+        message = Schemas.latest.lift(message, logger=self.__logger)
         
         return message
 

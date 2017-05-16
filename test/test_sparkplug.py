@@ -12,6 +12,7 @@ class SparkPlugTest(unittest.TestCase):
     def test_linestate_v1_json(self):
 
         message = self.plug.loadJSON("test/test_linestate_v1.json")
+        assert_equal(message["message_header"]["message_version"], "v2")
         self.plug.validate(message)
 
     def test_linestate_v1_no_measurements_json(self):
