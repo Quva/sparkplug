@@ -63,10 +63,10 @@ class SparkPlug(object):
 
         return message
     
-    def loadJSON(self, fileName, lift=True):
+    def loadJSON(self, fileName):
         return self.__load(json.load, open(fileName, "r"))
 
-    def loadXML(self, fileName, lift=True):
+    def loadXML(self, fileName):
         return self.__load(xml.load, open(fileName, "r"))
 
     def loadJSONString(self, payload):
@@ -79,10 +79,12 @@ class SparkPlug(object):
         
         message = load_f(loadable)
         
+        print(message["message_body"].get("event"))
+        
         self.__logInfo("Converting message, this may take a while")
         convertMessageInPlace(message)
         self.__logInfo("Done converting message!")
-        
+
         # Lift message to latest version
         message = Schemas.latest.lift(message, logger=self.__logger)
         

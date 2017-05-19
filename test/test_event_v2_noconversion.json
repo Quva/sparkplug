@@ -28,7 +28,8 @@
                     "preclean_variable_groups": ["QUALITY"],
                     "request_analysis": true
                 },
-                "event_id": "201501011234"
+            "event_id": "201501011234",
+            "process_id": "machine"
         }
     },
     "message_header": {

@@ -154,6 +154,10 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": True
         },
+        "process_id": {
+            "type": "string",
+            "required": False
+        },
         "product_id": {
             "type": "string",
             "required": False

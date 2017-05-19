@@ -13,6 +13,7 @@
         "event": {
             "event_id": "201501011234",
             "event_type": "NEW_EVENT",
+            "process_id": "machine",
             "event_properties": {
                 "product_id": "ean_code",
                 "time_material_produced": "2015-01-01 12:23:34",

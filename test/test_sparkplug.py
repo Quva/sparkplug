@@ -33,7 +33,7 @@ class SparkPlugTest(unittest.TestCase):
         assert_equal(message, message2)
 
     def test_event_message_v2_xml(self):
-
+        
         message = self.plug.loadXML("test/test_event_v2.xml")
         self.plug.validate(message)
 

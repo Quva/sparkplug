@@ -7,6 +7,7 @@
       <event_properties>
         <product_id>myproductid</product_id>
         <foo>bar</foo>
+        <Prod_machine>machine</Prod_machine>
       </event_properties>
       <actions>
         <preclean_variable_groups>PROCESS</preclean_variable_groups>
