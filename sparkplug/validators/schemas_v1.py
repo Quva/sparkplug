@@ -1,6 +1,8 @@
 
 class SchemasV1(object):
-
+    
+    version = "v1"
+    
     messageReplySchema = {
         "reply_to_topic": {
             "type": "string",

@@ -23,6 +23,10 @@ def convertMessageInPlace(message):
         eventID = body["event_id"]
         
         props = body.get("event_properties", {})
+
+        processID_body = body.get("process_id", None)
+        if processID_body is None:
+            body["process_id"] = props.get(fieldMapping["event_property_source_key"], None)
         
         # Convert event_produced_time if defined
         eventProducedTimeVal_body = body.get("event_produced_time", None)

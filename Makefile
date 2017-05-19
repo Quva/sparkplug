@@ -14,7 +14,7 @@ build:
 	$(PROG) build
 
 test:
-	nosetests-2.7 -v
+	nosetests -v
 	nosetests-3.4 -v
 
 install:
