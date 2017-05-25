@@ -18,6 +18,9 @@
       <event_stop_time>2015-05-02 00:00:00+0000</event_stop_time>
       <event_start_time>2015-05-01 00:00:00+0000</event_start_time>
       <event_type>myeventtype</event_type>
+      <event_properties>
+        <Prod_machine>machine</Prod_machine>
+      </event_properties>
     </event>
   </message_body>
   <message_header>

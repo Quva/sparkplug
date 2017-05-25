@@ -79,7 +79,7 @@ class SparkPlug(object):
         
         message = load_f(loadable)
         
-        print(message["message_body"].get("event"))
+        #print(message["message_body"].get("event"))
         
         self.__logInfo("Converting message, this may take a while")
         convertMessageInPlace(message)
