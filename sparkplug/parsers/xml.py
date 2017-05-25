@@ -55,7 +55,7 @@ def _convert_elem_inplace(D, key, tagInfo):
         
     # Properties objects should contain only key-value pairs of strings
     if key in ["event_properties", "measurement_properties", "variable_properties"]:
-        D[key] = dict(filter(lambda t: isinstance(t[1], str) or isinstance(t[1], basestring), D[key].items()))
+        D[key] = dict(filter(lambda t: isinstance(t[1], str), D[key].items()))
 
         
 def _convert_dict_inplace_recursively(D, tagInfo):
