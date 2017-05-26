@@ -23,6 +23,10 @@
           <language>FI</language>
           <translation>idöräblö de zilla</translation>
         </variable_translations>
+        <variable_translations>
+          <language>EN</language>
+          <translation>Yo yo!</translation>
+        </variable_translations>
       </variable_data>
     </variables>
   </message_body>

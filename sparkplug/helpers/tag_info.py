@@ -81,7 +81,7 @@ class TagInfo(object):
             ("variable_description", Tag(type=self.stringType, isOptional=True)),
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
-            ("variable_translations", Tag(type=self.objectType, isOptional=True)),
+            ("variable_translations", Tag(type=self.listType, isOptional=True)),
 
             ("language", Tag(type=self.stringType, isOptional=False)),
             ("translation", Tag(type=self.stringType, isOptional=False)),            
