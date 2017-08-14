@@ -3,10 +3,13 @@ import logging
 import pytz
 from uuid import uuid1
 
+# Used for backwards compatibility conversion
 fieldMapping = {
     'event_property_date_key': 'Time_material_produced',
     'event_property_similarity_key': 'Product_global_code',
     'event_property_source_key': 'Prod_machine',
+    'event_property_job_key': 'jobid',
+    'event_property_run_key': 'runid',
     'measurement_property_threshold_min_key': 'tolerance_min',
     'measurement_property_threshold_max_key': 'tolerance_max',
     'measurement_property_target_key': 'target',
@@ -16,12 +19,12 @@ fieldMapping = {
 def convertMessageInPlace(message):
 
     messageType = message["message_header"]["message_type"]
-    
+
     if messageType == "event":
-        
+
         body = message["message_body"]["event"]
         eventID = body["event_id"]
-        
+
         props = body.get("event_properties", {})
 
         processID_body = body.get("process_id", None)
@@ -31,7 +34,17 @@ def convertMessageInPlace(message):
             # TODO: consider the same treatment for some other keys with similar characteristics
             if processID is not None:
                 body["process_id"] = processID
-        
+
+        runID_body = body.get("run_id", None)
+        runID_default = "run_{}".format(eventID)
+        if runID_body is None:
+            body["run_id"] = props.get(fieldMapping["event_property_run_key"], runID_default)
+
+        jobID_body = body.get("job_id", None)
+        jobID_default = "job_{}".format(eventID)
+        if runID_body is None:
+            body["job_id"] = props.get(fieldMapping["event_property_job_key"], jobID_default)
+
         # Convert event_produced_time if defined
         eventProducedTimeVal_body = body.get("event_produced_time", None)
         if (eventProducedTimeVal_body is not None):
@@ -54,7 +67,7 @@ def convertMessageInPlace(message):
         if ( productID_props is not None and
              body.get("product_id", None) is None):
             body["product_id"] = productID_props
-           
+
         # Convert measurements if measurements are defined and is a list:
         measurements = body.get("measurement_data", None)
         if measurements is not None and isinstance(measurements, list):
@@ -94,39 +107,39 @@ def convertMeasurementRow_old(measRow, eventID):
     if measRow.get("variable_id", None) is None:
         measRow["variable_id"] = getVariableID(measRow["variable_source_id"],
                                                measRow["variable_name"])
-        
+
         del measRow["variable_source_id"]
         del measRow["variable_name"]
-    
+
     if measRow.get("event_id", None) is None:
         measRow["event_id"] = eventID
-    
+
     measRow["measurement_time"] = convertTime(measRow["measurement_time"])
 
     if measRow.get("measurement_timeuuid", None) is None:
         measRow["measurement_timeuuid"] = str(uuid1())
 
     measProps = measRow.get("measurement_properties", {})
-        
+
     if measRow.get("measurement_threshold_min", None) is None:
         measThresholdMin_props = measProps.get(fieldMapping["measurement_property_threshold_min_key"], None)
         if measThresholdMin_props is not None:
             measRow["measurement_threshold_min"] = float(measThresholdMin_props)
-            
+
     if measRow.get("measurement_threshold_max", None) is None:
         measThresholdMax_props = measProps.get(fieldMapping["measurement_property_threshold_max_key"], None)
         if measThresholdMax_props is not None:
             measRow["measurement_threshold_max"] = float(measThresholdMax_props)
-                
+
     if measRow.get("measurement_target", None) is None:
         measTarget_props = measProps.get(fieldMapping["measurement_property_target_key"], None)
         if measTarget_props is not None:
             measRow["measurement_target"] = float(measTarget_props)
-                    
+
     return measRow
-                
+
 def convertVariableRow(varRow):
-    
+
     if varRow.get("variable_id", None) is None:
         varRow["variable_id"] = getVariableID(varRow["variable_source_id"],
                                               varRow["variable_name"])
@@ -136,5 +149,5 @@ def convertVariableRow(varRow):
                               .get(fieldMapping["variable_property_group_key"], None)
         if varGroup_prop is not None:
             varRow["variable_group"] = varGroup_prop
-        
+
     return varRow

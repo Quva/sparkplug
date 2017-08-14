@@ -29,7 +29,9 @@
                     "request_analysis": true
                 },
             "event_id": "201501011234",
-            "process_id": "machine"
+            "process_id": "machine",
+            "job_id": "123",
+            "run_id": "456"
         }
     },
     "message_header": {
