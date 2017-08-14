@@ -1,7 +1,7 @@
 
 import unittest
 import json
-from nose.tools import raises, assert_equal, assert_true
+from nose.tools import raises, assert_equal, assert_equals, assert_true
 
 from sparkplug import SparkPlug
 
@@ -25,6 +25,9 @@ class SparkPlugTest(unittest.TestCase):
         message = self.plug.loadJSON("test/test_event_v2.json")
         self.plug.validate(message)
 
+        assert_equals(message["message_body"]["event"]["job_id"], "123")
+        assert_equals(message["message_body"]["event"]["run_id"], "456")
+
     def test_event_message_v2_json_noconversion(self):
 
         message = self.plug.loadJSON("test/test_event_v2_noconversion.json")
@@ -36,6 +39,10 @@ class SparkPlugTest(unittest.TestCase):
 
         message = self.plug.loadXML("test/test_event_v2.xml")
         self.plug.validate(message)
+
+        assert_equals(message["message_body"]["event"]["job_id"], "123")
+        assert_equals(message["message_body"]["event"]["run_id"], "456")
+
 
     def test_event_message_v2_no_data_json(self):
 
