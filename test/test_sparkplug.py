@@ -28,6 +28,16 @@ class SparkPlugTest(unittest.TestCase):
         assert_equals(message["message_body"]["event"]["job_id"], "123")
         assert_equals(message["message_body"]["event"]["run_id"], "456")
 
+    def test_event_list_message_v2_json(self):
+
+        message = self.plug.loadJSON("test/test_event_list_v2.json")
+        self.plug.validate(message)
+
+        assert_equals(len(message["message_body"]["events"]), 2)
+        assert_equals(message["message_body"]["events"][0]["job_id"], "123")
+        assert_equals(message["message_body"]["events"][0]["run_id"], "456")
+
+
     def test_event_message_v2_json_noconversion(self):
 
         message = self.plug.loadJSON("test/test_event_v2_noconversion.json")

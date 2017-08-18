@@ -266,6 +266,12 @@ class SchemasV2(SchemasV1):
             "required": False,
             "schema": eventBodySchema
         },
+        "events": {
+            "type": "list",
+            "required": False
+            #"schema": eventBodySchema
+        },
+
         "variables": {
             "type": "dict",
             "required": False,
@@ -295,8 +301,12 @@ class SchemasV2(SchemasV1):
             "schema": {
                 "event": {
                     "type": "dict",
-                    "required": True,
+                    "required": False,
                     "schema": eventBodySchema
+                },
+               "events": {
+                    "type": "list",
+                    "required": False
                 }
             }
         }
