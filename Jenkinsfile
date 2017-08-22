@@ -3,7 +3,7 @@ repository = "sparkplug"
 
 // This controls which build is triggered
 deploymentMap = [
-  "dev": "../Flow/flow-api"
+  "dev": "../flow-api/dev"
 ]
 
 node {
