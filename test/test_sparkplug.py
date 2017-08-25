@@ -28,6 +28,11 @@ class SparkPlugTest(unittest.TestCase):
         assert_equals(message["message_body"]["event"]["job_id"], "123")
         assert_equals(message["message_body"]["event"]["run_id"], "456")
 
+        # Assert converter functions for backwards compatibility
+        assert_equals(message["message_body"]["event"]["process_id"], message["message_body"]["event"]["event_properties"]["Prod_machine"])
+        assert_equals(message["message_body"]["event"]["product_id"], message["message_body"]["event"]["event_properties"]["Product_global_code"])
+        assert_equals(message["message_body"]["event"]["event_produced_time"], message["message_body"]["event"]["event_properties"]["Time_material_produced"])
+
     def test_event_list_message_v2_json(self):
 
         message = self.plug.loadJSON("test/test_event_list_v2.json")

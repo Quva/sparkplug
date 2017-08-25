@@ -16,6 +16,7 @@ fieldMapping = {
     'variable_property_group_key': 'variable_group'
 }
 
+PROCESS_ID_DEFAULT = "process"
 
 def convertEventBodyInPlace(body):
     eventID = body["event_id"]
@@ -25,12 +26,8 @@ def convertEventBodyInPlace(body):
     processID_body = body.get("process_id", None)
     if processID_body is None:
         processID = props.get(
-            fieldMapping["event_property_source_key"], None)
-        # Do not specify null values for process_id
-        # TODO: consider the same treatment for some other keys with
-        # similar characteristics
-        if processID is not None:
-            body["process_id"] = processID
+            fieldMapping["event_property_source_key"], PROCESS_ID_DEFAULT)
+        body["process_id"] = processID
 
     runID_body = body.get("run_id", None)
     runID_default = "run_{}".format(eventID)
