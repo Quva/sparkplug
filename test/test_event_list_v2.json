@@ -1,0 +1,68 @@
+{
+    "message_header": {
+	"message_type": "event",
+        "message_version": "v2",
+	"message_sender_id": "test",
+	"message_recipient_id": "Quva",
+	"message_id": "mymessageid",
+	"message_reply": {
+	    "reply_to_topic": "mytopic"
+	}
+    },
+    "message_body": {
+	"events": [{
+            "event_id": "201501011234",
+            "event_type": "NEW_EVENT",
+            "event_properties": {
+                "Product_global_code": "ean_code",
+                "Time_material_produced": "2015-01-01 12:23:34",
+                "jobid": "123",
+                "runid": "456"
+            },
+            "measurement_data": [{
+                "measurement_time": "2014-09-21 00:00:00+0200",
+                "variable_name": "name1",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.5
+            },{
+                "measurement_time": "2014-09-22 00:00:00",
+                "variable_name": "name2",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.6
+            }],
+            "actions": {
+                "preclean_variable_groups": ["QUALITY"],
+                "request_analysis" : true,
+                "request_analysis_feedback" : true
+            }
+            
+        },{
+            "event_id": "201501011235",
+            "event_type": "NEW_EVENT",
+            "event_properties": {
+                "Product_global_code": "ean_code",
+                "Time_material_produced": "2015-01-02 12:23:34",
+                "jobid": "123",
+                "runid": "456"
+            },
+            "measurement_data": [{
+                "measurement_time": "2014-09-21 00:00:00+0200",
+                "variable_name": "name1",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.5
+            },{
+                "measurement_time": "2014-09-22 00:00:00",
+                "variable_name": "name2",
+                "variable_source_id": "source1",
+                "measurement_num_value": 1.6
+            }],
+            "actions": {
+                "preclean_variable_groups": ["QUALITY"],
+                "request_analysis" : true,
+                "request_analysis_feedback" : true
+            }
+            
+        }]
+        
+    }
+}
