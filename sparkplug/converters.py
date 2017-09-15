@@ -17,6 +17,9 @@ fieldMapping = {
 }
 
 PROCESS_ID_DEFAULT = "process"
+PRODUCT_ID_DEFAULT = "product"
+
+VARIABLE_GROUP_DEFAULT = "PROCESS"
 
 def convertEventBodyInPlace(body):
     eventID = body["event_id"]
@@ -40,6 +43,10 @@ def convertEventBodyInPlace(body):
     if runID_body is None:
         body["job_id"] = props.get(
             fieldMapping["event_property_job_key"], jobID_default)
+
+    productID_body = body.get("product_id", None)
+    if productID_body is None:
+        body["product_id"] = PRODUCT_ID_DEFAULT
 
     # Convert event_produced_time if defined
     eventProducedTimeVal_body = body.get("event_produced_time", None)
@@ -177,5 +184,7 @@ def convertVariableRow(varRow):
                               .get(fieldMapping["variable_property_group_key"], None)
         if varGroup_prop is not None:
             varRow["variable_group"] = varGroup_prop
+        else:
+            varRow["variable_group"] = VARIABLE_GROUP_DEFAULT
 
     return varRow
