@@ -143,7 +143,7 @@ def convertMeasurementRow(measRow, eventID):
                           "a single row. Dropping measurement_txt_value")
             del measRow["measurement_txt_value"]
         value = measRow["measurement_num_value"]
-        if not isinstance(value, (int, long, float, complex)):
+        if not isinstance(value, (int, float, complex)):
             logging.warning("measurement_num_value received as {}: '{}'"
                             .format(type(value), value))
             try:
