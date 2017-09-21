@@ -45,10 +45,6 @@ def convertEventBodyInPlace(body):
         body["job_id"] = props.get(
             fieldMapping["event_property_job_key"], jobID_default)
 
-    productID_body = body.get("product_id", None)
-    if productID_body is None:
-        body["product_id"] = PRODUCT_ID_DEFAULT
-
     # Convert event_produced_time if defined
     eventProducedTimeVal_body = body.get("event_produced_time", None)
     if (eventProducedTimeVal_body is not None):
@@ -78,6 +74,11 @@ def convertEventBodyInPlace(body):
     if (productID_props is not None and
             body.get("product_id", None) is None):
         body["product_id"] = productID_props
+
+    # If there is still no product_id, use default value
+    productID_body = body.get("product_id", None)
+    if productID_body is None:
+        body["product_id"] = PRODUCT_ID_DEFAULT
 
     # Convert measurements if measurements are defined and is a list:
     measurements = body.get("measurement_data", None)
