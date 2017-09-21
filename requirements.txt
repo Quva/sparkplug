@@ -6,3 +6,4 @@ dicttoxml
 cerberus
 pytz
 python-dateutil
+six
