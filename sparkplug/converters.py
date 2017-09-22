@@ -1,6 +1,7 @@
 import dateutil.parser
 import logging
 import pytz
+import six
 from uuid import uuid1
 
 # Used for backwards compatibility conversion
@@ -77,6 +78,11 @@ def convertEventBodyInPlace(body):
         else:
             body["product_id"] = PRODUCT_ID_DEFAULT
 
+    # If there is still no product_id, use default value
+    productID_body = body.get("product_id", None)
+    if productID_body is None:
+        body["product_id"] = PRODUCT_ID_DEFAULT
+
     # Convert measurements if measurements are defined and is a list:
     measurements = body.get("measurement_data", None)
     if measurements is not None and isinstance(measurements, list):
@@ -127,6 +133,32 @@ def getVariableID(varSourceID, varName):
 
 def convertMeasurementRow(measRow, eventID):
     measRow["measurement_time"] = convertTime(measRow["measurement_time"])
+    if "measurement_txt_value" in measRow:
+        value = measRow["measurement_txt_value"]
+        if not isinstance(value, six.string_types):
+            logging.warning("measurement_txt_value received as {}: '{}'. "
+                            "Converting to string."
+                            .format(type(value), value))
+            measRow["measurement_txt_value"] = str(value)
+    if "measurement_num_value" in measRow:
+        if "measurement_txt_value" in measRow:
+            logging.error("Both measurement_num_value ({}) and "
+                          "measurement_txt_value ({}) present within "
+                          "a single row. Dropping measurement_txt_value")
+            del measRow["measurement_txt_value"]
+        value = measRow["measurement_num_value"]
+        if not isinstance(value, (int, float, complex)):
+            logging.warning("measurement_num_value received as {}: '{}'"
+                            .format(type(value), value))
+            try:
+                floatval = float(value)
+                measRow["measurement_num_value"] = floatval
+            except:
+                logging.error("Failed to convert value to float: '{}'. "
+                              "Passing through as measurement_txt_value."
+                              .format(value))
+                measRow["measurement_txt_value"] = value
+                del measRow["measurement_num_value"]
     return measRow
 
 
