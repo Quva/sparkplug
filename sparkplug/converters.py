@@ -78,11 +78,6 @@ def convertEventBodyInPlace(body):
         else:
             body["product_id"] = PRODUCT_ID_DEFAULT
 
-    # If there is still no product_id, use default value
-    productID_body = body.get("product_id", None)
-    if productID_body is None:
-        body["product_id"] = PRODUCT_ID_DEFAULT
-
     # Convert measurements if measurements are defined and is a list:
     measurements = body.get("measurement_data", None)
     if measurements is not None and isinstance(measurements, list):
