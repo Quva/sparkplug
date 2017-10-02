@@ -217,7 +217,7 @@ class SchemasV2(SchemasV1):
     productBodySchema = {
         "product_id": {
             "type": "string",
-            "required": False
+            "required": True
         },
         "product_type": {
             "type": "string",
