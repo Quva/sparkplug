@@ -156,7 +156,7 @@ class SchemasV2(SchemasV1):
         },
         "process_id": {
             "type": "string",
-            "required": True
+            "required": False
         },
         "job_id": {
             "type": "string",
@@ -164,11 +164,13 @@ class SchemasV2(SchemasV1):
         },
         "run_id": {
             "type": "string",
-            "required": True
+            "required": True,
+            "nullable": True
         },
         "product_id": {
             "type": "string",
-            "required": False
+            "required": True,
+            "nullable": True
         },
         "event_produced_time": {
             "type": "string",
@@ -215,7 +217,7 @@ class SchemasV2(SchemasV1):
     productBodySchema = {
         "product_id": {
             "type": "string",
-            "required": True
+            "required": False
         },
         "product_type": {
             "type": "string",

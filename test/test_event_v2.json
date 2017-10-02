@@ -24,7 +24,11 @@
                 "measurement_time": "2014-09-21 00:00:00+0200",
                 "variable_name": "name1",
                 "variable_source_id": "source1",
-                "measurement_num_value": 1.5
+                "measurement_num_value": 1.5,
+                "measurement_properties": {
+                    "tolerance_min": null,
+                    "tolerance_max": "2.5"
+                }
             },{
                 "measurement_time": "2014-09-22 00:00:00",
                 "variable_name": "name2",

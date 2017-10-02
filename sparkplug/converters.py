@@ -154,6 +154,33 @@ def convertMeasurementRow(measRow, eventID):
                               .format(value))
                 measRow["measurement_txt_value"] = value
                 del measRow["measurement_num_value"]
+
+    measProps = measRow.get("measurement_properties", {})
+
+    if measRow.get("measurement_threshold_min", None) is None:
+        measThresholdMin_props = measProps.get(
+            fieldMapping["measurement_property_threshold_min_key"], None)
+        if measThresholdMin_props is not None:
+            measRow["measurement_threshold_min"] = float(measThresholdMin_props)
+        else:
+            measRow["measurement_threshold_min"] = None
+
+    if measRow.get("measurement_threshold_max", None) is None:
+        measThresholdMax_props = measProps.get(
+            fieldMapping["measurement_property_threshold_max_key"], None)
+        if measThresholdMax_props is not None:
+            measRow["measurement_threshold_max"] = float(measThresholdMax_props)
+        else:
+            measRow["measurement_threshold_max"] = None
+
+    if measRow.get("measurement_target", None) is None:
+        measTarget_props = measProps.get(
+            fieldMapping["measurement_property_target_key"], None)
+        if measTarget_props is not None:
+            measRow["measurement_target"] = float(measTarget_props)
+        else:
+            measRow["measurement_target"] = None
+    
     return measRow
 
 
