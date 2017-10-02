@@ -17,8 +17,8 @@ fieldMapping = {
     'variable_property_group_key': 'variable_group'
 }
 
-PROCESS_ID_DEFAULT = "process"
-PRODUCT_ID_DEFAULT = "product"
+PROCESS_ID_DEFAULT = None #"process"
+PRODUCT_ID_DEFAULT = None #"product"
 
 VARIABLE_GROUP_DEFAULT = "PROCESS"
 
