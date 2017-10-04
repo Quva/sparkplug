@@ -156,7 +156,8 @@ class SchemasV2(SchemasV1):
         },
         "process_id": {
             "type": "string",
-            "required": False
+            "required": False,
+            "nullable": True
         },
         "job_id": {
             "type": "string",
