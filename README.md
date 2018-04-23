@@ -150,22 +150,32 @@ Variables Message is contained inside the message body of the container that has
     "message_version": "v2"
   },
   "message_body": {
-    "variables": [...]
+    "variables": {
+      "variable_data": [...]
+    }
   }
 }
 ```
-The list inside the "variables" field contains a list of objects with the following fields:
+The "variable_data" field contains a list of objects with the following fields:
 
 |               key    | type    | required  | comment                                                |
 |----------------------|---------|-----------|--------------------------------------------------------|
-| variable_source_id   | String  | YES       | Source identifier. |
-| variable_name        | String  | YES       | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
+| variable_source_id   | String  | YES       | Source identifier. For example machine or factory ID. |
+| variable_group       | String  | YES       | Variable group. Usually "PROCESS" or "QUALITY" |
+| variable_name        | String  | YES       | Variable name or ID, corresponding to sensor ID in an automation system, for example. Does not have to be unique, i.e. multiple sources can share the same variable names. |
+| variable_name_alias  | String  | NO        | Alternative variable name |
 | variable_unit        | String  | NO        | Scientific unit (for example SI) for the variable      |
 | variable_is_txt      | Boolean | YES       | Flag to denote whether the the variable should be treated as text or number. |
 | variable_description | String  | YES       | A human-readable description, which is used in the UI. |
-| variable_properties  | Map     | NO        | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
+| variable_properties  | Map     | NO        | Map of additional, freely selected properties listed per variable, such as: source_table, site_id, machine_id, sensor_id, etc. Can store at most 100 keys. |
 
-Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:
+Variable identifier consists of two pieces of information: the source (`variable_source`) and name (`variable_name`). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.
+
+Each variable message should contain all the variable definitions related to one or more source (identified by `variable_source_id`). Variables for different sources can be sent in separate messages, but each message must contain all variables for that source. The API replaces old variables with new ones for all sources specified in `variable_source_id` fields in the message.
+
+Variables should be sent at least once, when initially registering them to the system, and whenever they need to be added, removed or modified. The current interface supports at most 1 million variables.
+
+Below is an example how the JSON containing the aforementioned fields should be formatted:
 
 ```
 {
@@ -177,29 +187,28 @@ Variables Message should be sent just once to the service so as to register them
     "message_version": "v2"
   },
   "message_body": {
-    "variables": [
-      {
-        "variable_unit": "m/s",
-        "variable_is_txt": false,
-        "variable_source_id": "factory_X",
-        "variable_name": "tagABC"
-        "variable_description": "Machine Speed"
-        "variable_properties": {
-          "source_table_field": "<fieldname>",
-          "source_table": "<tablename>"
-        }, 
-      },
-      {
-      ...
-      }
-    ]
+    "variables": {
+      "variable_data": [
+        {
+          "variable_source_id": "factory_X",
+          "variable_group": "PROCESS",
+          "variable_name": "tag_1001",
+          "variable_unit": "m/s",
+          "variable_is_txt": false,
+          "variable_description": "Machine Speed",
+          "variable_properties": {
+            "source_field": "tag_1001_avg_1min",
+            "source_table": "historian_current"
+          }
+        },
+        {
+        ...
+        }
+      ]
+    }
   }
 }
 ```
-
-Variable identifier consists of two pieces of information: the name (`variable_name`) and source (`variable_source_id`). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.
-
-The current interface supports at most 1 million variables.
 
 ### Event Message
 Event Message is contained inside the message body of the container that has type "event" like so:
