@@ -13,30 +13,30 @@ from sparkplug.parsers import xml
 def getArgs():
 
     parser = ArgumentParser()
-    
+
     parser.add_argument("--payload",
                         required=True,
                         type=str,
                         default=None)
-    
+
     parser.add_argument("--url",
                         required=False,
                         type=str,
                         default="http://localhost:8161/api/message/ImportQueue?type=queue")
-    
+
     parser.add_argument("--username",
                         required=False,
                         type=str)
-    
+
     parser.add_argument("--password",
                         required=False,
                         type=str)
-    
+
     parser.add_argument("--isDryrun",
                         required=False,
                         default=False,
                         action='store_true')
-    
+
     parser.add_argument("--compress",
                         required=False,
                         default=False,
@@ -46,22 +46,22 @@ def getArgs():
                         required=False,
                         default=False,
                         action='store_true')
-    
+
     parser.add_argument("--doCompress",
                         required=False,
                         default=False,
                         action='store_true')
-    
+
     parser.add_argument("--saveAsXML",
                         default=None,
                         required=False,
                         type=str)
-    
+
     parser.add_argument("--saveAsJSON",
                         default=None,
                         required=False,
                         type=str)
-    
+
     args = parser.parse_args()
 
     return args
@@ -73,25 +73,25 @@ def resolveFileNames(path):
     if len(fileNames) == 0:
         raise Exception("Could not glob anything with: {}".format(path))
 
-    return fileNames
+    return sorted(fileNames)
 
 
 def main():
-    
+
     args = getArgs()
-    
+
     fileNames = resolveFileNames(args.payload)
 
     print(fileNames)
-        
+
     for fileName in fileNames:
-        
+
         plug = SparkPlug(url=args.url,
                          username=args.username,
                          password=args.password)
-        
-        message = plug.load(fileName)        
-        
+
+        message = plug.load(fileName)
+
         if args.doValidate:
             plug.validate(message)
             print("Validation pased")
@@ -103,7 +103,7 @@ def main():
         if not args.isDryrun:
             response = plug.post(message)
             print("{}: {}, {}".format(fileName, response.status_code, response.text))
-            
+
         if args.saveAsXML is not None:
             print("Saving as XML to: {}".format(args.saveAsXML))
             f = open(args.saveAsXML, 'w')
@@ -115,9 +115,9 @@ def main():
             f = open(args.saveAsJSON, 'w')
             f.write(json.dumps(message, indent=2))
             f.close()
-            
-            
-        
+
+
+
 
 if __name__ == "__main__":
     main()

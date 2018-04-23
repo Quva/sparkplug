@@ -6,9 +6,10 @@
       <event_type>NEW_EVENT</event_type>
       <event_properties>
         <Product_global_code>ean_code</Product_global_code>
+        <Prod_machine>machine</Prod_machine>
         <Time_material_produced>2015-01-01 12:23:34</Time_material_produced>
-        <jobid>123</jobid>
-        <runid>456</runid>
+        <CoaterJob>123</CoaterJob>
+        <AdherunID>456</AdherunID>
       </event_properties>
       <measurement_data>
         <variable_source_id>source1</variable_source_id>

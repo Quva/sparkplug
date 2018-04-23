@@ -1,7 +1,11 @@
 
 from .schemas_v1 import SchemasV1
 
+import copy
+
 class SchemasV2(SchemasV1):
+
+    version = "v2"
 
     messageReplySchema = {
         "reply_to_topic": {
@@ -9,7 +13,7 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
-    
+
     messageHeaderSchema = {
         "message_type": {
             "type": "string",
@@ -17,7 +21,7 @@ class SchemasV2(SchemasV1):
         },
         "message_id": {
             "type": "string",
-            "required": True
+            "required": False
         },
         "message_sender_id": {
             "type": "string",
@@ -78,8 +82,13 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
-    
-    
+
+    variableTranslationSchema = {
+        "language": {"type": "string", "required": True},
+        "translation": {"type": "string", "required": True}
+    }
+
+
     variableDataSchema = {
         "variable_name": {
             "type": "string",
@@ -113,11 +122,17 @@ class SchemasV2(SchemasV1):
             "type": "string",
             "required": False
         },
+        "variable_translations": {
+            "type": "list",
+            "required": False,
+            "schema": variableTranslationSchema
+        },
         "variable_properties": {
             "type": "dict",
             "required": False
         }
     }
+
 
     eventActionsSchema = {
         "preclean_variable_groups": {
@@ -133,15 +148,30 @@ class SchemasV2(SchemasV1):
             "required": False
         }
     }
-    
+
     eventBodySchema = {
         "event_id": {
             "type": "string",
             "required": True
         },
+        "process_id": {
+            "type": "string",
+            "required": False,
+            "nullable": True
+        },
+        "job_id": {
+            "type": "string",
+            "required": True
+        },
+        "run_id": {
+            "type": "string",
+            "required": True,
+            "nullable": True
+        },
         "product_id": {
             "type": "string",
-            "required": False
+            "required": True,
+            "nullable": True
         },
         "event_produced_time": {
             "type": "string",
@@ -174,8 +204,8 @@ class SchemasV2(SchemasV1):
             "schema": eventActionsSchema
         }
     }
-    
-    
+
+
     variablesBodySchema = {
         "variable_data": {
             "type": "list",
@@ -183,8 +213,8 @@ class SchemasV2(SchemasV1):
             "schema": variableDataSchema
         }
     }
-    
-    
+
+
     productBodySchema = {
         "product_id": {
             "type": "string",
@@ -213,14 +243,14 @@ class SchemasV2(SchemasV1):
         "product_properties": {
             "type": "dict",
             "required": False
-        },        
+        },
         "actions": {
             "type": "dict",
             "required": False
         }
     }
 
-    
+
     jobBodySchema = {
         "job_source_id": {
             "type": "string",
@@ -231,7 +261,7 @@ class SchemasV2(SchemasV1):
             "required": True
         }
     }
-    
+
 
     messageBodySchema = {
         "event": {
@@ -239,6 +269,12 @@ class SchemasV2(SchemasV1):
             "required": False,
             "schema": eventBodySchema
         },
+        "events": {
+            "type": "list",
+            "required": False
+            #"schema": eventBodySchema
+        },
+
         "variables": {
             "type": "dict",
             "required": False,
@@ -255,8 +291,8 @@ class SchemasV2(SchemasV1):
             "schema": jobBodySchema
         }
     }
-    
-    
+
+
     eventMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -268,14 +304,18 @@ class SchemasV2(SchemasV1):
             "schema": {
                 "event": {
                     "type": "dict",
-                    "required": True,
+                    "required": False,
                     "schema": eventBodySchema
+                },
+               "events": {
+                    "type": "list",
+                    "required": False
                 }
             }
         }
     }
 
-    
+
     variablesMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -294,7 +334,7 @@ class SchemasV2(SchemasV1):
         }
     }
 
-    
+
     productMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -330,8 +370,8 @@ class SchemasV2(SchemasV1):
             }
         }
     }
-    
-    
+
+
     @classmethod
     def getSchemaForMessageType(schemas, messageType):
         if messageType == "event":
@@ -346,4 +386,50 @@ class SchemasV2(SchemasV1):
             return schemas.messageSchema
         else:
             raise Exception("Unknown message type '{}' for schemas '{}'".format(messageType, schemas))
-        
+
+
+    @classmethod
+    def lift(cls, msg, logger=None):
+
+        msgVersion = msg["message_header"].get("message_version", "v1")
+
+        if msgVersion == "v2":
+            if logger:
+                logger.info("No need to lift, message is already v2")
+            return msg
+
+        if msgVersion == "v1":
+            return SchemasV2.__liftFromV1(msg, logger=logger)
+        else:
+            if logger:
+                logger.info("No rule to lift {} -> v2".format(msgVersion))
+            return msg
+
+    @classmethod
+    def __liftFromV1(cls, msg, logger=None):
+
+        msgType = msg["message_header"]["message_type"]
+
+        if msgType == "event":
+            if logger:
+                logger.info("Lifting message={} v1 -> v2".format(msgType))
+            return SchemasV2.__liftEventFromV1(msg)
+        else:
+            if logger:
+                logger.info("No rule to lift message={} v1 -> v2".format(msgType))
+
+
+
+    @classmethod
+    def __liftEventFromV1(cls, msg_c):
+
+        msg = copy.deepcopy(msg_c)
+
+        msg["message_header"]["message_version"] = "v2"
+
+        msg["message_body"]["event"]["measurement_data"] = msg["message_body"].get("measurements", [])
+        if msg["message_body"].get("measurements"):
+            del msg["message_body"]["measurements"]
+
+        return msg
+

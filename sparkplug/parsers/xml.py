@@ -51,11 +51,13 @@ def _convert_elem_inplace(D, key, tagInfo):
         else:
             raise Exception("Conversion rule for type {} for key {} does not exist!".format(expectedType,
                                                                                             key))
+
         
     # Properties objects should contain only key-value pairs of strings
     if key in ["event_properties", "measurement_properties", "variable_properties"]:
         D[key] = dict(filter(lambda t: isinstance(t[1], str), D[key].items()))
-            
+
+        
 def _convert_dict_inplace_recursively(D, tagInfo):
 
     keys = copy.deepcopy(list(D.keys()))

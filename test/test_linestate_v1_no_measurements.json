@@ -1,0 +1,27 @@
+{
+    "message_header": {
+        "message_type": "event",
+        "message_sender_id": "Raflow.TA",
+        "message_recipient_id": "Quva",
+        "message_id": "Raflow-TA-pqa-linestate-20170331000212-133228"
+    },
+    "message_body": {
+        "event": {
+            "event_id": "TA/CM4",
+            "event_type": "LINESTATE",
+            "product_id": "foobar",
+            "event_properties": {
+                "Line_state": "RUN",
+                "Product_code": "6415788150900",
+                "Prod_machine": "machine",
+                "Line_speed": "300.0",
+                "Job": "MRU-2133863  01",
+                "Raflatac_code": "DBJ/RP37/28",
+                "Product_global_code": "6415788150900",
+                "Raflatac_Global_code": "DBJ/RP37/28",
+                "Line_reelid": "014170330069"
+            },
+            "product_id": "6415788150900"
+        }
+    }
+}

@@ -1,14 +1,16 @@
 
 class SchemasV1(object):
-
+    
+    version = "v1"
+    
     messageReplySchema = {
         "reply_to_topic": {
             "type": "string",
             "required": True
         }
     }
-    
-    
+
+
     messageHeaderSchema = {
         "message_type": {
             "type": "string",
@@ -33,7 +35,7 @@ class SchemasV1(object):
         "message_version": {
             "type": "string",
             "required": False}}
-    
+
     messageSchema = {
         "message_header": {
             "type": "dict",
@@ -45,9 +47,13 @@ class SchemasV1(object):
             "required": True
         }
     }
-    
-    
+
+
     eventSchema = {
+        "product_id": {
+            "type": "string",
+            "required": False
+        },
         "event_id": {
             "type": "string",
             "required": True
@@ -69,8 +75,8 @@ class SchemasV1(object):
             "required": False
         }
     }
-    
-    
+
+
     measurementSchema = {
         "measurement_time": {
             "type": "string",
@@ -85,8 +91,8 @@ class SchemasV1(object):
             "required": False
         }
     }
-    
-    
+
+
     variableSchema = {
         "variable_name": {
             "type": "string",
@@ -121,8 +127,8 @@ class SchemasV1(object):
             "required": False
         }
     }
-    
-    
+
+
     messageBodySchema = {
         "event": {
             "type": "dict",
@@ -144,7 +150,7 @@ class SchemasV1(object):
             "required": False
         }
     }
-    
+
     eventMessageBodySchema = {
         "event": {
             "type": "dict",
@@ -153,7 +159,7 @@ class SchemasV1(object):
         },
         "measurements": {
             "type": "list",
-            "required": True,
+            "required": False,
             "schema": measurementSchema
         },
         "request_analysis": {
@@ -161,8 +167,8 @@ class SchemasV1(object):
             "required": False
         }
     }
-    
-    
+
+
     eventMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -172,8 +178,8 @@ class SchemasV1(object):
             "type": "dict",
             "required": True,
             "schema": eventMessageBodySchema}}
-    
-    
+
+
     variablesMessageBodySchema = {
         "variables": {
             "type": "list",
@@ -181,8 +187,8 @@ class SchemasV1(object):
             "schema": variableSchema
         }
     }
-    
-    
+
+
     variablesMessageSchema = {
         "message_header": {
             "type": "dict",
@@ -192,7 +198,7 @@ class SchemasV1(object):
             "type": "dict",
             "required": True,
             "schema": variablesMessageBodySchema}}
-    
+
     @classmethod
     def getSchemaForMessageType(schemas, messageType):
         if messageType in ["event", "event-update"]:

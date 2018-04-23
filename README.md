@@ -50,7 +50,7 @@ To use Sparkplug, you specify the message to send; URL pointing to the ImportQue
 ```
 sparkplug \
 	  --payload message.json \
-	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --url https://flow.quva.fi/<path>/<to>/<application>/api/ImportQueue?senderID=<mysenderid> \
 	  --username $USERNAME \
 	  --password $PASSWORD
 ```
@@ -65,7 +65,7 @@ The XML message is sent similarly (sparkplug infers the format of the message wi
 ```
 sparkplug \
 	  --payload message.xml \
-	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --url https://flow.quva.fi/<path>/<to>/<application>/api/ImportQueue?senderID=<mysenderid> \
 	  --username $USERNAME \
 	  --password $PASSWORD
 ```
@@ -139,7 +139,7 @@ The Message Header takes the following form as JSON:
 ```
 
 ### Variables Message
-Variables Message is contained inside the message body of the container that has type "variables" like so:
+Variables Message is contained inside the message body of the container like so:
 ```
 {
   "message_header": {
@@ -150,22 +150,32 @@ Variables Message is contained inside the message body of the container that has
     "message_version": "v2"
   },
   "message_body": {
-    "variables": [...]
+    "variables": {
+      "variable_data": [...]
+    }
   }
 }
 ```
-The list inside the "variables" field contains a list of objects with the following fields:
+The "variable_data" field contains a list of objects with the following fields:
 
 |               key    | type    | required  | comment                                                |
 |----------------------|---------|-----------|--------------------------------------------------------|
-| variable_source_id   | String  | YES       | Source identifier. |
-| variable_name        | String  | YES       | Human-readable name for the variable. Does not have to be unique, i.e. multiple sources can share the same variable names. |
+| variable_source_id   | String  | YES       | Source identifier. For example machine or factory ID. |
+| variable_group       | String  | YES       | Variable group. Usually "PROCESS" or "QUALITY" |
+| variable_name        | String  | YES       | Variable name or ID, corresponding to sensor ID in an automation system, for example. Does not have to be unique, i.e. multiple sources can share the same variable names. |
+| variable_name_alias  | String  | NO        | Alternative variable name |
 | variable_unit        | String  | NO        | Scientific unit (for example SI) for the variable      |
 | variable_is_txt      | Boolean | YES       | Flag to denote whether the the variable should be treated as text or number. |
 | variable_description | String  | YES       | A human-readable description, which is used in the UI. |
-| variable_properties  | Map     | NO        | map of properties listed per variable, such as: origin table, site id, machine id, sensor id, etc. Can store at most 100 keys. |
+| variable_properties  | Map     | NO        | Map of additional, freely selected properties listed per variable, such as: source_table, site_id, machine_id, sensor_id, etc. Can store at most 100 keys. |
 
-Variables Message should be sent just once to the service so as to register them. Without registering the variables they are not stored in the database and thus cannot be surfaced in the frontend nor used by analytics applications. The message contains all the meta data for all the variables that are of interest regarding analysis. Below is an example how the JSON containing the aforementioned fields should be formatted:
+Variable identifier consists of two pieces of information: the source (`variable_source`) and name (`variable_name`). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.
+
+Each Variables Message should contain all the variable definitions related to one or more source (identified by `variable_source_id`). Variables for different sources can be sent in separate messages, but each message must contain all variables for that source. The API replaces old variables with new ones for all sources specified in `variable_source_id` fields in the message.
+
+Variables should be sent at least once, when initially registering them to the system, and whenever they need to be added, removed or modified. The current interface supports at most 1 million variables.
+
+Below is an example how the JSON containing the aforementioned fields should be formatted:
 
 ```
 {
@@ -177,32 +187,29 @@ Variables Message should be sent just once to the service so as to register them
     "message_version": "v2"
   },
   "message_body": {
-    "variables": [
-      {
-        "variable_unit": "m/s",
-        "variable_is_txt": false,
-        "variable_source_id": "factory_X",
-        "variable_name": "tagABC"
-        "variable_description": "Machine Speed"
-        "variable_properties": {
-          "source_table_field": "<fieldname>",
-          "source_table": "<tablename>"
-        }, 
-      },
-      {
-      ...
-      }
-    ]
+    "variables": {
+      "variable_data": [{
+          "variable_source_id": "<country>/<site>/<unit>",
+          "variable_group": "PROCESS",
+          "variable_name": "tag_1001",
+          "variable_unit": "m/s",
+          "variable_is_txt": false,
+          "variable_description": "Machine Speed",
+          "variable_properties": {
+            "source_field": "tag_1001_avg_1min",
+            "source_table": "historian_current"
+          }
+        },{
+          ...
+        }
+      ]
+    }
   }
 }
 ```
 
-Variable identifier consists of two pieces of information: the name (`variable_name`) and source (`variable_source_id`). A variable that has a specific name can come from multiple sources. This convention makes it possible to pool together data for a single variable coming from different sources, which may be beneficial for analytics.
-
-The current interface supports at most 1 million variables.
-
 ### Event Message
-Event Message is contained inside the message body of the container that has type "event" like so:
+Event Message is contained inside the message body of the container like so:
 ```
 {
   "message_header": {
@@ -213,31 +220,38 @@ Event Message is contained inside the message body of the container that has typ
     "message_version": "v2"
   },
   "message_body": {
-    "event": {...},
-    "measurements": [...]
+    "event": {
+      "event_id": "<myeventid>",
+      "event_type": "<myeventtype>",
+      "event_properties": {...},
+      "measurement_data": [...],
+      "actions": {...}
+    }
   }
 }
 ```
-Event Messages are sent when a new event happens, or an old one gets updated. The service can identify whether the event is new or re-entered based on `event_id`. General event information is stored in the field `event` and has the following fields in it: 
+Event Messages are sent when a new event happens, or an old one gets updated. The service can identify whether the event is new or re-entered based on `event_id`, which could correspond to a manufactured item, for example. If the process is continuous, lacking separable units, `event_id` could be a timestamp (such as "201804221815") that is simply used for labeling and transmitting a bunch of measurements within a time frame.
+
+The `event` object of an Event Message contains following fields: 
 
 | key              | type   | required  | comment                                                      |
 |------------------|--------|-----------|--------------------------------------------------------------|
-| event_id         | String | YES       | Unique string for every event                                |
-| event_type       | String | YES       | Groups similar events together                               |
-| event_start_time | Date   | NO       | What is the start time of the event                          |
-| event_stop_time  | Date   | NO       | What is the stop time of the event                           |
+| event_id         | String | YES       | Unique string for every event                    |
+| event_type       | String | YES       | Identifier for grouping similar events together  |
+| event_start_time | Date   | NO        | Start time of the event                          |
+| event_stop_time  | Date   | NO        | Stop time of the event                           |
 | event_properties | Map    | NO        | Map of properties for the event. Can store at most 100 keys. |
 
-Along with the event information comes the measurements, given in a separate field `measurements`. Inside `measurements` there is a list of objects with the following fields:
+Measurements are transmitted along with the event metadata, in a separate field `measurement_data`. Inside `measurement_data` there is a list of objects with the following fields:
 
 | key                    | type   | required | comment                                  |
 |------------------------|--------|----------|------------------------------------------|
-| variable_name          | String | YES      | What is the name of the variable         |
-| variable_source_id     | String | YES      | What is the source of the variable       |
-| measurement_time       | Date   | YES      | When was the measurement taken           |
-| measurement_num_value  | Double | NO       | What was the measured value. Needs to be set if variable_is_txt is False. |
-| measurement_txt_value  | String | NO       | What was the measured value. Needs to be set if variable_is_txt is True. |
-| measurement_properties | Map    | NO       | Map of the properties of the measurement. Can store at most 10 keys. |
+| variable_source_id     | String | YES      | Variable source identifier       |
+| variable_name          | String | YES      | Variable name                    |
+| measurement_time       | Date   | YES      | Measurement time. ISO 8601 format with timezone field. |
+| measurement_num_value  | Double | NO       | Measured value if `variable_is_txt` for the corresponding variable is False. |
+| measurement_txt_value  | String | NO       | Measured value if `variable_is_txt` for the corresponding variable is True. |
+| measurement_properties | Map    | NO       | Map of measurement properties. Can store at most 10 keys. |
 
 Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclusive and should be used according to how the variables are set in the Variables message (see `variable_is_txt` flag). Below is an example Event message in JSON format:
 
@@ -251,26 +265,40 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
     "message_version": "v2"
   },
   "message_body": {
-    "measurements": [
-      {
-        "measurement_time": "2014-12-30 00:00:00+0200",
-        "variable_source_id": "<country>/<site>/<unit>", 
-        "measurement_txt_value": "YES", 
-        "variable_name": "Is sensor active?"
-      }, 
-      {
-      ...
-      }
-    ],
     "event": {
-      "event_id": "<myeventid>", 
-      "event_stop_time": "yyyy-mm-dd HH:MM:SS+ZZZZ", 
-      "event_start_time": "yyyy-mm-dd HH:MM:SS+ZZZZ", 
-      "event_type": "<myeventtype>",
+      "event_id": "201412300001",
+      "event_start_time": "2014-12-30 00:00:00+0200",
+      "event_stop_time": "2014-12-30 00:01:00+0200",
+      "event_type": "NEW_EVENT",
       "event_properties": {
         ...
+      },
+      "measurement_data": [{
+        "measurement_time": "2014-12-30 00:00:30+0200",
+        "variable_source_id": "<country>/<site>/<unit>",
+        "variable_name": "tag_1001",
+        "measurement_num_value": 13.856900
+      },{
+        "measurement_time": "2014-12-30 00:00:30+0200",
+        "variable_source_id": "<country>/<site>/<unit>",
+        "variable_name": "tag_1002",
+        "measurement_num_value": null
+      },{
+        ...
+      }],
+      "actions": {
+        "preclean_variable_groups": ["PROCESS"]
       }
     }
   }
 }
 ```
+
+The example above also contains an `actions` object, which is used for transmitting control commands to the API. Currently supported actions are:
+
+ * `preclean_variable_groups`: Clear previously sent measurement data from the event. Should be used when retransmitting overlapping data -- even if the timestamps match exactly.
+
+ * `request_analysis`: Run SPC analysis on the event. Other analyses and online prediction may be configured to run continuously without explicit requests.
+
+ * `request_analysis_feedback`: Set to `true` to have the system send feedback message after finished SPC analysis.
+

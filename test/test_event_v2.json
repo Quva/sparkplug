@@ -1,29 +1,34 @@
 {
-	  "message_header": {
-			  "message_type": "event",
+    "message_header": {
+        "message_type": "event",
         "message_version": "v2",
-			  "message_sender_id": "test",
-			  "message_recipient_id": "Quva",
-			  "message_id": "mymessageid",
-			  "message_reply": {
-			  		"reply_to_topic": "mytopic"
-			  }
-	  },
-	  "message_body": {
-			 	"event": {
+        "message_sender_id": "test",
+        "message_recipient_id": "Quva",
+        "message_id": "mymessageid",
+        "message_reply": {
+            "reply_to_topic": "mytopic"
+        }
+    },
+    "message_body": {
+        "event": {
             "event_id": "201501011234",
             "event_type": "NEW_EVENT",
             "event_properties": {
                 "Product_global_code": "ean_code",
+                "Prod_machine": "machine",
                 "Time_material_produced": "2015-01-01 12:23:34",
-                "jobid": "123",
-                "runid": "456"
+                "CoaterJob": "123",
+                "AdherunID": "456"
             },
             "measurement_data": [{
                 "measurement_time": "2014-09-21 00:00:00+0200",
                 "variable_name": "name1",
                 "variable_source_id": "source1",
-                "measurement_num_value": 1.5
+                "measurement_num_value": 1.5,
+                "measurement_properties": {
+                    "tolerance_min": null,
+                    "tolerance_max": "2.5"
+                }
             },{
                 "measurement_time": "2014-09-22 00:00:00",
                 "variable_name": "name2",
@@ -35,8 +40,6 @@
                 "request_analysis" : true,
                 "request_analysis_feedback" : true
             }
-            
         }
-        
-	  }
+    }
 }

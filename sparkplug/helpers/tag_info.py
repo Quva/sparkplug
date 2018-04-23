@@ -6,7 +6,7 @@ from .helpers import dictContains
 class Tag(object):
 
     def __init__(self, name=None, type=None, isOptional=False):
-        
+
         self.name = name
         self.type = type
         self.isOptional = isOptional
@@ -26,7 +26,7 @@ class TagInfo(object):
         listType   = list
         boolType   = bool
         noneType   = type(None)
-        
+
     elif __pyMajorVersion >= 3:
 
         numberType = (int, float)
@@ -35,14 +35,14 @@ class TagInfo(object):
         listType   = list
         boolType   = bool
         noneType   = type(None)
-    
+
 
     def __init__(self):
-        
-        
-        
+
+
+
         self.__tagByName = dict([
-            
+
             ("message_header", Tag(type=self.objectType, isOptional=False)),
             ("message_type", Tag(type=self.stringType, isOptional=False)),
             ("message_id", Tag(type=self.stringType, isOptional=True)),
@@ -50,7 +50,10 @@ class TagInfo(object):
             ("message_recipient_id", Tag(type=self.stringType, isOptional=False)),
             ("message_reply", Tag(type=self.objectType, isOptional=True)),
             ("message_version", Tag(type=self.stringType, isOptional=True)),
-            
+
+            ("reply_to_topic", Tag(type=self.stringType, isOptional=False)),
+
+
             ("message_body", Tag(type=self.objectType, isOptional=False)),
 
             ("event", Tag(type=self.objectType, isOptional=True)),
@@ -59,14 +62,14 @@ class TagInfo(object):
             ("event_start_time", Tag(type=self.stringType, isOptional=True)),
             ("event_stop_time", Tag(type=self.stringType, isOptional=True)),
             ("event_properties", Tag(type=self.objectType, isOptional=True)),
-            
+
             #("measurements", Tag(type=self.objectType, isOptional=False)),
             ("measurement_data", Tag(type=self.listType, isOptional=False)),
             ("measurement_time", Tag(type=self.stringType, isOptional=False)),
             ("measurement_num_value", Tag(type=self.numberType, isOptional=True)),
             ("measurement_txt_value", Tag(type=self.stringType, isOptional=True)),
             ("measurement_properties", Tag(type=self.objectType, isOptional=True)),
-            
+
             ("variables", Tag(type=self.objectType, isOptional=False)),
             ("variable_data", Tag(type=self.listType, isOptional=False)),
             ("variable_group", Tag(type=self.stringType, isOptional=False)),
@@ -78,13 +81,17 @@ class TagInfo(object):
             ("variable_description", Tag(type=self.stringType, isOptional=True)),
             ("variable_description_alias", Tag(type=self.stringType, isOptional=True)),
             ("variable_properties", Tag(type=self.objectType, isOptional=True)),
+            ("variable_translations", Tag(type=self.listType, isOptional=True)),
+
+            ("language", Tag(type=self.stringType, isOptional=False)),
+            ("translation", Tag(type=self.stringType, isOptional=False)),
 
             ("Variable_source_id", Tag(type=self.stringType, isOptional=False)),
             ("Seq", Tag(type=self.stringType, isOptional=False)),
             ("Tolerance_min", Tag(type=self.numberType, isOptional=True)),
             ("Target", Tag(type=self.numberType, isOptional=True)),
             ("Tolerance_max", Tag(type=self.numberType, isOptional=True)),
-            
+
             ("product_header", Tag(type=self.objectType, isOptional=True)),
             ("product_id", Tag(type=self.stringType, isOptional=False)),
             ("product_type", Tag(type=self.stringType, isOptional=False)),
@@ -93,11 +100,13 @@ class TagInfo(object):
             ("product_specifications", Tag(type=self.listType, isOptional=True)),
             ("product_certificates", Tag(type=self.listType, isOptional=True)),
             ("product_properties", Tag(type=self.objectType, isOptional=True)),
-            
+
             ("job_header", Tag(type=self.objectType, isOptional=True)),
             ("job_source_id", Tag(type=self.stringType, isOptional=False)),
             ("job_properties", Tag(type=self.objectType, isOptional=True)),
 
+            ("job_id", Tag(type=self.stringType, isOptional=False)),
+            ("run_id", Tag(type=self.stringType, isOptional=False)),
 
             ("actions", Tag(type=self.objectType, isOptional=True)),
             ("request_analysis", Tag(type=self.boolType, isOptional=True)),
@@ -108,20 +117,20 @@ class TagInfo(object):
             ("analysis_properties", Tag(type=self.objectType, isOptional=False)),
             ("days_back", Tag(type=self.stringType, isOptional=False)),
             ("event_property_similarity_key", Tag(type=self.stringType, isOptional=False)),
-            
+
             ("keyspace", Tag(type=self.stringType, isOptional=False)),
             ("event_id", Tag(type=self.stringType, isOptional=False))
-            
+
         ])
 
-        
-        
-        
+
+
+
     def getTag(self, name):
-        
+
         if not dictContains(self.__tagByName, name):
             raise Exception("TagInfo does not have type information for key '{}'".format(name))
-        
+
         return self.__tagByName[name]
 
     def keys(self):

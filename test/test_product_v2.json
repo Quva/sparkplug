@@ -1,4 +1,4 @@
-{    
+{
     "message_header": {
         "message_type": "product",
         "message_version": "v2",
@@ -7,7 +7,7 @@
         "message_id": "mymessageid",
         "message_reply": {
             "reply_to_topic": "mytopic"
-        }  
+        }
     },
     "message_body": {
         "product_header": {
@@ -17,14 +17,14 @@
             "product_description": [{
                 "Language": "ENG",
                 "Description": "Product"
-            }, {
+            },{
                 "Language": "FIN",
                 "Description": "Tuote"
             }],
             "product_properties": {
                 "a": "1",
                 "b": "2"
-            }   
+            }
         }
     }
 }

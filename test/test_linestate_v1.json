@@ -1,0 +1,129 @@
+{
+    "message_header": {
+        "message_type": "event",
+        "message_sender_id": "Raflow.TA",
+        "message_recipient_id": "Quva",
+        "message_id": "Raflow-TA-pqa-linestate-20170331000212-133228"
+    },
+    "message_body": {
+        "event": {
+            "event_id": "TA/CM4",
+            "event_type": "LINESTATE",
+            "product_id": "foobar",
+            "event_properties": {
+                "Line_state": "RUN",
+                "Product_code": "6415788150900",
+                "Prod_machine": "machine",
+                "Line_speed": "300.0",
+                "Job": "MRU-2133863  01",
+                "Raflatac_code": "DBJ/RP37/28",
+                "Product_global_code": "6415788150900",
+                "Raflatac_Global_code": "DBJ/RP37/28",
+                "Line_reelid": "014170330069"
+            },
+            "product_id": "6415788150900"
+        },
+        "measurements": [
+        {
+            "variable_name": "LINK:1",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:2",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:3",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:4",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:5",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:6",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:7",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:8",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "1.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:9",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "25.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        },
+        {
+            "variable_name": "LINK:10",
+            "variable_source_id": "TA/CM4",
+            "measurement_time": "2017-03-31 00:01:25",
+            "measurement_num_value": "25.0",
+            "measurement_properties": {
+                "meter_stamp": "1316.0",
+                "line_state": "RUN,DISPERSION_CU"
+            }
+        }
+        ]
+    }
+}

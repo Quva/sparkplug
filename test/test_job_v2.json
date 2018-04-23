@@ -11,14 +11,14 @@
     },
     "message_body": {
         "job_header": {
-            "job_source_id": "mysourceid",
+            "job_source_id": "machine1",
             "job_data": [{
                 "job_id": "jobid1",
                 "job_status": "IN_PROGRESS"
             },{
                 "job_id": "jobid1",
                 "job_status": "PENDING"
-            }]           
+            }]
         }
     }
 }
