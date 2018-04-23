@@ -188,8 +188,7 @@ Below is an example how the JSON containing the aforementioned fields should be 
   },
   "message_body": {
     "variables": {
-      "variable_data": [
-        {
+      "variable_data": [{
           "variable_source_id": "<country>/<site>/<unit>",
           "variable_group": "PROCESS",
           "variable_name": "tag_1001",
@@ -200,9 +199,8 @@ Below is an example how the JSON containing the aforementioned fields should be 
             "source_field": "tag_1001_avg_1min",
             "source_table": "historian_current"
           }
-        },
-        {
-        ...
+        },{
+          ...
         }
       ]
     }
@@ -268,20 +266,20 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
   },
   "message_body": {
     "event": {
-      "event_id": "<myeventid>",
-      "event_stop_time": "yyyy-mm-dd HH:MM:SS+ZZZZ",
-      "event_start_time": "yyyy-mm-dd HH:MM:SS+ZZZZ",
+      "event_id": "201412300001",
+      "event_start_time": "2014-12-30 00:00:00+0200",
+      "event_stop_time": "2014-12-30 00:01:00+0200",
       "event_type": "NEW_EVENT",
       "event_properties": {
         ...
       },
       "measurement_data": [{
-        "measurement_time": "2014-12-30 00:00:00+0200",
+        "measurement_time": "2014-12-30 00:00:30+0200",
         "variable_source_id": "<country>/<site>/<unit>",
         "variable_name": "tag_1001",
         "measurement_num_value": 13.856900
       },{
-        "measurement_time": "2014-12-30 00:00:00+0200",
+        "measurement_time": "2014-12-30 00:00:30+0200",
         "variable_source_id": "<country>/<site>/<unit>",
         "variable_name": "tag_1002",
         "measurement_num_value": null
