@@ -50,7 +50,7 @@ To use Sparkplug, you specify the message to send; URL pointing to the ImportQue
 ```
 sparkplug \
 	  --payload message.json \
-	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --url https://flow.quva.fi/<path>/<to>/<application>/api/ImportQueue?senderID=<mysenderid> \
 	  --username $USERNAME \
 	  --password $PASSWORD
 ```
@@ -65,7 +65,7 @@ The XML message is sent similarly (sparkplug infers the format of the message wi
 ```
 sparkplug \
 	  --payload message.xml \
-	  --url https://aiko.quva.fi:8162/<path>/<to>/<application>/ImportQueue?senderID=<mysenderid> \
+	  --url https://flow.quva.fi/<path>/<to>/<application>/api/ImportQueue?senderID=<mysenderid> \
 	  --username $USERNAME \
 	  --password $PASSWORD
 ```
