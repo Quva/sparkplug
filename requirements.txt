@@ -3,7 +3,7 @@ requests>=2.4.2
 nose
 xmltodict
 dicttoxml
-cerberus
+cerberus==1.1
 pytz
 python-dateutil
 six
