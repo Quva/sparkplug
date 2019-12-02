@@ -223,6 +223,8 @@ Event Message is contained inside the message body of the container like so:
     "event": {
       "event_id": "<myeventid>",
       "event_type": "<myeventtype>",
+      "process_id": "<myprocessid>",
+      "product_id": "<myproductid>",
       "event_properties": {...},
       "measurement_data": [...],
       "actions": {...}
@@ -238,6 +240,8 @@ The `event` object of an Event Message contains following fields:
 |------------------|--------|-----------|--------------------------------------------------------------|
 | event_id         | String | YES       | Unique string for every event                    |
 | event_type       | String | YES       | Identifier for grouping similar events together  |
+| process_id       | String | NO        | Process identifier                               |
+| product_id       | String | NO        | Product identifier                               |
 | event_start_time | Date   | NO        | Start time of the event                          |
 | event_stop_time  | Date   | NO        | Stop time of the event                           |
 | event_properties | Map    | NO        | Map of properties for the event. Can store at most 100 keys. |
@@ -267,6 +271,7 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
   "message_body": {
     "event": {
       "event_id": "201412300001",
+      "product_id": "product2",
       "event_start_time": "2014-12-30 00:00:00+0200",
       "event_stop_time": "2014-12-30 00:01:00+0200",
       "event_type": "NEW_EVENT",
