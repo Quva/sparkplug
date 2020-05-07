@@ -118,7 +118,7 @@ def convertTime(ds):
         logging.warning("Timezone not specified in timestamp '{}'. Defaulting to UTC"
                        .format(ds))
         dt = dt.replace(tzinfo=pytz.UTC)
-    logging.debug("Converted timestamp '{}' to '{}'".format(ds, dt))
+    logging.info("Converted timestamp '{}' to '{}'".format(ds, dt))
     return dt.strftime("%Y-%m-%d %H:%M:%S%z")
 
 
