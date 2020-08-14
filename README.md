@@ -268,9 +268,9 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
   "message_header": {
     "message_type": "event",
     "message_version": "v2",
-    "message_sender_id": "test",
+    "message_sender_id": "MyCompany",
     "message_recipient_id": "Quva",
-    "message_id": "mymessageid"
+    "message_id": "event_message_00001234"
   },
   "message_body": {
     "event": {
@@ -292,11 +292,11 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
         "variable_name": "tag_1001",
         "variable_source_id": "CN/BM1",
         "measurement_num_value": 13.856900,
+        "measurement_target": 12.0,
+        "measurement_threshold_min": 5.0,
+        "measurement_threshold_max": 20.0,
         "measurement_properties": {
-          "meter_stamp": "21.0",
-          "tolerance_min": 5,
-          "target": 12,
-          "tolerance_max": 20
+          "meter_stamp": "101.0"
         }
       },{
         "measurement_time": "2018-03-03 00:11:01+0200",
