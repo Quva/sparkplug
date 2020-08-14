@@ -1,0 +1,48 @@
+{
+    "message_header": {
+        "message_type": "event",
+        "message_version": "v2",
+        "message_sender_id": "MyCompany",
+        "message_recipient_id": "Quva",
+        "message_id": "event_message_00001234"
+    },
+    "message_body": {
+        "event": {
+            "event_id": "201803030001",
+            "event_type": "REEL",
+            "product_id": "product2",
+            "process_id": "CN/BM1",
+            "run_id": "20180123",
+            "event_start_time": "2018-03-03 00:11:00+0200",
+            "event_stop_time": "2018-03-03 00:44:00+0200",
+            "event_properties": {
+                "material_base": "material1",
+                "coating_top": "coating3",
+                "width": "1500",
+                "qa_status": "A1"
+            },
+            "measurement_data": [{
+                "measurement_time": "2018-03-03 00:11:01+0200",
+                "variable_name": "tag_1001",
+                "variable_source_id": "CN/BM1",
+                "measurement_num_value": 13.856900,
+                "measurement_target": 12.0,
+                "measurement_threshold_min": 5.0,
+                "measurement_threshold_max": 20.0,
+                "measurement_properties": {
+                    "meter_stamp": "101.0"
+                }
+            },{
+                "measurement_time": "2018-03-03 00:11:01+0200",
+                "variable_name": "tag_2001",
+                "variable_source_id": "CN/BM1",
+                "measurement_txt_value": "high"
+            }],
+            "actions": {
+                "preclean_variable_groups": [],
+                "request_analysis" : true,
+                "request_analysis_feedback" : false
+            }
+        }
+    }
+}

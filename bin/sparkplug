@@ -106,7 +106,7 @@ def main():
 
         if args.saveAsXML is not None:
             print("Saving as XML to: {}".format(args.saveAsXML))
-            f = open(args.saveAsXML, 'w')
+            f = open(args.saveAsXML, 'wb')
             f.write(dicttoxml(message))
             f.close()
 

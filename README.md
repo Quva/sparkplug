@@ -225,6 +225,9 @@ Event Message is contained inside the message body of the container like so:
       "event_type": "<myeventtype>",
       "process_id": "<myprocessid>",
       "product_id": "<myproductid>",
+      "run_id": "<myrunid>",
+      "event_start_time": "<YYYY-MM-DD HH:MM:SS+ZZZZ>",
+      "event_stop_time": "<YYYY-MM-DD HH:MM:SS+ZZZZ>",
       "event_properties": {...},
       "measurement_data": [...],
       "actions": {...}
@@ -240,11 +243,12 @@ The `event` object of an Event Message contains following fields:
 |------------------|--------|-----------|--------------------------------------------------------------|
 | event_id         | String | YES       | Unique string for every event                    |
 | event_type       | String | YES       | Identifier for grouping similar events together  |
-| process_id       | String | NO        | Process identifier                               |
-| product_id       | String | NO        | Product identifier                               |
+| process_id       | String | YES       | Process identifier                               |
+| product_id       | String | YES       | Product identifier                               |
+| run_id           | String | NO        | Run identifier                                   |
 | event_start_time | Date   | NO        | Start time of the event                          |
-| event_stop_time  | Date   | NO        | Stop time of the event                           |
-| event_properties | Map    | NO        | Map of properties for the event. Can store at most 100 keys. |
+| event_stop_time  | Date   | YES       | Stop time of the event                           |
+| event_properties | Map    | NO        | Map of custom properties for the event. Can store at most 100 keys. |
 
 Measurements are transmitted along with the event metadata, in a separate field `measurement_data`. Inside `measurement_data` there is a list of objects with the following fields:
 
@@ -263,45 +267,58 @@ Of these, `measurement_num_value` and `measurement_txt_value` are mutually exclu
 {
   "message_header": {
     "message_type": "event",
-    "message_sender_id": "<mysenderid>",
+    "message_version": "v2",
+    "message_sender_id": "MyCompany",
     "message_recipient_id": "Quva",
-    "message_id": "<myuniquemessageid>",
-    "message_version": "v2"
+    "message_id": "event_message_00001234"
   },
   "message_body": {
     "event": {
-      "event_id": "201412300001",
+      "event_id": "201803030001",
+      "event_type": "REEL",
       "product_id": "product2",
-      "event_start_time": "2014-12-30 00:00:00+0200",
-      "event_stop_time": "2014-12-30 00:01:00+0200",
-      "event_type": "NEW_EVENT",
+      "process_id": "CN/BM1",
+      "run_id": "20180123",
+      "event_start_time": "2018-03-03 00:11:00+0200",
+      "event_stop_time": "2018-03-03 00:44:00+0200",
       "event_properties": {
-        ...
+        "material_base": "material1",
+        "coating_top": "coating3",
+        "width": "1500",
+        "qa_status": "A1"
       },
       "measurement_data": [{
-        "measurement_time": "2014-12-30 00:00:30+0200",
-        "variable_source_id": "<country>/<site>/<unit>",
+        "measurement_time": "2018-03-03 00:11:01+0200",
         "variable_name": "tag_1001",
-        "measurement_num_value": 13.856900
+        "variable_source_id": "CN/BM1",
+        "measurement_num_value": 13.856900,
+        "measurement_target": 12.0,
+        "measurement_threshold_min": 5.0,
+        "measurement_threshold_max": 20.0,
+        "measurement_properties": {
+          "meter_stamp": "101.0"
+        }
       },{
-        "measurement_time": "2014-12-30 00:00:30+0200",
-        "variable_source_id": "<country>/<site>/<unit>",
-        "variable_name": "tag_1002",
-        "measurement_num_value": null
-      },{
-        ...
+        "measurement_time": "2018-03-03 00:11:01+0200",
+        "variable_name": "tag_2001",
+        "variable_source_id": "CN/BM1",
+        "measurement_txt_value": "high"
       }],
       "actions": {
-        "preclean_variable_groups": ["PROCESS"]
+        "preclean_variable_groups": [],
+        "request_analysis" : true,
+        "request_analysis_feedback" : false
       }
     }
   }
 }
 ```
 
+Here `event_properties` contains custom keys `material_base`, `coating_top`, `width` and `qa_status` as an example. In Quva Flow, event properties are stored and processed as additional metadata, which helps describing and grouping the items in various tables and reporting views. Properties are also be useful when searching and filtering items for analysis.
+
 The example above also contains an `actions` object, which is used for transmitting control commands to the API. Currently supported actions are:
 
- * `preclean_variable_groups`: Clear previously sent measurement data from the event. Should be used when retransmitting overlapping data -- even if the timestamps match exactly.
+ * `preclean_variable_groups`: Clear previously sent measurement data from the event. Should be used when retransmitting all data -- even if the timestamps match exactly. For example, to retransmit all quality measurements for an event, old data would be cleaned away with `"preclean_variable_groups": ["QUALITY"]`
 
  * `request_analysis`: Run SPC analysis on the event. Other analyses and online prediction may be configured to run continuously without explicit requests.
 
