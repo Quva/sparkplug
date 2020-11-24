@@ -18,6 +18,9 @@ test:
 	nosetests-3.4 -v
 
 install:
-	$(PROG) install
+	$(PROG) install --user
+
+docker:
+	docker build -t sparkplug . && docker run sparkplug nosetests -v
 
 
