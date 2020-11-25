@@ -1,0 +1,12 @@
+{
+  "message_header": {
+    "message_type": "event_measurements",
+    "message_version": "v3",
+    "message_sender_id": "test",
+    "message_recipient_id": "Quva",
+    "message_id": "mymessageid"
+  },
+  "message_body": {
+    "event_id": "event_id_1"
+  }
+}

@@ -4,6 +4,10 @@ from cerberus import Validator
 from .schemas import Schemas
 
 
+class SchemaValidationException(Exception):
+      """Raised when message validation failed"""
+      pass
+
 def validateMessage(message):
 
       validateMessageWithSchema(message, Schemas.latest.getSchemaForMessageType("message"), "latest")
@@ -30,5 +34,5 @@ def validateMessageWithSchema(obj, schema, ver):
       res = v.validate(obj)
 
       if res is not True:
-            raise Exception("Errors with schema ver {}: {}".format(ver, v.errors))
+            raise SchemaValidationException("Errors with schema ver {}: {}".format(ver, v.errors))
 

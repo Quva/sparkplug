@@ -1,35 +1,38 @@
 from ..v2.messages import messageHeaderSchema
 
-eventMeasurement = {
-    "measurement_numeric_value": {
-        "type": "float",
-        "required": True
-    },
-    "measurement_time": {
-        "type": "string",
-        "required": False
-    }
-}
-eventVariableMeasurements = {
-    "variable_id": {
-        "type": "string",
-        "required": True
-    },
-    "measurements": {
-        "type": "list",
+eventMetadataMessageSchema = {
+    "message_header": {
+        "type": "dict",
         "required": True,
-        "schema": eventMeasurement
-    }
-}
-eventMeasurements = {
-    "event_id": {
-        "type": "string",
-        "required": True
+        "schema": messageHeaderSchema
     },
-    "variables": {
-        "type": "list",
+    "message_body": {
+        "type": "dict",
         "required": True,
-        "schema": eventVariableMeasurements
+        "schema": {
+            "event_id": {
+                "type": "string",
+                "required": True
+            },
+            "metadata": {
+                "type": "list",
+                "required": True,
+                "schema": {
+                    "key": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "value": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "time": {
+                        "type": "datetime",
+                        "required": False
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -43,52 +46,33 @@ eventMeasurementMessageSchema = {
         "type": "dict",
         "required": True,
         "schema": {
-            "process_measurements": {
-                "type": "dict",
+            "event_id": {
+                "type": "string",
+                "required": True
+            },
+            "variable_ids": {
+                "type": "list",
                 "required": True,
-                "schema": eventMeasurements
-            }
-        }
-    }
-}
-
-eventMetaData = {
-    "key": {
-        "type": "string",
-        "required": True
-    },
-    "value": {
-        "type": "string",
-        "required": True
-    }
-}
-
-eventMetaDatas = {
-    "event_id": {
-        "type": "string",
-        "required": True
-    },
-    "meta_data": {
-        "type": "list",
-        "required": True,
-        "schema": eventMetaData
-    }
-}
-
-eventMetaDataMessageSchema = {
-    "message_header": {
-        "type": "dict",
-        "required": True,
-        "schema": messageHeaderSchema
-    },
-    "message_body": {
-        "type": "dict",
-        "required": True,
-        "schema": {
-            "event_meta_data": {
-                "type": "dict",
-                "required": True,
-                "schema": eventMetaDatas
+                "schema": {
+                    "variable_id": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "measurements": {
+                        "type": "list",
+                        "required": True,
+                        "schema": {
+                            "value": {
+                                "type": "float",
+                                "required": True
+                            },
+                            "time": {
+                                "type": "datetime",
+                                "required": False
+                            }
+                        }
+                    }
+                }
             }
         }
     }

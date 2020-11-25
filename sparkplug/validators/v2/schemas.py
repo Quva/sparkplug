@@ -53,52 +53,60 @@ class SchemasV2(SchemasV1):
             return schemas.jobMessageSchema
         elif messageType == "message":
             return schemas.messageSchema
+        elif messageType == "process_measurements":
+            return schemas.messageSchema
+        elif messageType == "process_meta_data":
+            return schemas.messageSchema
+        elif messageType == "event_measurements":
+            return schemas.messageSchema
+        elif messageType == "event_meta_data":
+            return schemas.messageSchema
         else:
             raise Exception("Unknown message type '{}' for schemas '{}'".format(messageType, schemas))
 
-
-    @classmethod
-    def lift(cls, msg, logger=None):
+    @staticmethod
+    def lift(msg, logger=None):
 
         msgVersion = msg["message_header"].get("message_version", "v1")
+        if msgVersion == "v3":
+            if logger:
+                logger.info("No need to lift, message is already v3")
+            return msg
 
         if msgVersion == "v2":
             if logger:
-                logger.info("No need to lift, message is already v2")
+                logger.info("No need to lift, message is already v3 is backwards compatible")
             return msg
 
         if msgVersion == "v1":
-            return SchemasV2.__liftFromV1(msg, logger=logger)
+            return liftEventFromV1toV2(msg, logger=logger)
         else:
             if logger:
                 logger.info("No rule to lift {} -> v2".format(msgVersion))
             return msg
 
-    @classmethod
-    def __liftFromV1(cls, msg, logger=None):
+def liftFromV1toV2(msg, logger=None):
+    msgType = msg["message_header"]["message_type"]
 
-        msgType = msg["message_header"]["message_type"]
-
-        if msgType == "event":
-            if logger:
-                logger.info("Lifting message={} v1 -> v2".format(msgType))
-            return SchemasV2.__liftEventFromV1(msg)
-        else:
-            if logger:
-                logger.info("No rule to lift message={} v1 -> v2".format(msgType))
+    if msgType == "event":
+        if logger:
+            logger.info("Lifting message={} v1 -> v2".format(msgType))
+        return liftEventFromV1toV2(msg)
+    else:
+        if logger:
+            logger.info("No rule to lift message={} v1 -> v2".format(msgType))
 
 
 
-    @classmethod
-    def __liftEventFromV1(cls, msg_c):
+def liftEventFromV1toV2(msg_c):
 
-        msg = copy.deepcopy(msg_c)
+    msg = copy.deepcopy(msg_c)
 
-        msg["message_header"]["message_version"] = "v2"
+    msg["message_header"]["message_version"] = "v2"
 
-        msg["message_body"]["event"]["measurement_data"] = msg["message_body"].get("measurements", [])
-        if msg["message_body"].get("measurements"):
-            del msg["message_body"]["measurements"]
+    msg["message_body"]["event"]["measurement_data"] = msg["message_body"].get("measurements", [])
+    if msg["message_body"].get("measurements"):
+        del msg["message_body"]["measurements"]
 
-        return msg
+    return msg
 

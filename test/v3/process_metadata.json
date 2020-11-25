@@ -1,0 +1,16 @@
+{
+  "message_header": {
+    "message_type": "process_metadata",
+    "message_version": "v3",
+    "message_sender_id": "test",
+    "message_recipient_id": "Quva",
+    "message_id": "mymessageid"
+  },
+  "message_body": {
+    "process_id": "test_1_process_id",
+    "metadata": [
+      { "key": "key_1", "value": "value_1" },
+      {"key": "key_2", "value": "value_2"}
+    ]
+  }
+}

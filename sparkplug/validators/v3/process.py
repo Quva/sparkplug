@@ -1,37 +1,38 @@
 from ..v2.messages import messageHeaderSchema
 
-processMeasurement = {
-    "measurement_numeric_value": {
-        "type": "float",
-        "required": True
-    },
-    "measurement_time": {
-        "type": "string",
-        "required": True
-    }
-}
-
-processVariableMeasurements = {
-    "variable_id": {
-        "type": "string",
-        "required": True
-    },
-    "measurements": {
-        "type": "list",
+processMetadataMessageSchema = {
+    "message_header": {
+        "type": "dict",
         "required": True,
-        "schema": processMeasurement
-    }
-}
-
-processMeasurements = {
-    "process_id": {
-        "type": "string",
-        "required": True
+        "schema": messageHeaderSchema
     },
-    "variables": {
-        "type": "list",
+    "message_body": {
+        "type": "dict",
         "required": True,
-        "schema": processVariableMeasurements
+        "schema": {
+            "process_id": {
+                "type": "string",
+                "required": True
+            },
+            "metadata": {
+                "type": "list",
+                "required": True,
+                "schema": {
+                    "key": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "value": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "time": {
+                        "type": "datetime",
+                        "required": True,
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -45,56 +46,33 @@ processMeasurementMessageSchema = {
         "type": "dict",
         "required": True,
         "schema": {
-            "process_measurements": {
-                "type": "dict",
+            "process_id": {
+                "type": "string",
+                "required": True
+            },
+            "variable_ids": {
+                "type": "list",
                 "required": True,
-                "schema": processMeasurements
-            }
-        }
-    }
-}
-
-processMetaData = {
-    "time": {
-        "type": "string",
-        "required": True,
-    },
-    "key": {
-        "type": "string",
-        "required": True
-    },
-    "value": {
-        "type": "string",
-        "required": True
-    }
-}
-
-processMetaDatas = {
-    "process_id": {
-        "type": "string",
-        "required": True
-    },
-    "meta_data": {
-        "type": "list",
-        "required": True,
-        "schema": processMetaData
-    }
-
-}
-processMetaDataMessageSchema = {
-    "message_header": {
-        "type": "dict",
-        "required": True,
-        "schema": messageHeaderSchema
-    },
-    "message_body": {
-        "type": "dict",
-        "required": True,
-        "schema": {
-            "process_meta_data": {
-                "type": "dict",
-                "required": True,
-                "schema": processMetaDatas
+                "schema": {
+                    "variable_id": {
+                        "type": "string",
+                        "required": True
+                    },
+                    "measurements": {
+                        "type": "list",
+                        "required": True,
+                        "schema": {
+                            "value": {
+                                "type": "float",
+                                "required": True
+                            },
+                            "time": {
+                                "type": "datetime",
+                                "required": True
+                            }
+                        }
+                    }
+                }
             }
         }
     }

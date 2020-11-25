@@ -15,7 +15,6 @@ build:
 
 test:
 	nosetests -v
-	nosetests-3.4 -v
 
 install:
 	$(PROG) install

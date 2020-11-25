@@ -1,0 +1,15 @@
+{
+  "message_header": {
+    "message_type": "event_metadata",
+    "message_version": "v3",
+    "message_sender_id": "test",
+    "message_recipient_id": "Quva",
+    "message_id": "mymessageid"
+  },
+  "message_body": [
+    {
+      "key": "key1",
+      "value": "value1"
+    }
+  ]
+}

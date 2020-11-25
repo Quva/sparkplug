@@ -1,0 +1,56 @@
+{
+  "message_header": {
+    "message_type": "process_measurements",
+    "message_version": "v3",
+    "message_sender_id": "test",
+    "message_recipient_id": "Quva",
+    "message_id": "mymessageid"
+  },
+  "message_body": {
+    "process_id": "test_1_process_id",
+    "variable_ids": [
+      {
+        "variable_id": "test_var_1",
+        "measurements": [
+          {
+            "value": 1.2,
+            "time": "2020-11-25T14:32:16+3:00"
+          },
+          {
+            "value": 1.1,
+            "time": "2020-11-25T14:32:16+3:00"
+          },
+          {
+            "value": 111111,
+            "time": "2020-11-25T14:12:16-3:00"
+          },
+          {
+            "value": -0.1,
+            "time": "2020-11-25T14:32:16+3:00"
+          }
+        ]
+      },
+      {
+        "variable_id": "test_var_2",
+        "measurements": [
+          {
+            "value": 235.12532325,
+            "time": "2020-11-25T14:32:16+3:00"
+          },
+          {
+            "value": 999999999999999.12459,
+            "time": "2020-12-25T15:32:16+2:00"
+          },
+          {
+            "value": -99,
+            "time": "2020-10-25T14:12:16+3:00"
+          },
+          {
+            "value": 0,
+            "time": "2018-11-25T14:32:16+3:00"
+          }
+        ]
+      }
+    ]
+  }
+}
