@@ -1,4 +1,4 @@
-from .messages import messageHeaderSchema
+from .headers import messageHeaderSchema
 
 variableTranslationSchema = {
     "language": {"type": "string", "required": True},

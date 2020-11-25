@@ -1,4 +1,4 @@
-from .messages import messageHeaderSchema
+from .headers import messageHeaderSchema
 
 jobBodySchema = {
     "job_source_id": {

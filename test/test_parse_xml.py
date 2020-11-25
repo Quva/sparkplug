@@ -10,7 +10,7 @@ def test_parse_event_v2_xml():
 
     plug = SparkPlug()
 
-    message = plug.loadXML("test/test_event_v2.xml")
+    message = plug.loadXML("test/v2/test_event_v2.xml")
         
     plug.validate(message)
 
@@ -20,6 +20,6 @@ def test_parse_variables_v2_xml():
 
     plug = SparkPlug()
     
-    message = plug.loadXML("test/test_variables_v2.xml")
+    message = plug.loadXML("test/v2/test_variables_v2.xml")
     
     plug.validate(message)

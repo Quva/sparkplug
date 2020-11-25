@@ -1,4 +1,4 @@
-from .messages import messageHeaderSchema
+from .headers import messageHeaderSchema
 
 productBodySchema = {
     "product_id": {

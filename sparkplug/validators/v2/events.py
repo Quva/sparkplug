@@ -1,5 +1,5 @@
 from .measurements import measurementDataSchema
-from .messages import messageHeaderSchema
+from .headers import messageHeaderSchema
 eventActionsSchema = {
     "preclean_variable_groups": {
         "anyof_type": ["string", "list"],

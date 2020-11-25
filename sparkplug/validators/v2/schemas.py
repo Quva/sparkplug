@@ -1,6 +1,7 @@
 
 from ..v1.schemas import SchemasV1
-from .messages import messageReplySchema, messageHeaderSchema, messageSchema, messageBodySchema
+from .messages import messageSchema, messageBodySchema
+from .headers import messageHeaderSchema, messageReplySchema
 from .products import productBodySchema, productMessageSchema
 from .events import eventBodySchema, eventActionsSchema, eventMessageSchema
 from .variables import variablesBodySchema, variableDataSchema, variablesMessageSchema, variableTranslationSchema
@@ -15,9 +16,10 @@ class SchemasV2(SchemasV1):
     version = "v2"
 
 
-    messageBodySchema = messageBodySchema
     messageReplySchema = messageReplySchema
     messageHeaderSchema = messageHeaderSchema
+
+    messageBodySchema = messageBodySchema
     messageSchema = messageSchema
 
     productBodySchema = productBodySchema
